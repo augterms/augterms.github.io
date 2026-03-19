@@ -123,6 +123,10 @@ button svg,a svg{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:r
 .input-field{background:var(--surface2);border:1.5px solid var(--border2);border-radius:var(--radius-xs);padding:9px 13px;color:var(--text);font-family:'Inter',sans-serif;font-size:.82rem;outline:none;transition:border var(--trans),box-shadow var(--trans);width:100%;}
 .input-field:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-lt);}
 .input-field::placeholder{color:var(--text3);}
+/* Hide number spinners globally */
+.input-field[type="number"]::-webkit-outer-spin-button,
+.input-field[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}
+.input-field[type="number"]{-moz-appearance:textfield;}
 .form-label{font-size:.66rem;font-weight:600;color:var(--text2);margin-bottom:5px;display:block;letter-spacing:.6px;text-transform:uppercase;}
 .mode-pills{display:flex;gap:5px;}
 .mode-pill{padding:7px 16px;border-radius:24px;border:1.5px solid var(--border2);background:transparent;color:var(--text2);font-family:'Inter',sans-serif;font-size:.74rem;font-weight:500;cursor:pointer;transition:all .18s;}
@@ -533,16 +537,15 @@ button svg,a svg{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:r
 
 /* ══ TOAST ══ */
 #toast-container{position:fixed;bottom:24px;right:24px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;}
-.toast{background:var(--text);border-radius:var(--radius-xs);padding:12px 14px;font-size:.78rem;font-weight:600;color:#fff;box-shadow:0 8px 28px rgba(0,0,0,.22);display:flex;align-items:center;gap:8px;transform:translateX(120%);transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:auto;max-width:320px;}
-[data-theme="light"] .toast{background:#1a1d2e;}
+.toast{background:#1e2235;border-radius:var(--radius-xs);padding:12px 14px;font-size:.78rem;font-weight:500;color:#e8edff;box-shadow:0 8px 28px rgba(0,0,0,.28);display:flex;align-items:center;gap:8px;transform:translateX(120%);transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:auto;max-width:320px;border:1px solid rgba(255,255,255,.07);}
 .toast.show{transform:translateX(0);}
 .toast.success .toast-type-icon{color:#4ade80;}
 .toast.error .toast-type-icon{color:#f87171;}
 .toast.warning .toast-type-icon{color:#fbbf24;}
-.toast-msg{flex:1;line-height:1.4;}
-.toast-undo{background:none;border:none;cursor:pointer;color:#93c5fd;font-size:.76rem;font-weight:800;text-decoration:underline;padding:0 2px;font-family:inherit;white-space:nowrap;}
+.toast-msg{flex:1;line-height:1.4;color:#e8edff;}
+.toast-undo{background:none;border:none;cursor:pointer;color:#93c5fd;font-size:.76rem;font-weight:700;text-decoration:underline;padding:0 2px;font-family:inherit;white-space:nowrap;}
 .toast-undo:hover{color:#fff;}
-.toast-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.5);padding:2px 0 2px 6px;display:flex;align-items:center;transition:color .15s;font-size:1rem;line-height:1;}
+.toast-close{background:none;border:none;cursor:pointer;color:rgba(200,210,255,.45);padding:2px 0 2px 8px;display:flex;align-items:center;transition:color .15s;font-size:.9rem;line-height:1;}
 .toast-close:hover{color:#fff;}
 /* ══ SEARCH ══ */
 .search-wrap{position:relative;margin-bottom:14px;}
