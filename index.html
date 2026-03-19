@@ -66,14 +66,28 @@ button svg,a svg{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:r
 .nav-wip{margin-left:auto;font-size:.58rem;color:var(--text3);font-style:italic;}
 .nav-item.dim{opacity:.35;cursor:default;}
 .sidebar-footer{margin-top:auto;padding:0 12px;}
-.streak-card{background:linear-gradient(135deg,var(--accent),#6c8aff);border-radius:var(--radius-sm);padding:14px;text-align:center;box-shadow:0 6px 22px rgba(59,130,246,.3);}
-.streak-fire{font-size:1.7rem;line-height:1;filter:grayscale(1) brightness(10);}
-[data-theme="light"] .streak-fire{filter:grayscale(1) sepia(1) saturate(3) hue-rotate(180deg) brightness(.85);}
-.streak-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.6rem;font-weight:800;color:#fff;line-height:1;margin:4px 0 3px;}
-.streak-lbl{font-size:.68rem;color:rgba(255,255,255,.75);font-weight:500;}
+.streak-card{background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:13px;box-shadow:var(--card-glow);}
+[data-theme="dark"] .streak-card{background:linear-gradient(160deg,#1e2455 0%,#252b6b 100%);border:1px solid rgba(120,140,255,.2);box-shadow:0 8px 28px rgba(0,0,0,.45);}
+.streak-stat-box{background:var(--surface2);border:1px solid var(--border2);}
+[data-theme="dark"] .streak-stat-box{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);}
+.streak-stat-lbl{font-size:.58rem;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;}
+[data-theme="dark"] .streak-stat-lbl{color:rgba(180,200,255,.6);}
+.streak-stat-val{font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:800;color:var(--accent);}
+[data-theme="dark"] .streak-stat-val{color:#e8edff;}
+.streak-legend{display:flex;align-items:center;justify-content:space-between;margin-top:6px;}
+.streak-legend-lbl{font-size:.54rem;color:var(--text3);}
+[data-theme="dark"] .streak-legend-lbl{color:rgba(180,200,255,.5);}
+.streak-leg-dot{width:8px;height:8px;border-radius:2px;background:var(--accent);}
+[data-theme="dark"] .streak-leg-dot{background:rgba(160,185,255,.85);}
+.streak-msg-lbl{font-size:.6rem;color:var(--text3);text-align:center;margin-top:6px;font-style:italic;min-height:14px;}
+[data-theme="dark"] .streak-msg-lbl{color:rgba(180,200,255,.65);}
+.streak-num{font-family:'Plus Jakarta Sans',sans-serif;font-size:2.6rem;font-weight:800;line-height:1;margin:4px 0 3px;color:var(--accent);}
+[data-theme="dark"] .streak-num{color:#e8edff;}
+.streak-lbl{font-size:.68rem;font-weight:500;color:var(--text2);}
+[data-theme="dark"] .streak-lbl{color:rgba(180,200,255,.7);}
 .streak-dots{display:flex;gap:5px;justify-content:center;margin-top:8px;}
-.sdot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.2);}
-.sdot.on{background:#fff;box-shadow:0 0 5px rgba(255,255,255,.6);}
+.sdot{width:6px;height:6px;border-radius:50%;background:var(--surface3);}
+.sdot.on{background:var(--accent);}
 
 /* ══ TOPBAR ══ */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden;}
@@ -564,6 +578,16 @@ kbd{background:var(--surface3);border:1px solid var(--border);border-radius:3px;
 
 /* ══ WORD COUNT ══ */
 .note-wc{font-size:.62rem;color:var(--text3);text-align:right;margin-top:4px;letter-spacing:.3px;}
+/* ══ CHAT ══ */
+.chat-channel{display:flex;align-items:center;gap:7px;padding:7px 10px;border-radius:var(--radius-xs);cursor:pointer;transition:all .15s;}
+.chat-channel:hover{background:var(--surface2);}
+.chat-channel.active{background:var(--accent-lt);}
+.chat-ch-hash{font-size:1.1rem;line-height:1;font-weight:700;color:var(--text3);transition:color .15s;}
+.chat-ch-name{font-size:.88rem;font-weight:500;color:var(--text3);transition:color .15s;}
+.chat-channel.active .chat-ch-hash,.chat-channel.active .chat-ch-name{color:var(--accent);font-weight:600;}
+.chat-channel:hover:not(.active) .chat-ch-hash,.chat-channel:hover:not(.active) .chat-ch-name{color:var(--text);}
+@keyframes chatFadeIn{from{opacity:0;transform:translateX(8px);}to{opacity:1;transform:translateX(0);}}
+.chat-switching{animation:chatFadeIn .18s cubic-bezier(.25,.46,.45,.94) both;}
 
 /* ══ FC SEARCH ══ */
 .fc-search-wrap{position:relative;margin-bottom:8px;}
@@ -625,6 +649,10 @@ kbd{background:var(--surface3);border:1px solid var(--border);border-radius:3px;
     <svg width="15" height="15" style="flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round"><use href="#ic-card"/></svg> Flashcards
     <span class="nav-badge b2" id="fc-badge">0</span>
   </div>
+  <div class="nav-item" onclick="showPage('chat',this)">
+    <svg width="15" height="15" style="flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg> Chat
+    <span class="nav-wip">em breve</span>
+  </div>
   <div class="nav-item" onclick="showPage('settings',this)">
     <svg width="15" height="15" style="flex-shrink:0;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round"><use href="#ic-gear"/></svg> Configurações
   </div>
@@ -646,30 +674,30 @@ kbd{background:var(--surface3);border:1px solid var(--border);border-radius:3px;
       </div>
       <!-- Stats row: best + total -->
       <div style="display:flex;gap:8px;margin-bottom:8px">
-        <div style="flex:1;background:rgba(255,255,255,.1);border-radius:6px;padding:5px 8px;text-align:center">
-          <div style="font-size:.58rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.8px">Recorde</div>
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:800;color:#fff" id="streak-best">0</div>
+        <div class="streak-stat-box" style="flex:1;border-radius:6px;padding:5px 8px;text-align:center">
+          <div class="streak-stat-lbl">Recorde</div>
+          <div class="streak-stat-val" id="streak-best">0</div>
         </div>
-        <div style="flex:1;background:rgba(255,255,255,.1);border-radius:6px;padding:5px 8px;text-align:center">
-          <div style="font-size:.58rem;color:rgba(255,255,255,.55);text-transform:uppercase;letter-spacing:.8px">Total dias</div>
-          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:800;color:#fff" id="streak-total-days">0</div>
+        <div class="streak-stat-box" style="flex:1;border-radius:6px;padding:5px 8px;text-align:center">
+          <div class="streak-stat-lbl">Total dias</div>
+          <div class="streak-stat-val" id="streak-total-days">0</div>
         </div>
       </div>
       <!-- Heatmap -->
       <div id="streak-heatmap"></div>
       <!-- Legend -->
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px">
-        <div style="font-size:.54rem;color:rgba(255,255,255,.5)">Menos</div>
+      <div class="streak-legend">
+        <span class="streak-legend-lbl">Menos</span>
         <div style="display:flex;gap:2px">
-          <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,.12)"></div>
-          <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,.3)"></div>
-          <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,.6)"></div>
-          <div style="width:8px;height:8px;border-radius:2px;background:rgba(255,255,255,.9)"></div>
+          <div class="streak-leg-dot" style="opacity:.15"></div>
+          <div class="streak-leg-dot" style="opacity:.35"></div>
+          <div class="streak-leg-dot" style="opacity:.65"></div>
+          <div class="streak-leg-dot" style="opacity:.9"></div>
         </div>
-        <div style="font-size:.54rem;color:rgba(255,255,255,.5)">Mais</div>
+        <span class="streak-legend-lbl">Mais</span>
       </div>
       <!-- Motivational message -->
-      <div id="streak-msg" style="font-size:.6rem;color:rgba(255,255,255,.6);text-align:center;margin-top:6px;font-style:italic;min-height:14px"></div>
+      <div id="streak-msg" class="streak-msg-lbl"></div>
     </div>
   </div>
 </aside>
@@ -879,6 +907,99 @@ kbd{background:var(--surface3);border:1px solid var(--border);border-radius:3px;
           <div style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;color:var(--text2)">Selecione um baralho</div>
           <div style="font-size:.74rem;color:var(--text3);line-height:1.5;max-width:200px;text-align:center">Crie um baralho ao lado e adicione seus flashcards para começar a estudar.</div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAT PREVIEW -->
+  <div class="page" id="page-chat" style="padding:0;overflow:hidden;background:var(--bg);">
+    <div style="display:flex;height:100%;font-family:'Inter',sans-serif;">
+
+      <!-- Channels sidebar -->
+      <div style="width:220px;min-width:220px;background:var(--surface);display:flex;flex-direction:column;border-right:1px solid var(--border2);">
+        <div style="padding:16px 16px 10px;border-bottom:1px solid var(--border2);">
+          <div style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1rem;font-weight:800;color:var(--text)">Noude Chat</div>
+        </div>
+        <div style="padding:14px 8px 6px;" id="chat-channel-list">
+          <div style="font-size:.6rem;font-weight:700;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;padding:0 8px;margin-bottom:4px;">Canais de Texto</div>
+          <div class="chat-channel active" data-channel="geral" data-desc="Canal de boas-vindas do Noude Chat" onclick="switchChatChannel(this)">
+            <span class="chat-ch-hash">#</span><span class="chat-ch-name">geral</span>
+          </div>
+          <div class="chat-channel" data-channel="estudo" data-desc="Compartilhe suas sessões de estudo" onclick="switchChatChannel(this)" style="margin-top:2px;">
+            <span class="chat-ch-hash">#</span><span class="chat-ch-name">estudo</span>
+          </div>
+          <div class="chat-channel" data-channel="duvidas" data-desc="Tire suas dúvidas com a comunidade" onclick="switchChatChannel(this)" style="margin-top:2px;">
+            <span class="chat-ch-hash">#</span><span class="chat-ch-name">dúvidas</span>
+          </div>
+        </div>
+        <div style="margin-top:auto;padding:10px 12px;background:var(--surface2);display:flex;align-items:center;gap:9px;border-top:1px solid var(--border2);">
+          <div style="width:32px;height:32px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="15" height="15" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"><use href="#ic-user"/></svg>
+          </div>
+          <div>
+            <div style="font-size:.78rem;font-weight:700;color:var(--text)" id="chat-profile-name">Você</div>
+            <div style="font-size:.62rem;color:var(--text3)">Online</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main chat area -->
+      <div style="flex:1;display:flex;flex-direction:column;background:var(--bg);min-width:0;">
+
+        <!-- Channel header -->
+        <div style="height:52px;background:var(--surface);border-bottom:1px solid var(--border2);display:flex;align-items:center;padding:0 20px;gap:10px;flex-shrink:0;box-shadow:var(--card-glow);">
+          <span style="color:var(--accent);font-size:1.15rem;line-height:1;font-weight:800">#</span>
+          <span id="chat-active-name" style="font-size:.95rem;font-weight:700;color:var(--text)">geral</span>
+          <div style="width:1px;height:18px;background:var(--border2);margin:0 6px"></div>
+          <span id="chat-active-desc" style="font-size:.78rem;color:var(--text3)">Canal de boas-vindas do Noude Chat</span>
+        </div>
+
+        <!-- Messages area -->
+        <div style="flex:1;overflow-y:auto;padding:24px 20px 12px;display:flex;flex-direction:column;gap:0;" id="chat-messages">
+
+          <!-- Date divider -->
+          <div style="display:flex;align-items:center;gap:10px;margin:0 0 20px;">
+            <div style="flex:1;height:1px;background:var(--border2)"></div>
+            <span style="font-size:.66rem;color:var(--text3);font-weight:600;white-space:nowrap;padding:0 4px">Hoje</span>
+            <div style="flex:1;height:1px;background:var(--border2)"></div>
+          </div>
+
+          <!-- Preview message -->
+          <div style="display:flex;align-items:flex-start;gap:14px;padding:6px 0;">
+            <!-- Noude N avatar -->
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;">
+              <span style="font-family:'Plus Jakarta Sans',sans-serif;font-size:1.1rem;font-weight:800;color:#fff;line-height:1;letter-spacing:-1px">N</span>
+            </div>
+            <div style="flex:1">
+              <div style="display:flex;align-items:baseline;gap:9px;margin-bottom:6px;">
+                <span style="font-size:.9rem;font-weight:700;color:var(--text)">Noude</span>
+                <span style="font-size:.65rem;color:var(--text3)">Hoje às 00:00</span>
+              </div>
+              <div style="background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:16px 20px;max-width:500px;box-shadow:var(--card-glow);">
+                <div style="font-size:.9rem;color:var(--text);line-height:1.6;font-weight:500;">
+                  🚧 <strong>Estamos construindo.</strong>
+                </div>
+                <div style="font-size:.8rem;color:var(--text2);margin-top:7px;line-height:1.65;">
+                  Em breve você poderá conversar com outros estudantes, tirar dúvidas e compartilhar conquistas aqui no Noude Chat.
+                </div>
+                <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;">
+                  <span style="background:var(--accent-lt);color:var(--accent);font-size:.64rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.3px;">EM BREVE</span>
+                  <span style="background:var(--surface2);color:var(--text3);font-size:.64rem;font-weight:600;padding:3px 10px;border-radius:20px;border:1px solid var(--border2);">NOUDE v2</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Input area (disabled/preview) -->
+        <div style="padding:12px 20px 20px;flex-shrink:0;">
+          <div style="background:var(--surface);border:1.5px solid var(--border2);border-radius:var(--radius-xs);padding:12px 16px;display:flex;align-items:center;gap:10px;cursor:not-allowed;opacity:.5;" title="Em breve">
+            <span style="font-size:.88rem;color:var(--text3);flex:1;" id="chat-input-placeholder">Mensagens em breve...</span>
+            <svg width="18" height="18" fill="none" stroke="var(--text3)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
@@ -1327,11 +1448,12 @@ function showPage(id,el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('page-'+id).classList.add('active');
   if(el)el.classList.add('active');
-  const t={dashboard:'Dashboard',notes:'Anotações',library:'Biblioteca',planner:'Planejamento',flashcards:'Flashcards',settings:'Configurações'};
+  const t={dashboard:'Dashboard',notes:'Anotações',library:'Biblioteca',planner:'Planejamento',flashcards:'Flashcards',chat:'Chat',settings:'Configurações'};
   document.getElementById('page-title').textContent=t[id]||id;
   if(id==='planner')renderCalendar();
   if(id==='flashcards')renderBoxes();
   if(id==='settings')updateSettingsDataSize();
+  if(id==='chat'){const n=document.getElementById('chat-profile-name');if(n)n.textContent=profile.name||'Você';}
   closeSidebar();
 }
 
@@ -1445,7 +1567,7 @@ function renderStreak(animate){
   let ml='<div style="display:grid;grid-template-columns:repeat('+WEEKS+',1fr);gap:2px;margin-bottom:3px">';
   for(let col=0;col<WEEKS;col++){
     const d=cells[col*7].d,prev=col>0?cells[(col-1)*7].d:null;
-    ml+=`<div style="font-size:.5rem;color:rgba(255,255,255,.45);text-align:center">${(!prev||d.getMonth()!==prev.getMonth())?months[d.getMonth()]:''}</div>`;
+    ml+=`<div style="font-size:.5rem;color:${isDark?'rgba(180,200,255,.5)':'rgba(67,97,238,.5)'};text-align:center">${(!prev||d.getMonth()!==prev.getMonth())?months[d.getMonth()]:''}</div>`;
   }
   ml+='</div>';
   const todayK=`${today2.getFullYear()}-${String(today2.getMonth()+1).padStart(2,'0')}-${String(today2.getDate()).padStart(2,'0')}`;
@@ -1455,10 +1577,11 @@ function renderStreak(animate){
       const cell=cells[col*7+row];
       if(!cell){grid+='<div></div>';continue;}
       const h=cell.h,isFuture=cell.d>today2,isToday=cell.k===todayK;
-      const op=isFuture?.06:h===0?.10:h<0.5?.32:h<2?.56:h<5?.78:.97;
-      const border=isToday?'outline:1.5px solid rgba(255,255,255,.75);outline-offset:1px;':'';
+      const op=isFuture?.04:h===0?(isDark?.18:.08):h<0.5?(isDark?.45:.28):h<2?(isDark?.68:.55):h<5?(isDark?.86:.78):(isDark?1:.97);
+      const border=isToday?`outline:2px solid ${isDark?'rgba(180,200,255,.8)':'rgba(67,97,238,.8)'};outline-offset:1px;`:'';
+      const cell_bg=isDark?`rgba(180,200,255,${op})`:`rgba(67,97,238,${op})`;
       const tip=h>0?`${cell.k}: ${h.toFixed(1)}h estudadas`:cell.k;
-      grid+=`<div style="width:100%;aspect-ratio:1;border-radius:2px;background:rgba(255,255,255,${op});${border}" title="${tip}"></div>`;
+      grid+=`<div style="width:100%;aspect-ratio:1;border-radius:2px;background:${cell_bg};${border}" title="${tip}"></div>`;
     }
   }
   grid+='</div>';
@@ -3057,6 +3180,28 @@ document.addEventListener('keydown',e=>{
 
 // ── REMOVE DEAD FUNCTION ──
 // _origRenderLibrary_UNUSED foi removida
+
+// ══════════════════════════════════════
+// CHAT
+// ══════════════════════════════════════
+function switchChatChannel(el){
+  document.querySelectorAll('.chat-channel').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  const nameEl=document.getElementById('chat-active-name');
+  const descEl=document.getElementById('chat-active-desc');
+  const phEl=document.getElementById('chat-input-placeholder');
+  const msgs=document.getElementById('chat-messages');
+  if(nameEl) nameEl.textContent=el.querySelector('.chat-ch-name').textContent;
+  if(descEl) descEl.textContent=el.dataset.desc;
+  if(phEl) phEl.textContent=`Mensagens em #${el.querySelector('.chat-ch-name').textContent} em breve...`;
+  // Micro animation
+  if(msgs){
+    msgs.classList.remove('chat-switching');
+    void msgs.offsetWidth; // reflow
+    msgs.classList.add('chat-switching');
+    setTimeout(()=>msgs.classList.remove('chat-switching'),200);
+  }
+}
 
 applyProfile();renderSubjectList();updateChart();updateStats();renderNotes();renderLibrary();setTimeout(initFolderDropTargets,100);renderStreak(false);renderBoxes();renderGoals();
 </script>
