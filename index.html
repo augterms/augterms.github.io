@@ -355,9 +355,127 @@ button svg,a svg{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:r
 .sub-pct{font-family:'Syne',sans-serif;font-weight:800;font-size:.74rem;color:var(--text2);}
 .add-sub-row{display:flex;gap:7px;margin-top:9px;}
 .add-sub-row .input-field{flex:1;}
+
+/* ══ RESPONSIVE ══ */
+
+/* Botão hamburguer (só mobile) */
+.hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;color:var(--text);flex-shrink:0;}
+.hamburger svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;}
+
+/* Overlay de fundo ao abrir sidebar no mobile */
+.sidebar-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:9;backdrop-filter:blur(3px);}
+.sidebar-backdrop.open{display:block;}
+
+/* ── TABLET (≤900px) ── */
+@media(max-width:900px){
+  html,body{overflow:auto;}
+  body{flex-direction:column;}
+
+  /* Sidebar vira drawer lateral */
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;z-index:10;
+    transform:translateX(-100%);
+    transition:transform .25s ease;
+    width:240px;min-width:240px;
+  }
+  .sidebar.open{transform:translateX(0);}
+  .hamburger{display:flex;}
+
+  /* Main ocupa tela toda */
+  .main{width:100%;min-height:100vh;}
+
+  /* Topbar compacta */
+  .topbar{padding:0 16px;gap:8px;}
+  .theme-toggle span:last-child{display:none;} /* esconde texto "Modo Claro" */
+  .theme-toggle{padding:6px 10px;}
+  .profile-name{display:none;}
+  .profile-btn{padding:6px 8px;}
+
+  /* Content */
+  .content{padding:16px;}
+
+  /* Stats: 2 colunas */
+  .stats-row{grid-template-columns:repeat(2,1fr);}
+  .stats-row .stat-card:last-child{grid-column:1/-1;}
+
+  /* Dashboard: empilhar colunas */
+  div[style*="grid-template-columns:1fr 300px"]{
+    display:flex!important;flex-direction:column!important;
+  }
+
+  /* Flashcards: empilhar */
+  .fc-layout{grid-template-columns:1fr;grid-template-rows:auto 1fr;}
+  .fc-sidebar{max-height:160px;}
+
+  /* Calendar */
+  .cal-grid{gap:2px;}
+
+  /* Library grid menor */
+  .lib-grid{grid-template-columns:repeat(auto-fill,minmax(130px,1fr));}
+}
+
+/* ── MOBILE (≤600px) ── */
+@media(max-width:600px){
+  /* Stats: 1 coluna */
+  .stats-row{grid-template-columns:1fr;}
+  .stats-row .stat-card:last-child{grid-column:auto;}
+  .stat-val{font-size:1.3rem;}
+
+  /* Canvas do gráfico menor */
+  div[style*="height:320px"]{height:220px!important;}
+
+  /* Cards: padding menor */
+  .card{padding:14px;border-radius:var(--radius-sm);}
+
+  /* Modal: full width */
+  .modal{padding:20px;border-radius:var(--radius-sm);}
+  .modal.wide{width:95vw;}
+
+  /* Notes: 1 coluna */
+  .notes-grid{grid-template-columns:1fr;}
+
+  /* Topbar mais curta */
+  .topbar{height:52px;}
+  .topbar-title{font-size:.88rem;}
+
+  /* Form: time-chips compactos */
+  .time-chip input{font-size:1.1rem;padding:12px 8px 9px;}
+
+  /* Subj row: esconder barra */
+  .subj-bar-wrap{display:none;}
+
+  /* Flashcard menor */
+  .fc-card{min-height:170px;}
+  .fc-face{padding:18px;}
+
+  /* FC sidebar */
+  .fc-sidebar{max-height:130px;}
+
+  /* Calendar compacto */
+  .cal-layout{flex-direction:column!important;}
+  .cal-panel{min-width:unset!important;width:100%!important;}
+
+  /* Library: 2 colunas */
+  .lib-grid{grid-template-columns:repeat(2,1fr);}
+
+  /* Goals */
+  div[style*="margin-bottom:20px"] .sec-hd{flex-wrap:wrap;gap:8px;}
+}
+
+/* ── SMALL MOBILE (≤380px) ── */
+@media(max-width:380px){
+  .content{padding:10px;}
+  .card{padding:12px;}
+  .logo{font-size:1.25rem;}
+  .stat-val{font-size:1.15rem;}
+  .lib-grid{grid-template-columns:1fr;}
+  div[style*="height:320px"]{height:180px!important;}
+}
 </style>
 </head>
 <body>
+
+<div class="sidebar-backdrop" id="sidebar-backdrop" onclick="closeSidebar()"></div>
 
 <!-- ══ SVG DEFS ══ -->
 <svg style="display:none">
@@ -424,6 +542,9 @@ button svg,a svg{stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:r
 <!-- MAIN -->
 <div class="main">
   <div class="topbar">
+    <button class="hamburger" onclick="toggleSidebar()" aria-label="Menu">
+      <svg viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="topbar-title" id="page-title">Dashboard</div>
     <div class="theme-toggle" onclick="toggleTheme()"><span id="theme-icon">◐</span><span id="theme-lbl">Modo Claro</span></div>
     <div class="profile-btn" onclick="openModal('prof-modal')">
@@ -742,6 +863,7 @@ function showPage(id,el){
   document.getElementById('page-title').textContent=t[id]||id;
   if(id==='planner')renderCalendar();
   if(id==='flashcards')renderBoxes();
+  closeSidebar();
 }
 
 // ══════════════════════════════════════
@@ -753,7 +875,19 @@ function initCalColorPicker(){const cp=document.getElementById('cal-color-picker
 initCalColorPicker();
 
 // ══════════════════════════════════════
-// TIMER
+// MOBILE SIDEBAR
+// ══════════════════════════════════════
+function toggleSidebar(){
+  const sb=document.querySelector('.sidebar');
+  const bd=document.getElementById('sidebar-backdrop');
+  const isOpen=sb.classList.contains('open');
+  sb.classList.toggle('open',!isOpen);
+  bd.classList.toggle('open',!isOpen);
+}
+function closeSidebar(){
+  document.querySelector('.sidebar').classList.remove('open');
+  document.getElementById('sidebar-backdrop').classList.remove('open');
+}
 // ══════════════════════════════════════
 let timerSec=0,timerRunning=false,timerItv=null;
 function setMode(m){const isM=m==='manual';document.getElementById('manual-sec').style.display=isM?'block':'none';document.getElementById('timer-sec').style.display=isM?'none':'block';document.getElementById('mode-m-btn').classList.toggle('on',isM);document.getElementById('mode-t-btn').classList.toggle('on',!isM);if(isM&&timerRunning)toggleTimer();}
