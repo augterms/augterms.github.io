@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Textos autorais, reflexões e conteúdos diversos." />
+  <title>Posts · Noumenon</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- CABEÇALHO (igual em todas as páginas) -->
+  <header class="cabecalho">
+    <div class="cabecalho__inner">
+      <a href="index.html" class="logo">Noumenon</a>
+      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav>
+        <ul class="nav__lista">
+          <li><a href="index.html"        class="nav__link">Início</a></li>
+          <li><a href="livros.html"        class="nav__link">Livros</a></li>
+          <li><a href="fichamentos.html"   class="nav__link">Fichamentos</a></li>
+          <li><a href="posts.html"         class="nav__link">Posts</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <main>
+    <div class="container container--wide pagina">
+
+      <div class="secao-titulo">
+        <h2>Posts</h2>
+        <p>Textos autorais, reflexões e conteúdos diversos.</p>
+      </div>
+
+
+      <!-- ====================================================
+           FILTROS
+      ===================================================== -->
+      <div class="filtros">
+        <button class="filtro-btn ativo" data-categoria="todos">Todos</button>
+        <button class="filtro-btn" data-categoria="reflexao">Reflexão</button>
+        <button class="filtro-btn" data-categoria="leitura">Sobre leitura</button>
+        <button class="filtro-btn" data-categoria="escrita">Sobre escrita</button>
+      </div>
+
+      <p class="contador">2 itens</p>
+
+
+      <!-- ====================================================
+           LISTA DE POSTS
+           Para adicionar um post:
+           1. Crie o arquivo HTML em /posts/nome-do-post.html
+              (use o modelo posts/exemplo-post.html)
+           2. Copie um bloco <article class="card"> abaixo
+              e atualize o link, título, data e descrição
+      ===================================================== -->
+      <div class="grade-cards">
+
+
+        <!-- ──────────────────────────────────────────────────
+             POST 1
+             EDITAR: data-categoria, href, título, data e descrição
+        ─────────────────────────────────────────────────── -->
+        <article class="card" data-categoria="leitura">
+
+          <div class="card__topo">
+            <span class="tag">Sobre leitura</span>
+          </div>
+
+          <h3 class="card__titulo">
+            <a href="posts/exemplo-post.html">Por que ainda leio em papel</a>
+          </h3>
+          <p class="meta">fevereiro de 2025 · 5 min de leitura</p>
+
+          <p class="card__descricao">
+            Numa época em que qualquer texto está a um clique de distância,
+            continuar carregando livros físicos parece quase um ato de resistência.
+            Mas há algo que o papel faz que a tela ainda não aprendeu.
+          </p>
+
+          <div class="card__rodape">
+            <a href="posts/exemplo-post.html" class="ler-mais">Ler post</a>
+          </div>
+
+        </article>
+        <!-- FIM POST 1 -->
+
+
+        <!-- ──────────────────────────────────────────────────
+             POST 2
+        ─────────────────────────────────────────────────── -->
+        <article class="card" data-categoria="reflexao">
+
+          <div class="card__topo">
+            <span class="tag">Reflexão</span>
+          </div>
+
+          <h3 class="card__titulo">
+            <a href="#">Notas sobre o silêncio</a>
+          </h3>
+          <p class="meta">janeiro de 2025 · 3 min de leitura</p>
+
+          <p class="card__descricao">
+            Vivemos em um tempo em que o silêncio é tratado como falha técnica.
+            Uma pausa na conversa que deveria ser preenchida. Um intervalo
+            entre notificações. Algumas anotações sobre o que se perde quando
+            deixamos de tolerar o silêncio.
+          </p>
+
+          <div class="card__rodape">
+            <a href="#" class="ler-mais">Ler post</a>
+          </div>
+
+        </article>
+        <!-- FIM POST 2 -->
+
+
+        <!-- ──────────────────────────────────────────────────
+             MODELO VAZIO — copie este bloco para adicionar posts
+        ─────────────────────────────────────────────────── -->
+        <!--
+        <article class="card" data-categoria="CATEGORIA">
+
+          <div class="card__topo">
+            <span class="tag">CATEGORIA</span>
+          </div>
+
+          <h3 class="card__titulo">
+            <a href="posts/NOME-DO-ARQUIVO.html">TÍTULO DO POST</a>
+          </h3>
+          <p class="meta">MÊS de ANO · X min de leitura</p>
+
+          <p class="card__descricao">
+            RESUMO OU PARÁGRAFO DE ABERTURA DO POST.
+          </p>
+
+          <div class="card__rodape">
+            <a href="posts/NOME-DO-ARQUIVO.html" class="ler-mais">Ler post</a>
+          </div>
+
+        </article>
+        -->
+
+      </div><!-- .grade-cards -->
+    </div><!-- .container -->
+  </main>
+
+
+  <footer class="rodape">
+    <div class="rodape__inner">
+      <p class="rodape__texto">© 2026 Noumenon</p>
+      <nav class="rodape__links">
+        <a href="index.html">Início</a>
+        <a href="livros.html">Livros</a>
+        <a href="fichamentos.html">Fichamentos</a>
+        <a href="posts.html">Posts</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
