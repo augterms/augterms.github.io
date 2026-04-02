@@ -3,228 +3,197 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Fichamentos e resumos de leitura estruturados." />
   <title>Fichamentos · Noumenon</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- CABEÇALHO (igual em todas as páginas) -->
-  <header class="cabecalho">
-    <div class="cabecalho__inner">
-      <a href="index.html" class="logo">Noumenon</a>
-      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar__logo" title="Início">🔥</a>
+    <nav>
+      <ul class="sidebar__nav">
+        <li><a href="index.html"        class="sidebar__link"><span class="sidebar__icon">🏠</span><span>Início</span></a></li>
+        <li><a href="livros.html"        class="sidebar__link"><span class="sidebar__icon">📚</span><span>Livros</span></a></li>
+        <li><a href="fichamentos.html"   class="sidebar__link"><span class="sidebar__icon">📋</span><span>Ficham.</span></a></li>
+        <li><a href="posts.html"         class="sidebar__link"><span class="sidebar__icon">✍️</span><span>Posts</span></a></li>
+      </ul>
+    </nav>
+    <nav>
+      <ul class="sidebar__nav sidebar__nav--fundo">
+        <li><a href="#" class="sidebar__link"><span class="sidebar__icon">⚙️</span><span>Config.</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="conteudo">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="sidebar__toggle" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav>
-        <ul class="nav__lista">
-          <li><a href="index.html"        class="nav__link">Início</a></li>
-          <li><a href="livros.html"        class="nav__link">Livros</a></li>
-          <li><a href="fichamentos.html"   class="nav__link">Fichamentos</a></li>
-          <li><a href="posts.html"         class="nav__link">Posts</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+      <div class="topbar__busca">
+        <div class="topbar__busca-inner">
+          <span class="topbar__busca-icon">🔍</span>
+          <input type="search" placeholder="Buscar fichamento, obra…" />
+        </div>
+      </div>
+      <div class="topbar__perfil">
+        <div class="topbar__avatar">👤</div>
+        <div class="topbar__usuario">
+          <span class="topbar__nome">Noumenon</span>
+          <span class="topbar__papel">Leitor</span>
+        </div>
+        <button class="topbar__sino" title="Notificações">🔔</button>
+      </div>
+    </header>
 
 
-  <main>
-    <div class="container container--wide pagina">
+    <main class="main">
 
-      <div class="secao-titulo">
-        <h2>Fichamentos</h2>
-        <p>Resumos estruturados e anotações de leitura.</p>
+      <div class="secao-topo">
+        <div>
+          <h2>Fichamentos</h2>
+          <p>Resumos estruturados e anotações de leitura.</p>
+        </div>
       </div>
 
-
-      <!-- ====================================================
-           FILTROS
-      ===================================================== -->
-      <div class="filtros">
-        <button class="filtro-btn ativo" data-categoria="todos">Todos</button>
-        <button class="filtro-btn" data-categoria="filosofia">Filosofia</button>
-        <button class="filtro-btn" data-categoria="sociologia">Sociologia</button>
-        <button class="filtro-btn" data-categoria="literatura">Literatura</button>
+      <!-- Filtros -->
+      <div class="abas">
+        <button class="aba-btn ativo" data-categoria="todos">Todos</button>
+        <button class="aba-btn" data-categoria="filosofia">Filosofia</button>
+        <button class="aba-btn" data-categoria="sociologia">Sociologia</button>
+        <button class="aba-btn" data-categoria="literatura">Literatura</button>
       </div>
-
-      <p class="contador">2 itens</p>
 
 
       <!-- ====================================================
            LISTA DE FICHAMENTOS
-           Para adicionar um fichamento: copie um bloco
-           <article class="card card--fichamento"> e edite os campos
+           Cada card leva para a página individual do fichamento
+           Para adicionar: copie um .card-item e edite
       ===================================================== -->
-      <div class="grade-cards">
+      <div class="grade-lista">
 
 
         <!-- ──────────────────────────────────────────────────
              FICHAMENTO 1
-             EDITAR: data-categoria, origem, título, tópicos,
-                     tese, argumentos, citações e link
+             EDITAR: href, data-categoria, título, subtítulo,
+                     resumo, tags e data
         ─────────────────────────────────────────────────── -->
-        <article class="card card--fichamento" data-categoria="sociologia">
+        <a href="fichamentos/vigiar-e-punir.html" class="card-item" data-categoria="sociologia">
 
-          <div class="card__topo">
-            <div>
-              <span class="tag">Sociologia</span>
-              <h3 class="card__titulo">Vigiar e Punir</h3>
-            </div>
+          <div class="card-item__topo">
+            <h3 class="card-item__titulo">Vigiar e Punir</h3>
+            <span class="tag">Sociologia</span>
           </div>
 
-          <!-- Origem bibliográfica -->
-          <p class="card__origem">
-            Michel Foucault — <em>Vigiar e Punir: nascimento da prisão</em>, 1975.
+          <p class="card-item__subtitulo">Michel Foucault, 1975</p>
+
+          <p class="card-item__resumo">
+            O sistema punitivo moderno não apenas pune, mas produz corpos dóceis
+            por meio de técnicas disciplinares que permeiam escolas, hospitais,
+            quartéis e prisões. A transição do suplício para a prisão não é
+            humanização, mas mudança do alvo da punição: do corpo para a alma.
           </p>
 
-          <!-- Tese principal -->
-          <p class="card__descricao">
-            <strong>Tese:</strong> O sistema punitivo moderno não apenas pune, mas
-            produz corpos dóceis e úteis por meio de técnicas disciplinares que
-            permeiam escolas, hospitais, quartéis e prisões.
-          </p>
-
-          <!-- Argumentos centrais -->
-          <p class="card__descricao">
-            <strong>Argumentos centrais:</strong> (1) A transição do suplício público
-            para a prisão não é humanização, mas mudança do alvo da punição: do corpo
-            para a alma. (2) O Panóptico de Bentham é o símbolo arquitetônico da
-            sociedade disciplinar: todos agem como se fossem observados, mesmo sem
-            vigilante real. (3) O poder disciplinar se exerce por normalização,
-            hierarquia e exame.
-          </p>
-
-          <!-- Citações relevantes -->
-          <blockquote class="card__nota">
-            "O poder disciplinar […] classifica, hierarquiza, recompensa e pune."
-          </blockquote>
-
-          <!-- Tópicos / tags do fichamento -->
-          <div class="card__topicos">
+          <div class="card-item__tags">
             <span class="tag">poder</span>
             <span class="tag">disciplina</span>
             <span class="tag">prisão</span>
             <span class="tag">Panóptico</span>
           </div>
 
-          <div class="card__rodape">
-            <span class="meta">Fichado em janeiro de 2025</span>
-            <!-- Link para o fichamento completo (opcional) -->
-            <!-- <a href="posts/fichamento-foucault.html" class="ler-mais">Ver fichamento completo</a> -->
+          <div class="card-item__rodape">
+            <span class="card-item__meta">Fichado em jan. 2025</span>
+            <span class="ler-mais">Abrir fichamento</span>
           </div>
 
-        </article>
+        </a>
         <!-- FIM FICHAMENTO 1 -->
 
 
         <!-- ──────────────────────────────────────────────────
              FICHAMENTO 2
         ─────────────────────────────────────────────────── -->
-        <article class="card card--fichamento" data-categoria="filosofia">
+        <a href="fichamentos/a-condicao-humana.html" class="card-item" data-categoria="filosofia">
 
-          <div class="card__topo">
-            <div>
-              <span class="tag">Filosofia</span>
-              <h3 class="card__titulo">A Condição Humana</h3>
-            </div>
+          <div class="card-item__topo">
+            <h3 class="card-item__titulo">A Condição Humana</h3>
+            <span class="tag">Filosofia</span>
           </div>
 
-          <p class="card__origem">
-            Hannah Arendt — <em>The Human Condition</em>, 1958.
+          <p class="card-item__subtitulo">Hannah Arendt, 1958</p>
+
+          <p class="card-item__resumo">
+            A vita activa humana se divide em três atividades fundamentais — labor,
+            trabalho e ação — cada uma correspondendo a uma condição diferente da
+            existência. A ação, que ocorre entre os homens na esfera pública, é a
+            atividade mais especificamente humana.
           </p>
 
-          <p class="card__descricao">
-            <strong>Tese:</strong> A vita activa humana se divide em três atividades
-            fundamentais — labor, trabalho e ação — cada uma correspondendo a uma
-            condição diferente da existência humana.
-          </p>
-
-          <p class="card__descricao">
-            <strong>Argumentos centrais:</strong> (1) <em>Labor</em> é o processo
-            biológico do corpo, cíclico e sem produto durável. (2) <em>Trabalho</em>
-            fabrica um mundo artificial de coisas que dura além da vida individual.
-            (3) <em>Ação</em> ocorre entre os homens na esfera pública — é a atividade
-            mais especificamente humana, pois revela o "quem" de cada um.
-          </p>
-
-          <blockquote class="card__nota">
-            "A ação é a única atividade que ocorre diretamente entre os homens,
-            sem a mediação das coisas ou da matéria."
-          </blockquote>
-
-          <div class="card__topicos">
+          <div class="card-item__tags">
             <span class="tag">política</span>
             <span class="tag">esfera pública</span>
             <span class="tag">ação</span>
           </div>
 
-          <div class="card__rodape">
-            <span class="meta">Fichado em novembro de 2024</span>
+          <div class="card-item__rodape">
+            <span class="card-item__meta">Fichado em nov. 2024</span>
+            <span class="ler-mais">Abrir fichamento</span>
           </div>
 
-        </article>
+        </a>
         <!-- FIM FICHAMENTO 2 -->
 
 
         <!-- ──────────────────────────────────────────────────
-             MODELO VAZIO — copie este bloco para adicionar fichamentos
+             MODELO VAZIO — copie para adicionar fichamentos
         ─────────────────────────────────────────────────── -->
         <!--
-        <article class="card card--fichamento" data-categoria="CATEGORIA">
+        <a href="fichamentos/NOME-DO-ARQUIVO.html" class="card-item" data-categoria="CATEGORIA">
 
-          <div class="card__topo">
-            <div>
-              <span class="tag">CATEGORIA</span>
-              <h3 class="card__titulo">TÍTULO DA OBRA</h3>
-            </div>
+          <div class="card-item__topo">
+            <h3 class="card-item__titulo">TÍTULO DA OBRA</h3>
+            <span class="tag">CATEGORIA</span>
           </div>
 
-          <p class="card__origem">
-            AUTOR — <em>TÍTULO COMPLETO</em>, ANO.
+          <p class="card-item__subtitulo">AUTOR, ANO</p>
+
+          <p class="card-item__resumo">
+            RESUMO DA TESE PRINCIPAL.
           </p>
 
-          <p class="card__descricao">
-            <strong>Tese:</strong> TESE PRINCIPAL DA OBRA.
-          </p>
-
-          <p class="card__descricao">
-            <strong>Argumentos centrais:</strong> RESUMO DOS ARGUMENTOS.
-          </p>
-
-          <blockquote class="card__nota">
-            "CITAÇÃO RELEVANTE."
-          </blockquote>
-
-          <div class="card__topicos">
+          <div class="card-item__tags">
             <span class="tag">tópico 1</span>
             <span class="tag">tópico 2</span>
           </div>
 
-          <div class="card__rodape">
-            <span class="meta">Fichado em MÊS de ANO</span>
-            <a href="posts/LINK.html" class="ler-mais">Ver fichamento completo</a>
+          <div class="card-item__rodape">
+            <span class="card-item__meta">Fichado em MÊS ANO</span>
+            <span class="ler-mais">Abrir fichamento</span>
           </div>
 
-        </article>
+        </a>
         -->
 
-      </div><!-- .grade-cards -->
-    </div><!-- .container -->
-  </main>
+      </div><!-- .grade-lista -->
+    </main>
 
-
-  <footer class="rodape">
-    <div class="rodape__inner">
+    <footer class="rodape">
       <p class="rodape__texto">© 2026 Noumenon</p>
       <nav class="rodape__links">
-        <a href="index.html">Início</a>
         <a href="livros.html">Livros</a>
         <a href="fichamentos.html">Fichamentos</a>
         <a href="posts.html">Posts</a>
       </nav>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="js/main.js"></script>
+  </div><!-- .conteudo -->
+</div><!-- .layout -->
+
+<script src="js/main.js"></script>
 </body>
 </html>
