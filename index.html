@@ -9,123 +9,171 @@
 </head>
 <body>
 
+<div class="layout">
+
   <!-- ======================================================
-       CABEÇALHO E NAVEGAÇÃO
-       Para alterar o nome do blog: edite o texto dentro de .logo
-       Para adicionar páginas: duplique um <li> no nav
+       SIDEBAR — idêntica em todas as páginas
+       Para adicionar item: duplique um <li> com .sidebar__link
+       Ícones: use emojis ou substitua por SVG inline
   ======================================================= -->
-  <header class="cabecalho">
-    <div class="cabecalho__inner">
+  <aside class="sidebar">
 
-      <!-- Logo / Nome do blog -->
-      <a href="index.html" class="logo">Noumenon</a>
+    <!-- Logo -->
+    <a href="index.html" class="sidebar__logo" title="Início">🔥</a>
 
-      <!-- Botão de menu mobile (hambúrguer) -->
-      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+    <!-- Navegação principal -->
+    <nav>
+      <ul class="sidebar__nav">
+        <li>
+          <a href="index.html" class="sidebar__link">
+            <span class="sidebar__icon">🏠</span>
+            <span>Início</span>
+          </a>
+        </li>
+        <li>
+          <a href="livros.html" class="sidebar__link">
+            <span class="sidebar__icon">📚</span>
+            <span>Livros</span>
+          </a>
+        </li>
+        <li>
+          <a href="fichamentos.html" class="sidebar__link">
+            <span class="sidebar__icon">📋</span>
+            <span>Ficham.</span>
+          </a>
+        </li>
+        <li>
+          <a href="posts.html" class="sidebar__link">
+            <span class="sidebar__icon">✍️</span>
+            <span>Posts</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Links de fundo -->
+    <nav>
+      <ul class="sidebar__nav sidebar__nav--fundo">
+        <li>
+          <a href="#" class="sidebar__link">
+            <span class="sidebar__icon">⚙️</span>
+            <span>Config.</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+  </aside>
+  <!-- FIM SIDEBAR -->
+
+
+  <!-- Área de conteúdo -->
+  <div class="conteudo">
+
+    <!-- ====================================================
+         TOPBAR
+    ===================================================== -->
+    <header class="topbar">
+
+      <!-- Botão hambúrguer (só aparece no mobile) -->
+      <button class="sidebar__toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
       </button>
 
-      <!-- Navegação principal -->
-      <nav>
-        <ul class="nav__lista">
-          <li><a href="index.html"        class="nav__link">Início</a></li>
-          <li><a href="livros.html"        class="nav__link">Livros</a></li>
-          <li><a href="fichamentos.html"   class="nav__link">Fichamentos</a></li>
-          <li><a href="posts.html"         class="nav__link">Posts</a></li>
-        </ul>
-      </nav>
-
-    </div>
-  </header>
-
-
-  <!-- ======================================================
-       HERO — APRESENTAÇÃO
-       Edite o título, subtítulo e os botões conforme necessário
-  ======================================================= -->
-  <main>
-    <div class="container pagina">
-      <section class="hero">
-        <h1 class="hero__titulo">Leituras,<br>reflexões e escrita.</h1>
-        <p class="hero__subtitulo">
-          Um espaço para registrar o que leio, o que penso e o que escrevo.
-        </p>
-        <div class="hero__acoes">
-          <a href="posts.html"       class="botao">Ler posts</a>
-          <a href="livros.html"      class="botao botao--fantasma">Ver livros</a>
-          <a href="fichamentos.html" class="botao botao--fantasma">Fichamentos</a>
+      <!-- Busca -->
+      <div class="topbar__busca">
+        <div class="topbar__busca-inner">
+          <span class="topbar__busca-icon">🔍</span>
+          <input type="search" placeholder="Título, autor ou tópico…" />
         </div>
-      </section>
+      </div>
+
+      <!-- Perfil -->
+      <div class="topbar__perfil">
+        <div class="topbar__avatar">👤</div>
+        <div class="topbar__usuario">
+          <span class="topbar__nome">Seu Nome</span>
+          <span class="topbar__papel">Leitor</span>
+        </div>
+        <button class="topbar__sino" title="Notificações">🔔</button>
+      </div>
+
+    </header>
+
+
+    <!-- ====================================================
+         CONTEÚDO PRINCIPAL
+    ===================================================== -->
+    <main class="main">
+
+      <!-- HERO -->
+      <div class="home-hero">
+        <h1>Leituras,<br><em>reflexões</em> e escrita.</h1>
+        <p>
+          Um espaço para registrar o que leio, o que penso e o que escrevo.
+          Sem pressa, sem algoritmos. Só texto e silêncio.
+        </p>
+        <div class="home-hero__acoes">
+          <a href="posts.html"       class="btn">✍️ Ler posts</a>
+          <a href="livros.html"      class="btn btn--ghost">📚 Livros</a>
+          <a href="fichamentos.html" class="btn btn--ghost">📋 Fichamentos</a>
+        </div>
+      </div>
 
       <hr class="separador" />
 
-
-      <!-- ====================================================
-           DESTAQUES RECENTES
-           Para adicionar um item: duplique um <article class="mini-card">
-           Mantenha os três mais recentes (um de cada seção)
-      ===================================================== -->
-      <section class="home-destaques">
-        <div class="secao-titulo">
+      <!-- Destaques recentes -->
+      <div class="secao-topo">
+        <div>
           <h2>Recente</h2>
           <p>O que adicionei por último.</p>
         </div>
+      </div>
 
-        <div class="home-destaques__grade">
+      <div class="home-grade">
 
-          <!-- Mini-card de livro -->
-          <!-- DUPLICAR: copie este bloco para adicionar mais itens -->
-          <article class="mini-card">
-            <p class="mini-card__secao">Livro</p>
-            <h3 class="mini-card__titulo">
-              <a href="livros.html">O Nome da Rosa</a>
-            </h3>
-            <p class="mini-card__data">Umberto Eco · ★★★★★</p>
-          </article>
+        <!-- ────────────────────────────────────────────────
+             DESTAQUE DE LIVRO
+             DUPLICAR: copie este bloco para mais itens
+        ─────────────────────────────────────────────────── -->
+        <a href="livros.html" class="home-card">
+          <p class="home-card__secao">📚 Livro</p>
+          <h3 class="home-card__titulo">O Nome da Rosa</h3>
+          <p class="home-card__meta">Umberto Eco · ★★★★★</p>
+        </a>
 
-          <!-- Mini-card de fichamento -->
-          <article class="mini-card">
-            <p class="mini-card__secao">Fichamento</p>
-            <h3 class="mini-card__titulo">
-              <a href="fichamentos.html">Notas sobre Vigiar e Punir</a>
-            </h3>
-            <p class="mini-card__data">Foucault · jan. 2025</p>
-          </article>
+        <!-- Destaque de fichamento -->
+        <a href="fichamentos/exemplo-fichamento.html" class="home-card">
+          <p class="home-card__secao">📋 Fichamento</p>
+          <h3 class="home-card__titulo">Notas sobre Vigiar e Punir</h3>
+          <p class="home-card__meta">Foucault · jan. 2025</p>
+        </a>
 
-          <!-- Mini-card de post -->
-          <article class="mini-card">
-            <p class="mini-card__secao">Post</p>
-            <h3 class="mini-card__titulo">
-              <a href="posts/exemplo-post.html">Por que ainda leio em papel</a>
-            </h3>
-            <p class="mini-card__data">fev. 2025</p>
-          </article>
+        <!-- Destaque de post -->
+        <a href="posts/exemplo-post.html" class="home-card">
+          <p class="home-card__secao">✍️ Post</p>
+          <h3 class="home-card__titulo">Por que ainda leio em papel</h3>
+          <p class="home-card__meta">fev. 2025</p>
+        </a>
 
-        </div>
-      </section>
+      </div>
 
-    </div>
-  </main>
+    </main>
 
 
-  <!-- ======================================================
-       RODAPÉ
-       Edite o nome e o ano conforme necessário
-  ======================================================= -->
-  <footer class="rodape">
-    <div class="rodape__inner">
+    <!-- RODAPÉ -->
+    <footer class="rodape">
       <p class="rodape__texto">© 2026 Noumenon</p>
       <nav class="rodape__links">
-        <a href="index.html">Início</a>
         <a href="livros.html">Livros</a>
         <a href="fichamentos.html">Fichamentos</a>
         <a href="posts.html">Posts</a>
       </nav>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="js/main.js"></script>
+  </div><!-- .conteudo -->
+</div><!-- .layout -->
+
+<script src="js/main.js"></script>
 </body>
 </html>
