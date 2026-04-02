@@ -3,165 +3,152 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Textos autorais, reflexões e conteúdos diversos." />
   <title>Posts · Noumenon</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- CABEÇALHO (igual em todas as páginas) -->
-  <header class="cabecalho">
-    <div class="cabecalho__inner">
-      <a href="index.html" class="logo">Noumenon</a>
-      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <a href="index.html" class="sidebar__logo" title="Início">🔥</a>
+    <nav>
+      <ul class="sidebar__nav">
+        <li><a href="index.html"        class="sidebar__link"><span class="sidebar__icon">🏠</span><span>Início</span></a></li>
+        <li><a href="livros.html"        class="sidebar__link"><span class="sidebar__icon">📚</span><span>Livros</span></a></li>
+        <li><a href="fichamentos.html"   class="sidebar__link"><span class="sidebar__icon">📋</span><span>Ficham.</span></a></li>
+        <li><a href="posts.html"         class="sidebar__link"><span class="sidebar__icon">✍️</span><span>Posts</span></a></li>
+      </ul>
+    </nav>
+    <nav>
+      <ul class="sidebar__nav sidebar__nav--fundo">
+        <li><a href="#" class="sidebar__link"><span class="sidebar__icon">⚙️</span><span>Config.</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="conteudo">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="sidebar__toggle" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav>
-        <ul class="nav__lista">
-          <li><a href="index.html"        class="nav__link">Início</a></li>
-          <li><a href="livros.html"        class="nav__link">Livros</a></li>
-          <li><a href="fichamentos.html"   class="nav__link">Fichamentos</a></li>
-          <li><a href="posts.html"         class="nav__link">Posts</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+      <div class="topbar__busca">
+        <div class="topbar__busca-inner">
+          <span class="topbar__busca-icon">🔍</span>
+          <input type="search" placeholder="Buscar post…" />
+        </div>
+      </div>
+      <div class="topbar__perfil">
+        <div class="topbar__avatar">👤</div>
+        <div class="topbar__usuario">
+          <span class="topbar__nome">Noumenon</span>
+          <span class="topbar__papel">Leitor</span>
+        </div>
+        <button class="topbar__sino" title="Notificações">🔔</button>
+      </div>
+    </header>
 
 
-  <main>
-    <div class="container container--wide pagina">
+    <main class="main">
 
-      <div class="secao-titulo">
-        <h2>Posts</h2>
-        <p>Textos autorais, reflexões e conteúdos diversos.</p>
+      <div class="secao-topo">
+        <div>
+          <h2>Posts</h2>
+          <p>Textos autorais, reflexões e conteúdos diversos.</p>
+        </div>
       </div>
 
-
-      <!-- ====================================================
-           FILTROS
-      ===================================================== -->
-      <div class="filtros">
-        <button class="filtro-btn ativo" data-categoria="todos">Todos</button>
-        <button class="filtro-btn" data-categoria="reflexao">Reflexão</button>
-        <button class="filtro-btn" data-categoria="leitura">Sobre leitura</button>
-        <button class="filtro-btn" data-categoria="escrita">Sobre escrita</button>
+      <!-- Filtros -->
+      <div class="abas">
+        <button class="aba-btn ativo" data-categoria="todos">Todos</button>
+        <button class="aba-btn" data-categoria="reflexao">Reflexão</button>
+        <button class="aba-btn" data-categoria="leitura">Sobre leitura</button>
+        <button class="aba-btn" data-categoria="escrita">Sobre escrita</button>
       </div>
-
-      <p class="contador">2 itens</p>
 
 
       <!-- ====================================================
            LISTA DE POSTS
-           Para adicionar um post:
-           1. Crie o arquivo HTML em /posts/nome-do-post.html
-              (use o modelo posts/exemplo-post.html)
-           2. Copie um bloco <article class="card"> abaixo
-              e atualize o link, título, data e descrição
+           Para adicionar: crie o arquivo em /posts/nome.html
+           (use posts/exemplo-post.html como modelo) e duplique
+           um bloco .card-item abaixo
       ===================================================== -->
-      <div class="grade-cards">
+      <div class="grade-lista">
 
 
-        <!-- ──────────────────────────────────────────────────
-             POST 1
-             EDITAR: data-categoria, href, título, data e descrição
-        ─────────────────────────────────────────────────── -->
-        <article class="card" data-categoria="leitura">
-
-          <div class="card__topo">
+        <!-- POST 1 -->
+        <a href="posts/exemplo-post.html" class="card-item" data-categoria="leitura">
+          <div class="card-item__topo">
+            <h3 class="card-item__titulo">Por que ainda leio em papel</h3>
             <span class="tag">Sobre leitura</span>
           </div>
-
-          <h3 class="card__titulo">
-            <a href="posts/exemplo-post.html">Por que ainda leio em papel</a>
-          </h3>
-          <p class="meta">fevereiro de 2025 · 5 min de leitura</p>
-
-          <p class="card__descricao">
+          <p class="card-item__resumo">
             Numa época em que qualquer texto está a um clique de distância,
             continuar carregando livros físicos parece quase um ato de resistência.
-            Mas há algo que o papel faz que a tela ainda não aprendeu.
+            Mas há algo que o papel faz que a tela ainda não aprendeu — e vale a
+            pena nomear isso.
           </p>
-
-          <div class="card__rodape">
-            <a href="posts/exemplo-post.html" class="ler-mais">Ler post</a>
+          <div class="card-item__rodape">
+            <span class="card-item__meta">fevereiro de 2025 · 5 min</span>
+            <span class="ler-mais">Ler post</span>
           </div>
-
-        </article>
-        <!-- FIM POST 1 -->
+        </a>
 
 
-        <!-- ──────────────────────────────────────────────────
-             POST 2
-        ─────────────────────────────────────────────────── -->
-        <article class="card" data-categoria="reflexao">
-
-          <div class="card__topo">
+        <!-- POST 2 -->
+        <a href="#" class="card-item" data-categoria="reflexao">
+          <div class="card-item__topo">
+            <h3 class="card-item__titulo">Notas sobre o silêncio</h3>
             <span class="tag">Reflexão</span>
           </div>
-
-          <h3 class="card__titulo">
-            <a href="#">Notas sobre o silêncio</a>
-          </h3>
-          <p class="meta">janeiro de 2025 · 3 min de leitura</p>
-
-          <p class="card__descricao">
-            Vivemos em um tempo em que o silêncio é tratado como falha técnica.
-            Uma pausa na conversa que deveria ser preenchida. Um intervalo
-            entre notificações. Algumas anotações sobre o que se perde quando
-            deixamos de tolerar o silêncio.
+          <p class="card-item__resumo">
+            Vivemos em um tempo em que o silêncio é tratado como falha técnica —
+            uma pausa na conversa que deveria ser preenchida, um intervalo entre
+            notificações. Algumas anotações sobre o que se perde quando deixamos
+            de tolerá-lo.
           </p>
-
-          <div class="card__rodape">
-            <a href="#" class="ler-mais">Ler post</a>
+          <div class="card-item__rodape">
+            <span class="card-item__meta">janeiro de 2025 · 3 min</span>
+            <span class="ler-mais">Ler post</span>
           </div>
-
-        </article>
-        <!-- FIM POST 2 -->
+        </a>
 
 
-        <!-- ──────────────────────────────────────────────────
-             MODELO VAZIO — copie este bloco para adicionar posts
-        ─────────────────────────────────────────────────── -->
+        <!-- MODELO VAZIO -->
         <!--
-        <article class="card" data-categoria="CATEGORIA">
-
-          <div class="card__topo">
+        <a href="posts/NOME-DO-ARQUIVO.html" class="card-item" data-categoria="CATEGORIA">
+          <div class="card-item__topo">
+            <h3 class="card-item__titulo">TÍTULO DO POST</h3>
             <span class="tag">CATEGORIA</span>
           </div>
-
-          <h3 class="card__titulo">
-            <a href="posts/NOME-DO-ARQUIVO.html">TÍTULO DO POST</a>
-          </h3>
-          <p class="meta">MÊS de ANO · X min de leitura</p>
-
-          <p class="card__descricao">
-            RESUMO OU PARÁGRAFO DE ABERTURA DO POST.
+          <p class="card-item__resumo">
+            RESUMO OU PRIMEIRO PARÁGRAFO.
           </p>
-
-          <div class="card__rodape">
-            <a href="posts/NOME-DO-ARQUIVO.html" class="ler-mais">Ler post</a>
+          <div class="card-item__rodape">
+            <span class="card-item__meta">MÊS ANO · X min</span>
+            <span class="ler-mais">Ler post</span>
           </div>
-
-        </article>
+        </a>
         -->
 
-      </div><!-- .grade-cards -->
-    </div><!-- .container -->
-  </main>
+      </div><!-- .grade-lista -->
+    </main>
 
-
-  <footer class="rodape">
-    <div class="rodape__inner">
+    <footer class="rodape">
       <p class="rodape__texto">© 2026 Noumenon</p>
       <nav class="rodape__links">
-        <a href="index.html">Início</a>
         <a href="livros.html">Livros</a>
         <a href="fichamentos.html">Fichamentos</a>
         <a href="posts.html">Posts</a>
       </nav>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="js/main.js"></script>
+  </div><!-- .conteudo -->
+</div><!-- .layout -->
+
+<script src="js/main.js"></script>
 </body>
 </html>
