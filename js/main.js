@@ -1,34 +1,29 @@
 /* ==========================================================
-   BLOG MINIMALISTA — JavaScript Principal
+   BLOG — JavaScript Principal
    main.js
    
-   Funções:
-   1. Menu mobile (hambúrguer)
-   2. Link ativo na navegação
-   3. Filtro de cards por categoria
+   1. Sidebar mobile (toggle)
+   2. Link ativo na sidebar
+   3. Filtro/abas por categoria
    ========================================================== */
 
 
 /* ----------------------------------------------------------
-   1. MENU MOBILE
-   Alterna a classe 'aberto' na lista de navegação
+   1. SIDEBAR MOBILE
    ---------------------------------------------------------- */
 
 (function () {
-  const toggle = document.querySelector('.nav__toggle');
-  const lista  = document.querySelector('.nav__lista');
+  const toggle  = document.querySelector('.sidebar__toggle');
+  const sidebar = document.querySelector('.sidebar');
+  if (!toggle || !sidebar) return;
 
-  if (!toggle || !lista) return;
-
+  // Abre/fecha a sidebar
   toggle.addEventListener('click', function () {
-    const estaAberto = lista.classList.toggle('aberto');
+    const aberta = sidebar.classList.toggle('aberta');
+    toggle.setAttribute('aria-expanded', aberta);
 
-    // Atualiza atributo de acessibilidade
-    toggle.setAttribute('aria-expanded', estaAberto);
-
-    // Anima as três linhas do hambúrguer para um "X"
     const linhas = toggle.querySelectorAll('span');
-    if (estaAberto) {
+    if (aberta) {
       linhas[0].style.transform = 'translateY(6.5px) rotate(45deg)';
       linhas[1].style.opacity   = '0';
       linhas[2].style.transform = 'translateY(-6.5px) rotate(-45deg)';
@@ -39,85 +34,65 @@
     }
   });
 
-  // Fecha menu ao clicar em qualquer link dentro dele
-  lista.querySelectorAll('.nav__link').forEach(function (link) {
-    link.addEventListener('click', function () {
-      lista.classList.remove('aberto');
-      toggle.setAttribute('aria-expanded', 'false');
-    });
-  });
-})();
-
-
-/* ----------------------------------------------------------
-   2. LINK ATIVO NA NAVEGAÇÃO
-   Marca o link do menu que corresponde à página atual
-   ---------------------------------------------------------- */
-
-(function () {
-  const links = document.querySelectorAll('.nav__link');
-  // Pega só o nome do arquivo (ex: "livros.html")
-  const paginaAtual = window.location.pathname.split('/').pop() || 'index.html';
-
-  links.forEach(function (link) {
-    const href = link.getAttribute('href').split('/').pop();
-    if (href === paginaAtual) {
-      link.classList.add('ativo');
+  // Fecha ao clicar fora da sidebar
+  document.addEventListener('click', function (e) {
+    if (sidebar.classList.contains('aberta') &&
+        !sidebar.contains(e.target) &&
+        !toggle.contains(e.target)) {
+      sidebar.classList.remove('aberta');
     }
   });
 })();
 
 
 /* ----------------------------------------------------------
-   3. FILTRO DE CARDS POR CATEGORIA
-   
-   Como usar:
-   - Adicione data-categoria="nome" nos botões de filtro
-   - Adicione data-categoria="nome" nos cards correspondentes
-   - Inclua a classe 'filtros' no contêiner dos botões
-   - Inclua a classe 'grade-cards' no contêiner dos cards
-   
-   Exemplo de HTML:
-   <div class="filtros">
-     <button class="filtro-btn ativo" data-categoria="todos">Todos</button>
-     <button class="filtro-btn" data-categoria="romance">Romance</button>
-   </div>
-   <div class="grade-cards">
-     <article class="card" data-categoria="romance">...</article>
-   </div>
+   2. LINK ATIVO NA SIDEBAR
+   Marca o link que corresponde à página atual
    ---------------------------------------------------------- */
 
 (function () {
-  const botoes = document.querySelectorAll('.filtro-btn');
+  const links = document.querySelectorAll('.sidebar__link');
+  const pagina = window.location.pathname.split('/').pop() || 'index.html';
 
-  if (botoes.length === 0) return; // Sai se não houver filtros na página
+  links.forEach(function (link) {
+    const href = (link.getAttribute('href') || '').split('/').pop();
+    if (href === pagina) link.classList.add('ativo');
+  });
+})();
 
-  botoes.forEach(function (botao) {
-    botao.addEventListener('click', function () {
-      const categoriaSelecionada = this.dataset.categoria;
 
-      // Atualiza estado visual dos botões
+/* ----------------------------------------------------------
+   3. FILTRO POR CATEGORIA (abas)
+   
+   Como usar no HTML:
+   <div class="abas">
+     <button class="aba-btn ativo" data-categoria="todos">Todos</button>
+     <button class="aba-btn" data-categoria="romance">Romance</button>
+   </div>
+   
+   Nos cards: data-categoria="romance"
+   ---------------------------------------------------------- */
+
+(function () {
+  const botoes = document.querySelectorAll('.aba-btn');
+  if (!botoes.length) return;
+
+  botoes.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const cat = this.dataset.categoria;
+
       botoes.forEach(function (b) { b.classList.remove('ativo'); });
       this.classList.add('ativo');
 
-      // Mostra/oculta cards conforme a categoria
-      const cards = document.querySelectorAll('.grade-cards .card');
+      // Suporta .grade-livros e .grade-lista
+      const cards = document.querySelectorAll(
+        '.grade-livros [data-categoria], .grade-lista [data-categoria]'
+      );
+
       cards.forEach(function (card) {
-        const categoriaCard = card.dataset.categoria;
-
-        if (categoriaSelecionada === 'todos' || categoriaCard === categoriaSelecionada) {
-          card.style.display = '';
-        } else {
-          card.style.display = 'none';
-        }
+        card.style.display =
+          (cat === 'todos' || card.dataset.categoria === cat) ? '' : 'none';
       });
-
-      // Atualiza o contador de itens visíveis (se existir)
-      const contador = document.querySelector('.contador');
-      if (contador) {
-        const visiveis = document.querySelectorAll('.grade-cards .card:not([style*="none"])').length;
-        contador.textContent = visiveis + (visiveis === 1 ? ' item' : ' itens');
-      }
     });
   });
 })();
