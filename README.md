@@ -1,8 +1,7 @@
-# augterms.github.io
-# Blog Minimalista — Guia de Uso
+# Blog — Guia de Uso (Design v2)
 
-Estrutura simples de blog em HTML, CSS e JavaScript puro.
-Nenhuma dependência externa. Tudo editado diretamente no código.
+Design inspirado em apps de leitura: sidebar lateral, paleta laranja/âmbar,
+capas de livros, fichamentos individuais com layout em duas colunas.
 
 ---
 
@@ -10,67 +9,95 @@ Nenhuma dependência externa. Tudo editado diretamente no código.
 
 ```
 blog/
-├── index.html           → Página inicial
-├── livros.html          → Lista de livros lidos
-├── fichamentos.html     → Resumos e anotações de leitura
-├── posts.html           → Lista de posts
+├── index.html                      → Página inicial
+├── livros.html                     → Grade de livros (com capas)
+├── fichamentos.html                → Lista de fichamentos
+├── posts.html                      → Lista de posts
+│
+├── fichamentos/
+│   ├── vigiar-e-punir.html         → Fichamento individual (2 colunas)
+│   ├── a-condicao-humana.html      → Fichamento individual (corpo simples)
+│   └── [NOVO-FICHAMENTO].html      → Duplique um dos dois modelos acima
 │
 ├── posts/
-│   └── exemplo-post.html  → Modelo de post individual
-│       (duplique este arquivo para cada novo post)
+│   └── exemplo-post.html           → Post individual (duplique para novos)
+│
+├── img/
+│   └── capas/                      → Coloque aqui as capas dos livros (.jpg/.png)
 │
 ├── css/
-│   └── style.css          → Todo o estilo visual
+│   └── style.css                   → Todo o estilo (12 seções comentadas)
 │
 └── js/
-    └── main.js            → Menu mobile + filtros + link ativo
+    └── main.js                     → Sidebar mobile + filtros + link ativo
 ```
 
 ---
 
-## Como adicionar conteúdo
+## Como adicionar capas de livros
 
-### Novo livro (livros.html)
-1. Abra `livros.html`
-2. Localize o bloco `<!-- MODELO VAZIO -->` ao final da lista
-3. Copie o trecho comentado, remova os comentários `<!--` e `-->`
-4. Preencha: `data-categoria`, título, autor, descrição, avaliação e data
-
-### Nova categoria de filtro
-1. Adicione um `<button class="filtro-btn" data-categoria="nova">Nova</button>`
-2. Adicione `data-categoria="nova"` nos cards correspondentes
-
-### Novo post
-1. Duplique o arquivo `posts/exemplo-post.html`
-2. Renomeie o arquivo (ex: `posts/titulo-do-post.html`)
-3. Edite: título, data, categoria, corpo do texto e navegação entre posts
-4. Abra `posts.html` e duplique um card `<article class="card">` na lista
-5. Atualize o link, título, data e resumo do card
-
-### Novo fichamento (fichamentos.html)
-Mesmo processo do livro — localize o `<!-- MODELO VAZIO -->` e duplique.
+1. Salve a imagem da capa em `img/capas/nome-do-livro.jpg`
+2. Em `livros.html`, dentro do `.card-livro__capa`, descomente a tag `<img>`:
+   ```html
+   <div class="card-livro__capa">
+     <img src="img/capas/nome-do-livro.jpg" alt="Capa: Título do Livro" />
+   </div>
+   ```
+3. Pode usar URL externa também:
+   ```html
+   <img src="https://..." alt="Capa" />
+   ```
+   Se não houver imagem, o emoji de livro aparece como fallback.
 
 ---
 
-## Personalizações rápidas
+## Como adicionar um novo fichamento
 
-Todas as cores, fontes e tamanhos ficam nas **variáveis CSS**,
-no topo de `css/style.css`:
+1. Copie `fichamentos/vigiar-e-punir.html` (layout em 2 colunas)
+   ou `fichamentos/a-condicao-humana.html` (corpo simples)
+2. Renomeie o arquivo (ex: `fichamentos/nome-da-obra.html`)
+3. Edite: título, autor, categoria, tópicos/tags, corpo do texto
+4. Abra `fichamentos.html` e duplique um card `.card-item`,
+   atualizando o `href`, título, subtítulo, resumo e data
+
+---
+
+## Como adicionar um novo post
+
+1. Duplique `posts/exemplo-post.html`
+2. Renomeie (ex: `posts/titulo-do-post.html`)
+3. Edite o conteúdo
+4. Abra `posts.html` e duplique um card `.card-item`
+
+---
+
+## Como adicionar um novo livro
+
+1. Abra `livros.html`
+2. Localize o bloco `<!-- MODELO VAZIO -->` e copie o trecho comentado
+3. Remova os `<!--` e `-->`
+4. Preencha: `data-categoria`, capa, título, autor, descrição, nota, avaliação
+
+---
+
+## Personalização rápida (variáveis CSS)
+
+Todas as cores estão em `css/style.css` no início do arquivo:
 
 ```css
 :root {
-  --cor-fundo:       #f9f7f4;   /* Fundo da página */
-  --cor-destaque:    #3d5a47;   /* Verde musgo — cor de acento */
-  --fonte-titulo:    Georgia, serif;
-  --largura-max:     720px;     /* Largura ideal para leitura */
+  --bege:    #ede3cf;   /* Fundo geral */
+  --laranja: #e06c1a;   /* Cor de destaque */
+  --amarelo: #f5c842;   /* Barra de busca */
+  --fonte-corpo: 'Courier New', monospace;
 }
 ```
 
-Altere apenas esses valores para mudar a identidade visual inteira.
-
 ---
 
-## Como visualizar localmente
+## Visualizar localmente
 
-Abra qualquer `.html` diretamente no navegador, ou use uma extensão
-como **Live Server** (VS Code) para recarregar automaticamente ao salvar.
+Abra qualquer `.html` diretamente no navegador, ou use
+a extensão **Live Server** no VS Code para reload automático.
+
+Sem dependências. Sem build. Sem instalação.
