@@ -1,993 +1,131 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MIMETYPE</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<style>
-:root {
-  --bg:#0b0b0d; --surface:#131316; --surface2:#1a1a1f; --surface3:#202028;
-  --border:#26262e; --border-hi:#3a3a46;
-  --ink:#e8e4f0; --ink-dim:#6e6a80; --ink-faint:#2e2b38;
-  --accent:#a78bfa; --accent-dim:rgba(167,139,250,.12); --accent-glow:rgba(167,139,250,.25);
-  --correct:#4ade80; --error:#f87171; --error-bg:rgba(248,113,113,.12);
-  --warn:#fbbf24; --cursor:#a78bfa;
-  --annot-bg:rgba(251,191,36,.12); --annot-border:rgba(251,191,36,.4);
-}
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:'Courier Prime',monospace;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:44px 20px 100px;overflow-x:hidden}
-body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:999;opacity:.55}
-
-/* brand */
-.brand-row{width:100%;max-width:840px;display:flex;align-items:center;gap:16px;margin-bottom:44px}
-.brand-row::before,.brand-row::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-.brand{font-weight:700;font-size:11px;letter-spacing:.45em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
-header{text-align:center;margin-bottom:48px}
-h1{font-family:'DM Serif Display',serif;font-size:clamp(2.8rem,6.5vw,5rem);font-weight:400;letter-spacing:-.01em;line-height:1;margin-bottom:14px}
-h1 .mono{font-family:'Courier Prime',monospace;font-size:.55em;color:var(--accent);vertical-align:middle}
-.subtitle{font-size:12.5px;color:var(--ink-dim);letter-spacing:.14em;font-style:italic}
-
-/* screens */
-.screen{display:none;width:100%;max-width:840px}
-.screen.active{display:block;animation:fadeUp .35s ease both}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-
-/* buttons */
-.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;font-family:'Courier Prime',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;cursor:pointer;border:none;border-radius:3px;transition:all .18s;white-space:nowrap}
-.btn-primary{background:var(--accent);color:var(--bg);font-weight:700}
-.btn-primary:hover{background:#bba0ff;transform:translateY(-1px);box-shadow:0 6px 24px var(--accent-glow)}
-.btn-ghost{background:transparent;color:var(--ink-dim);border:1px solid var(--border)}
-.btn-ghost:hover{color:var(--ink);border-color:var(--border-hi);background:var(--surface2)}
-.btn-danger{background:transparent;color:var(--error);border:1px solid rgba(248,113,113,.3);padding:6px 12px;font-size:11px}
-.btn-danger:hover{background:var(--error-bg)}
-.btn-sm{padding:7px 14px;font-size:11px}
-.btn-xs{padding:5px 10px;font-size:10px}
-.btn-on{background:var(--accent-dim)!important;border-color:var(--accent)!important;color:var(--accent)!important}
-.kbd{display:inline-block;background:var(--surface2);border:1px solid var(--border);border-radius:2px;padding:1px 5px;font-size:9px;color:var(--ink-dim);vertical-align:middle}
-
-/* form elements */
-.field-label{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px;display:flex;justify-content:space-between;align-items:center}
-.char-count{color:var(--accent);font-size:10px}
-textarea,.text-inp{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--ink);font-family:'Courier Prime',monospace;font-size:15px;line-height:1.85;padding:20px 24px;outline:none;transition:border-color .2s,box-shadow .2s}
-textarea{min-height:200px;resize:vertical}
-.text-inp{padding:11px 15px}
-textarea:focus,.text-inp:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-dim)}
-textarea::placeholder,.text-inp::placeholder{color:var(--ink-faint)}
-
-/* ── INPUT SCREEN ── */
-.input-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:14px}
-.input-hint{font-size:11px;color:var(--ink-faint);font-style:italic}
-.input-btns{display:flex;gap:8px}
-
-.sec-head{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.templates-section{margin-top:32px}
-.templates-list{display:flex;flex-direction:column;gap:8px}
-.tpl-card{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:13px 16px;display:flex;align-items:center;gap:12px;transition:border-color .18s}
-.tpl-card:hover{border-color:var(--border-hi)}
-.tpl-info{flex:1;min-width:0}
-.tpl-name{font-weight:700;font-size:13px;color:var(--ink);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tpl-preview{font-size:11px;color:var(--ink-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tpl-date{font-size:10px;color:var(--ink-faint);margin-top:2px}
-.tpl-btns{display:flex;gap:6px;flex-shrink:0}
-.no-tpl{font-size:12px;color:var(--ink-faint);font-style:italic;padding:16px 0;text-align:center}
-
-/* ── PRACTICE SCREEN ── */
-.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
-.stats{display:flex;gap:26px}
-.stat{text-align:center}
-.stat-val{font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink);display:block;line-height:1;margin-bottom:2px}
-.stat-val.c-err{color:var(--error)}.stat-val.c-time{color:var(--warn)}.stat-val.c-acc{color:var(--correct)}
-.stat-lbl{font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-dim)}
-.tools{display:flex;gap:6px;flex-wrap:wrap}
-.progress-bar{height:2px;background:var(--border);border-radius:99px;overflow:hidden}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--correct),var(--accent));border-radius:99px;transition:width .1s}
-.progress-meta{display:flex;justify-content:space-between;font-size:10px;color:var(--ink-dim);letter-spacing:.12em;margin-top:5px}
-.divider{border:none;border-top:1px solid var(--border);margin:16px 0}
-.focus-hint{text-align:center;font-size:11.5px;color:var(--ink-dim);letter-spacing:.18em;margin-bottom:10px;transition:opacity .4s}
-.focus-hint.gone{opacity:0;pointer-events:none}
-
-/* text display */
-.text-display{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:26px 30px;font-size:16px;line-height:2.2;letter-spacing:.015em;max-height:340px;overflow-y:scroll;scrollbar-width:none;position:relative;cursor:text;transition:border-color .2s,box-shadow .2s}
-.text-display::-webkit-scrollbar{display:none}
-.text-display.focused{border-color:var(--border-hi);box-shadow:0 0 0 2px var(--accent-dim)}
-
-/* chars */
-.char{position:relative;white-space:pre-wrap}
-.char.pending{color:var(--ink-faint)}
-.char.correct{color:var(--correct)}
-.char.wrong{color:var(--error);background:var(--error-bg);border-radius:2px}
-.char.wrong::before{content:attr(data-typed);position:absolute;top:-20px;left:50%;transform:translateX(-50%);font-size:10px;color:var(--error);background:var(--surface2);border:1px solid rgba(248,113,113,.25);border-radius:3px;padding:2px 5px;white-space:nowrap;pointer-events:none;z-index:5}
-.char.cursor::after{content:'';position:absolute;left:-1px;top:3px;bottom:3px;width:2px;background:var(--cursor);border-radius:2px;animation:blink 1.1s step-end infinite}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-
-/* classifications — colored underlines */
-.char.cls-substantivo{text-decoration:underline;text-decoration-color:#60a5fa;text-decoration-thickness:2px}
-.char.cls-verbo       {text-decoration:underline;text-decoration-color:#fb923c;text-decoration-thickness:2px}
-.char.cls-adjetivo    {text-decoration:underline;text-decoration-color:#c084fc;text-decoration-thickness:2px}
-.char.cls-adverbio    {text-decoration:underline;text-decoration-color:#22d3ee;text-decoration-thickness:2px}
-.char.cls-preposicao  {text-decoration:underline;text-decoration-color:#f472b6;text-decoration-thickness:2px}
-.char.cls-conjuncao   {text-decoration:underline;text-decoration-color:#facc15;text-decoration-thickness:2px}
-.char.cls-artigo      {text-decoration:underline;text-decoration-color:#94a3b8;text-decoration-thickness:2px}
-.char.cls-pronome     {text-decoration:underline;text-decoration-color:#34d399;text-decoration-thickness:2px}
-.char.cls-numeral     {text-decoration:underline;text-decoration-color:#a3e635;text-decoration-thickness:2px}
-.char.cls-interjeicao {text-decoration:underline;text-decoration-color:#f43f5e;text-decoration-thickness:2px}
-.char.cls-outro       {text-decoration:underline;text-decoration-color:#9ca3af;text-decoration-thickness:2px}
-
-/* annotations */
-.char.annotated{background:var(--annot-bg)}
-.char.annot-first{border-left:2px solid var(--warn)}
-.annot-badge-el{position:absolute;top:-9px;left:-1px;background:var(--warn);color:var(--bg);border-radius:50%;width:13px;height:13px;font-size:7.5px;font-weight:700;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:4;pointer-events:auto}
-
-/* error animations */
-@keyframes shake{0%{transform:translateX(0)}20%{transform:translateX(-5px)}40%{transform:translateX(5px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}100%{transform:translateX(0)}}
-.shake{animation:shake .22s ease}
-@keyframes pulseRed{0%{box-shadow:0 0 0 0 rgba(248,113,113,0)}40%{box-shadow:0 0 0 4px rgba(248,113,113,.2)}100%{box-shadow:0 0 0 6px rgba(248,113,113,0)}}
-.pulse-err{animation:pulseRed .3s ease forwards}
-
-/* floating selection bar */
-#sel-bar{position:fixed;z-index:70;background:var(--surface3);border:1px solid var(--border-hi);border-radius:5px;padding:6px 8px;box-shadow:0 8px 32px rgba(0,0,0,.6);display:none;align-items:center;gap:6px;transform:translateX(-50%)}
-#sel-bar.show{display:flex;animation:fadeUp .15s ease}
-.sel-divider{width:1px;height:20px;background:var(--border);margin:0 2px}
-
-/* study panel */
-.study-panel{margin-top:16px}
-.sp-head{display:flex;align-items:center;justify-content:space-between;padding:10px 0;cursor:pointer;font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-dim);border-top:1px solid var(--border);user-select:none}
-.sp-head:hover{color:var(--ink)}
-.sp-arrow{transition:transform .2s}
-.sp-arrow.open{transform:rotate(180deg)}
-.sp-body{display:none;padding:12px 0}
-.sp-body.open{display:block}
-.sp-section-title{font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px}
-
-.cls-legend{display:flex;flex-wrap:wrap;gap:7px}
-.cls-chip{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:4px 10px;font-size:11px}
-.cls-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.cls-count{color:var(--ink-dim);font-size:10px}
-
-.annot-list{display:flex;flex-direction:column;gap:7px;margin-top:14px}
-.annot-item{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:3px;padding:10px 13px;display:flex;gap:10px;align-items:flex-start}
-.annot-num{font-size:10px;color:var(--warn);font-weight:700;flex-shrink:0;margin-top:1px}
-.annot-body{flex:1;min-width:0}
-.annot-sel{font-size:11px;color:var(--ink-dim);margin-bottom:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.annot-note{font-size:13px;color:var(--ink);line-height:1.55;word-break:break-word}
-.annot-del{background:none;border:none;color:var(--ink-faint);cursor:pointer;font-size:14px;padding:2px;transition:color .18s;flex-shrink:0}
-.annot-del:hover{color:var(--error)}
-.no-data{font-size:12px;color:var(--ink-faint);font-style:italic}
-
-/* ── MODALS ── */
-.overlay{display:none;position:fixed;inset:0;background:rgba(11,11,13,.88);backdrop-filter:blur(6px);z-index:50;align-items:center;justify-content:center;padding:20px}
-.overlay.show{display:flex;animation:fadeUp .2s ease}
-.modal{background:var(--surface2);border:1px solid var(--border-hi);border-radius:6px;padding:34px 38px;max-width:640px;width:100%;position:relative;max-height:86vh;display:flex;flex-direction:column}
-.modal-sm{max-width:440px}
-.modal-title{font-family:'DM Serif Display',serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:14px;flex-shrink:0}
-.modal-text{font-size:15px;line-height:2;color:var(--ink);white-space:pre-wrap;overflow-y:auto;flex:1}
-.modal-close{position:absolute;top:13px;right:15px;background:none;border:none;color:var(--ink-dim);font-size:18px;cursor:pointer;line-height:1;transition:color .18s}
-.modal-close:hover{color:var(--ink)}
-.modal-footer{display:flex;gap:8px;justify-content:flex-end;margin-top:14px;flex-shrink:0}
-
-/* word preview in classify modal */
-.word-preview{background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:10px 16px;font-size:17px;color:var(--ink);font-weight:700;margin-bottom:14px;text-align:center;letter-spacing:.05em}
-.cls-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:10px}
-.cls-btn{padding:9px 4px;border:2px solid var(--border);border-radius:3px;background:var(--surface);color:var(--ink-dim);cursor:pointer;font-family:'Courier Prime',monospace;font-size:11px;text-align:center;transition:all .15s;letter-spacing:.03em}
-.cls-btn:hover{border-color:var(--border-hi);color:var(--ink);background:var(--surface3)}
-.cls-btn.selected{font-weight:700;color:var(--bg)}
-.cls-btn .csh{display:block;font-size:16px;font-weight:700;margin-bottom:2px}
-.cls-remove{font-size:11px;color:var(--error);background:none;border:none;cursor:pointer;text-decoration:underline;letter-spacing:.05em;padding:4px 0}
-.cls-remove:hover{color:#ff9f9f}
-
-/* annotation modal */
-.sel-preview{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--warn);border-radius:3px;padding:10px 13px;font-size:13px;color:var(--ink-dim);margin-bottom:13px;max-height:70px;overflow:hidden;font-style:italic}
-.annot-input{min-height:90px;resize:vertical}
-
-/* complete screen */
-.complete-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:48px 40px;text-align:center}
-.complete-icon{font-size:36px;margin-bottom:12px;display:block}
-.complete-title{font-family:'DM Serif Display',serif;font-size:2.3rem;color:var(--accent);margin-bottom:8px}
-.complete-sub{color:var(--ink-dim);font-style:italic;font-size:13px;margin-bottom:30px}
-.final-stats{display:flex;justify-content:center;gap:42px;margin-bottom:26px;flex-wrap:wrap}
-.final-stat-val{font-family:'DM Serif Display',serif;font-size:2.9rem;display:block;line-height:1;margin-bottom:6px}
-.c-accent{color:var(--accent)}.c-green{color:var(--correct)}.c-red{color:var(--error)}.c-warn{color:var(--warn)}
-.err-report{background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:16px 20px;margin-bottom:22px;text-align:left}
-.err-title{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px}
-.err-chips{display:flex;flex-wrap:wrap;gap:7px}
-.err-chip{background:var(--error-bg);border:1px solid rgba(248,113,113,.2);border-radius:3px;padding:4px 9px;font-size:12px;color:var(--error);display:flex;align-items:center;gap:5px}
-.err-chip .exp{color:var(--ink)}.err-chip .arr{color:var(--ink-faint);font-size:9px}.err-chip .cnt{font-size:10px;color:var(--ink-dim)}
-.no-err{font-size:12px;color:var(--correct);font-style:italic}
-.complete-actions{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
-
-/* hidden input for composition */
-#typer-input{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:400px;height:50px;opacity:.001;border:none;outline:none;padding:0;background:transparent;font-size:16px;color:transparent;caret-color:transparent}
-
-@media(max-width:560px){
-  .text-display{padding:16px;font-size:14px}.stats{gap:14px}h1{font-size:2.5rem}
-  .modal{padding:22px 18px}.final-stats{gap:22px}.cls-grid{grid-template-columns:repeat(2,1fr)}
-  .tools{gap:4px}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Um blog sobre leituras, reflexões e escrita." />
+  <title>Noumenon</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<input id="typer-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+  <!-- ======================================================
+       CABEÇALHO E NAVEGAÇÃO
+       Para alterar o nome do blog: edite o texto dentro de .logo
+       Para adicionar páginas: duplique um <li> no nav
+  ======================================================= -->
+  <header class="cabecalho">
+    <div class="cabecalho__inner">
 
-<div class="brand-row"><span class="brand">MIMETYPE</span></div>
-<header>
-  <h1>MIME<span class="mono">TYPE</span></h1>
-  <p class="subtitle">treinador de memória &amp; digitação</p>
-</header>
+      <!-- Logo / Nome do blog -->
+      <a href="index.html" class="logo">Noumenon</a>
 
-<!-- ══ TELA 1 · ENTRADA ══ -->
-<div id="screen-input" class="screen active">
-  <div class="field-label">
-    <span>Texto para treinar</span>
-    <span class="char-count" id="char-count"></span>
-  </div>
-  <textarea id="text-input" placeholder="Cole aqui qualquer texto — um poema, um discurso, um trecho literário, uma fórmula...&#10;&#10;Clique em Iniciar Treino quando estiver pronto." oninput="updateCharCount()"></textarea>
-  <div class="input-row">
-    <p class="input-hint">✦ Selecione palavras corretas para classificar gramaticalmente ou anotar</p>
-    <div class="input-btns">
-      <button class="btn btn-ghost" onclick="openSaveTpl()">💾 Salvar modelo</button>
-      <button class="btn btn-primary" onclick="startPractice()">▶ Iniciar Treino</button>
+      <!-- Botão de menu mobile (hambúrguer) -->
+      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Navegação principal -->
+      <nav>
+        <ul class="nav__lista">
+          <li><a href="index.html"        class="nav__link">Início</a></li>
+          <li><a href="livros.html"        class="nav__link">Livros</a></li>
+          <li><a href="fichamentos.html"   class="nav__link">Fichamentos</a></li>
+          <li><a href="posts.html"         class="nav__link">Posts</a></li>
+        </ul>
+      </nav>
+
     </div>
-  </div>
+  </header>
 
-  <div class="templates-section">
-    <div class="sec-head">
-      <span>Modelos salvos</span>
-      <span id="tpl-count" style="color:var(--ink-faint);font-size:10px"></span>
+
+  <!-- ======================================================
+       HERO — APRESENTAÇÃO
+       Edite o título, subtítulo e os botões conforme necessário
+  ======================================================= -->
+  <main>
+    <div class="container pagina">
+      <section class="hero">
+        <h1 class="hero__titulo">Leituras,<br>reflexões e escrita.</h1>
+        <p class="hero__subtitulo">
+          Um espaço para registrar o que leio, o que penso e o que escrevo.
+        </p>
+        <div class="hero__acoes">
+          <a href="posts.html"       class="botao">Ler posts</a>
+          <a href="livros.html"      class="botao botao--fantasma">Ver livros</a>
+          <a href="fichamentos.html" class="botao botao--fantasma">Fichamentos</a>
+        </div>
+      </section>
+
+      <hr class="separador" />
+
+
+      <!-- ====================================================
+           DESTAQUES RECENTES
+           Para adicionar um item: duplique um <article class="mini-card">
+           Mantenha os três mais recentes (um de cada seção)
+      ===================================================== -->
+      <section class="home-destaques">
+        <div class="secao-titulo">
+          <h2>Recente</h2>
+          <p>O que adicionei por último.</p>
+        </div>
+
+        <div class="home-destaques__grade">
+
+          <!-- Mini-card de livro -->
+          <!-- DUPLICAR: copie este bloco para adicionar mais itens -->
+          <article class="mini-card">
+            <p class="mini-card__secao">Livro</p>
+            <h3 class="mini-card__titulo">
+              <a href="livros.html">O Nome da Rosa</a>
+            </h3>
+            <p class="mini-card__data">Umberto Eco · ★★★★★</p>
+          </article>
+
+          <!-- Mini-card de fichamento -->
+          <article class="mini-card">
+            <p class="mini-card__secao">Fichamento</p>
+            <h3 class="mini-card__titulo">
+              <a href="fichamentos.html">Notas sobre Vigiar e Punir</a>
+            </h3>
+            <p class="mini-card__data">Foucault · jan. 2025</p>
+          </article>
+
+          <!-- Mini-card de post -->
+          <article class="mini-card">
+            <p class="mini-card__secao">Post</p>
+            <h3 class="mini-card__titulo">
+              <a href="posts/exemplo-post.html">Por que ainda leio em papel</a>
+            </h3>
+            <p class="mini-card__data">fev. 2025</p>
+          </article>
+
+        </div>
+      </section>
+
     </div>
-    <div class="templates-list" id="tpl-list"></div>
-  </div>
-</div>
+  </main>
 
-<!-- ══ TELA 2 · PRÁTICA ══ -->
-<div id="screen-practice" class="screen">
-  <div class="toolbar">
-    <div class="stats">
-      <div class="stat"><span class="stat-val" id="s-prog">0%</span><span class="stat-lbl">Progresso</span></div>
-      <div class="stat"><span class="stat-val c-err" id="s-err">0</span><span class="stat-lbl">Erros</span></div>
-      <div class="stat"><span class="stat-val c-acc" id="s-acc">—</span><span class="stat-lbl">Precisão</span></div>
-      <div class="stat"><span class="stat-val c-time" id="s-time">0:00</span><span class="stat-lbl">Tempo</span></div>
-      <div class="stat"><span class="stat-val" id="s-wpm">0</span><span class="stat-lbl">PPM</span></div>
+
+  <!-- ======================================================
+       RODAPÉ
+       Edite o nome e o ano conforme necessário
+  ======================================================= -->
+  <footer class="rodape">
+    <div class="rodape__inner">
+      <p class="rodape__texto">© 2026 Noumenon</p>
+      <nav class="rodape__links">
+        <a href="index.html">Início</a>
+        <a href="livros.html">Livros</a>
+        <a href="fichamentos.html">Fichamentos</a>
+        <a href="posts.html">Posts</a>
+      </nav>
     </div>
-    <div class="tools">
-      <button class="btn btn-ghost btn-sm" onclick="showOriginal()">📄 <span class="kbd">Tab</span></button>
-      <button class="btn btn-ghost btn-sm" onclick="openSaveTpl()">💾 Salvar</button>
-      <button class="btn btn-ghost btn-sm" onclick="restartPractice()">↺</button>
-      <button class="btn btn-ghost btn-sm" onclick="goBack()">←</button>
-    </div>
-  </div>
+  </footer>
 
-  <div class="progress-bar"><div class="progress-fill" id="prog-fill" style="width:0%"></div></div>
-  <div class="progress-meta">
-    <span id="prog-chars">0 / 0</span>
-    <span id="prog-words">0 palavras</span>
-  </div>
-
-  <hr class="divider">
-  <p class="focus-hint" id="focus-hint">▸ Clique aqui ou pressione qualquer tecla para começar</p>
-  <div class="text-display" id="text-display" onclick="activatePractice()"></div>
-
-  <!-- study panel -->
-  <div class="study-panel">
-    <div class="sp-head" onclick="toggleStudyPanel()">
-      <span>Estudo — Classificações &amp; Anotações</span>
-      <span class="sp-arrow" id="sp-arrow">▾</span>
-    </div>
-    <div class="sp-body" id="sp-body">
-      <div class="sp-section-title">Classificações aplicadas</div>
-      <div class="cls-legend" id="cls-legend"><span class="no-data">Selecione palavras corretas para classificar</span></div>
-      <div class="sp-section-title" style="margin-top:16px">Anotações</div>
-      <div class="annot-list" id="annot-list"><span class="no-data">Selecione trechos corretos para anotar</span></div>
-    </div>
-  </div>
-</div>
-
-<!-- ══ TELA 3 · CONCLUÍDO ══ -->
-<div id="screen-complete" class="screen">
-  <div class="complete-card">
-    <span class="complete-icon">✦</span>
-    <h2 class="complete-title">Concluído!</h2>
-    <p class="complete-sub">Você digitou o texto completo.</p>
-    <div class="final-stats">
-      <div class="stat"><span class="final-stat-val c-accent" id="f-acc">100%</span><span class="stat-lbl">Precisão</span></div>
-      <div class="stat"><span class="final-stat-val c-green" id="f-wpm">0</span><span class="stat-lbl">PPM</span></div>
-      <div class="stat"><span class="final-stat-val c-warn" id="f-time">0:00</span><span class="stat-lbl">Tempo</span></div>
-      <div class="stat"><span class="final-stat-val c-red" id="f-err">0</span><span class="stat-lbl">Erros</span></div>
-    </div>
-    <div class="err-report"><p class="err-title">Caracteres com mais erros</p><div class="err-chips" id="err-chips"></div></div>
-    <div class="complete-actions">
-      <button class="btn btn-primary" onclick="restartPractice()">↺ Treinar novamente</button>
-      <button class="btn btn-ghost" onclick="goBack()">✎ Novo texto</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ FLOATING SELECTION BAR ══ -->
-<div id="sel-bar">
-  <button class="btn btn-ghost btn-xs" id="sel-btn-cls" onclick="openClassify()">🏷️ Classificar</button>
-  <div class="sel-divider"></div>
-  <button class="btn btn-ghost btn-xs" onclick="openAnnotate()">💬 Anotar</button>
-</div>
-
-<!-- ══ MODAL · ORIGINAL ══ -->
-<div class="overlay" id="m-original" onclick="overlayClose(event,'m-original')">
-  <div class="modal">
-    <button class="modal-close" onclick="closeModal('m-original')">✕</button>
-    <p class="modal-title">Texto Original</p>
-    <p class="modal-text" id="m-original-text"></p>
-  </div>
-</div>
-
-<!-- ══ MODAL · SALVAR MODELO ══ -->
-<div class="overlay" id="m-save-tpl" onclick="overlayClose(event,'m-save-tpl')">
-  <div class="modal modal-sm">
-    <button class="modal-close" onclick="closeModal('m-save-tpl')">✕</button>
-    <p class="modal-title">Salvar modelo</p>
-    <input class="text-inp" id="tpl-name" placeholder="Nome do modelo..." style="margin-bottom:14px">
-    <div class="modal-footer">
-      <button class="btn btn-ghost btn-sm" onclick="closeModal('m-save-tpl')">Cancelar</button>
-      <button class="btn btn-primary btn-sm" onclick="confirmSaveTpl()">Salvar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ MODAL · CLASSIFICAR ══ -->
-<div class="overlay" id="m-classify" onclick="overlayClose(event,'m-classify')">
-  <div class="modal modal-sm">
-    <button class="modal-close" onclick="closeModal('m-classify')">✕</button>
-    <p class="modal-title">Classificar palavra</p>
-    <div class="word-preview" id="cls-word-preview"></div>
-    <div class="cls-grid" id="cls-grid"></div>
-    <button class="cls-remove" id="cls-remove-btn" onclick="removeClassification()" style="display:none">Remover classificação</button>
-  </div>
-</div>
-
-<!-- ══ MODAL · ANOTAR ══ -->
-<div class="overlay" id="m-annotate" onclick="overlayClose(event,'m-annotate')">
-  <div class="modal modal-sm">
-    <button class="modal-close" onclick="closeModal('m-annotate')">✕</button>
-    <p class="modal-title">Adicionar anotação</p>
-    <div class="sel-preview" id="annot-preview"></div>
-    <textarea class="text-inp annot-input" id="annot-text" placeholder="Escreva sua anotação..."></textarea>
-    <div class="modal-footer">
-      <button class="btn btn-ghost btn-sm" onclick="closeModal('m-annotate')">Cancelar</button>
-      <button class="btn btn-primary btn-sm" onclick="confirmAnnotate()">Salvar</button>
-    </div>
-  </div>
-</div>
-
-<script>
-/* ═══════════════════════════════════════════════
-   CONSTANTS
-═══════════════════════════════════════════════ */
-const CLASSES = [
-  {key:'substantivo', label:'Substantivo', short:'S',   color:'#60a5fa'},
-  {key:'verbo',       label:'Verbo',       short:'V',   color:'#fb923c'},
-  {key:'adjetivo',    label:'Adjetivo',    short:'Adj', color:'#c084fc'},
-  {key:'adverbio',    label:'Advérbio',    short:'Adv', color:'#22d3ee'},
-  {key:'preposicao',  label:'Preposição',  short:'P',   color:'#f472b6'},
-  {key:'conjuncao',   label:'Conjunção',   short:'C',   color:'#facc15'},
-  {key:'artigo',      label:'Artigo',      short:'Art', color:'#94a3b8'},
-  {key:'pronome',     label:'Pronome',     short:'Pr',  color:'#34d399'},
-  {key:'numeral',     label:'Numeral',     short:'N',   color:'#a3e635'},
-  {key:'interjeicao', label:'Interjeição', short:'I',   color:'#f43f5e'},
-  {key:'outro',       label:'Outro',       short:'?',   color:'#9ca3af'},
-];
-
-/* ═══════════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════════ */
-let targetText   = '';
-let chars        = [];
-let wordRanges   = [];
-let currentIndex = 0;
-let errorCount   = 0;
-let totalTyped   = 0;
-let startTime    = null;
-let timerHandle  = null;
-let errorLog     = {};
-let active       = false;
-let isComposing  = false;
-
-// study features
-let classifications = {};  // {wordIdx: classKey}
-let annotations     = [];  // [{id,start,end,note}]
-let annotNextId     = 1;
-
-// selection state
-let selRange = null; // {start,end} of current selection in chars[]
-
-/* ═══════════════════════════════════════════════
-   INPUT SCREEN
-═══════════════════════════════════════════════ */
-function updateCharCount() {
-  const v = document.getElementById('text-input').value;
-  document.getElementById('char-count').textContent = v.length ? v.length + ' caracteres' : '';
-}
-
-/* ═══════════════════════════════════════════════
-   TEMPLATES (localStorage)
-═══════════════════════════════════════════════ */
-function getTemplates() {
-  try { return JSON.parse(localStorage.getItem('mimetype_templates') || '[]'); } catch { return []; }
-}
-function saveTemplates(list) {
-  try { localStorage.setItem('mimetype_templates', JSON.stringify(list)); } catch {}
-}
-function renderTemplates() {
-  const list = getTemplates();
-  const el   = document.getElementById('tpl-list');
-  const cnt  = document.getElementById('tpl-count');
-  cnt.textContent = list.length ? list.length + ' modelo' + (list.length > 1 ? 's' : '') : '';
-  if (!list.length) { el.innerHTML = '<p class="no-tpl">Nenhum modelo salvo ainda.</p>'; return; }
-  el.innerHTML = '';
-  list.forEach(t => {
-    const d = document.createElement('div');
-    d.className = 'tpl-card';
-    d.innerHTML = `
-      <div class="tpl-info">
-        <div class="tpl-name">${esc(t.name)}</div>
-        <div class="tpl-preview">${esc(t.text.slice(0,80).replace(/\n/g,' '))}</div>
-        <div class="tpl-date">${new Date(t.savedAt).toLocaleDateString('pt-BR')} · ${t.text.length} caracteres</div>
-      </div>
-      <div class="tpl-btns">
-        <button class="btn btn-ghost btn-xs" onclick="loadTemplate('${t.id}')">Carregar</button>
-        <button class="btn btn-danger" onclick="deleteTpl('${t.id}')">✕</button>
-      </div>`;
-    el.appendChild(d);
-  });
-}
-function loadTemplate(id) {
-  const t = getTemplates().find(x => x.id === id);
-  if (!t) return;
-  document.getElementById('text-input').value = t.text;
-  updateCharCount();
-}
-function deleteTpl(id) {
-  const list = getTemplates().filter(x => x.id !== id);
-  saveTemplates(list);
-  renderTemplates();
-}
-function openSaveTpl() {
-  const text = document.getElementById('text-input').value.trim() || targetText;
-  if (!text) { alert('Escreva ou carregue um texto primeiro.'); return; }
-  document.getElementById('tpl-name').value = '';
-  openModal('m-save-tpl');
-  setTimeout(() => document.getElementById('tpl-name').focus(), 120);
-}
-function confirmSaveTpl() {
-  const name = document.getElementById('tpl-name').value.trim();
-  const text = document.getElementById('text-input').value.trim() || targetText;
-  if (!name) { document.getElementById('tpl-name').style.borderColor='var(--error)'; return; }
-  if (!text) { closeModal('m-save-tpl'); return; }
-  const list = getTemplates();
-  list.unshift({ id: Date.now().toString(), name, text, savedAt: Date.now() });
-  saveTemplates(list);
-  renderTemplates();
-  closeModal('m-save-tpl');
-}
-
-/* ═══════════════════════════════════════════════
-   SCREENS
-═══════════════════════════════════════════════ */
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-}
-
-/* ═══════════════════════════════════════════════
-   PRACTICE — START / RESET
-═══════════════════════════════════════════════ */
-function startPractice() {
-  const raw = document.getElementById('text-input').value.trim();
-  if (!raw) {
-    const ta = document.getElementById('text-input');
-    ta.style.borderColor='var(--error)'; ta.style.boxShadow='0 0 0 3px rgba(248,113,113,.15)';
-    setTimeout(() => { ta.style.borderColor=''; ta.style.boxShadow=''; }, 700);
-    return;
-  }
-  targetText = raw;
-  resetState();
-  buildDisplay();
-  showScreen('screen-practice');
-  updateStats();
-}
-
-function resetState() {
-  currentIndex=0; errorCount=0; totalTyped=0;
-  startTime=null; errorLog={}; active=false;
-  classifications={}; annotations=[]; annotNextId=1; selRange=null;
-  if (timerHandle) { clearInterval(timerHandle); timerHandle=null; }
-  hideSelBar();
-}
-
-/* ═══════════════════════════════════════════════
-   PRACTICE — BUILD DISPLAY
-═══════════════════════════════════════════════ */
-function buildDisplay() {
-  const display = document.getElementById('text-display');
-  chars=[]; wordRanges=[];
-  display.innerHTML='';
-  display.classList.remove('focused');
-  display.scrollTop=0;
-
-  // word ranges
-  const re=/\S+/g; let m;
-  while ((m=re.exec(targetText))!==null)
-    wordRanges.push({start:m.index, end:m.index+m[0].length-1});
-
-  for (let i=0; i<targetText.length; i++) {
-    const s=document.createElement('span');
-    s.className='char pending'+(i===0?' cursor':'');
-    s.textContent=targetText[i];
-    display.appendChild(s);
-    chars.push(s);
-  }
-
-  document.getElementById('focus-hint').classList.remove('gone');
-  renderStudyPanel();
-}
-
-/* ═══════════════════════════════════════════════
-   PRACTICE — ACTIVATE
-═══════════════════════════════════════════════ */
-function activatePractice() {
-  active=true;
-  document.getElementById('text-display').classList.add('focused');
-  document.getElementById('focus-hint').classList.add('gone');
-  focusTyper();
-}
-function focusTyper() {
-  document.getElementById('typer-input').focus();
-}
-
-/* ═══════════════════════════════════════════════
-   INPUT CAPTURE — COMPOSITION-SAFE
-   
-   Strategy: use a hidden <input> + compositionend + input events.
-   This correctly handles dead keys (´ ` ^ ~ ¨) on all platforms.
-   - compositionstart: marks composition in progress
-   - compositionend: receives the final composed character (e.g. 'á', 'ã')
-   - input: for regular (non-composed) characters
-   - keydown: for Backspace and shortcuts
-═══════════════════════════════════════════════ */
-(function() {
-  const inp = document.getElementById('typer-input');
-
-  inp.addEventListener('compositionstart', () => { isComposing=true; });
-
-  inp.addEventListener('compositionend', e => {
-    isComposing=false;
-    const data = e.data;
-    inp.value='';
-    if (!data || !isPracticeActive()) return;
-    if (!active) activatePractice();
-    for (const ch of data) doType(ch);
-  });
-
-  inp.addEventListener('input', e => {
-    if (isComposing) return; // will be handled by compositionend
-    const data = e.data || inp.value;
-    inp.value='';
-    if (!data || !isPracticeActive()) return;
-    if (!active) activatePractice();
-    for (const ch of data) doType(ch);
-  });
-
-  inp.addEventListener('keydown', e => {
-    if (!isPracticeActive()) return;
-    if (e.key==='Backspace' && !isComposing) { e.preventDefault(); doBackspace(); }
-    if (e.key==='Tab') { e.preventDefault(); showOriginal(); }
-  });
-
-  // Also catch Tab from anywhere when practice screen is active
-  document.addEventListener('keydown', e => {
-    if (allModalsClosedExcept()) return;
-    if (!isPracticeActive()) return;
-    if (e.key==='Tab') { e.preventDefault(); showOriginal(); return; }
-    if (e.key==='Escape') { closeAllModals(); return; }
-    // Any key press: focus the typer (except when modals are open)
-    if (!e.ctrlKey && !e.metaKey && e.key!=='F5' && e.key!=='F12') {
-      if (document.activeElement !== inp) focusTyper();
-    }
-  });
-})();
-
-function isPracticeActive() {
-  return document.getElementById('screen-practice').classList.contains('active');
-}
-function allModalsClosedExcept() {
-  return [...document.querySelectorAll('.overlay.show')].length > 0;
-}
-
-/* ═══════════════════════════════════════════════
-   TYPING LOGIC
-═══════════════════════════════════════════════ */
-function doBackspace() {
-  if (currentIndex===0) return;
-  if (currentIndex<chars.length) chars[currentIndex].classList.remove('cursor');
-  currentIndex--;
-  const ch=chars[currentIndex];
-  ch.classList.remove('correct','wrong','cursor');
-  ch.removeAttribute('data-typed');
-  ch.classList.add('pending','cursor');
-  updateStats();
-}
-
-function doType(typed) {
-  if (currentIndex>=targetText.length) return;
-  if (!startTime) {
-    startTime=Date.now();
-    timerHandle=setInterval(tickTimer,500);
-  }
-  totalTyped++;
-  const expected=targetText[currentIndex];
-  const ch=chars[currentIndex];
-  ch.classList.remove('cursor','pending');
-
-  if (typed===expected) {
-    ch.classList.add('correct');
-  } else {
-    ch.classList.add('wrong');
-    const disp=typed===' '?'␣':typed==='\n'?'↵':typed;
-    ch.setAttribute('data-typed',disp);
-    errorCount++;
-    if (!errorLog[expected]) errorLog[expected]={};
-    errorLog[expected][typed]=(errorLog[expected][typed]||0)+1;
-    triggerErrorFX();
-  }
-
-  currentIndex++;
-  if (currentIndex<chars.length) {
-    chars[currentIndex].classList.add('cursor');
-    scrollToCursor();
-  }
-  updateStats();
-  if (currentIndex>=targetText.length) setTimeout(finishPractice,200);
-}
-
-function triggerErrorFX() {
-  const d=document.getElementById('text-display');
-  d.classList.remove('shake','pulse-err'); void d.offsetWidth;
-  d.classList.add('shake','pulse-err');
-  setTimeout(()=>d.classList.remove('shake','pulse-err'),400);
-}
-
-function scrollToCursor() {
-  const display=document.getElementById('text-display');
-  const el=chars[currentIndex]; if(!el) return;
-  const dR=display.getBoundingClientRect();
-  const eR=el.getBoundingClientRect();
-  const relTop=eR.top-dR.top+display.scrollTop;
-  if (relTop+eR.height>display.scrollTop+display.clientHeight-48)
-    display.scrollTo({top:relTop-display.clientHeight/2,behavior:'smooth'});
-}
-
-/* ═══════════════════════════════════════════════
-   TIMER / STATS
-═══════════════════════════════════════════════ */
-function tickTimer() { document.getElementById('s-time').textContent=fmtTime(elapsed()); }
-function elapsed() { return startTime?Math.floor((Date.now()-startTime)/1000):0; }
-function fmtTime(s) { return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
-function calcWPM() {
-  if (!startTime||currentIndex===0) return 0;
-  return Math.round((currentIndex/5)/((Date.now()-startTime)/60000));
-}
-function calcAcc() {
-  return totalTyped===0?null:Math.round(((totalTyped-errorCount)/totalTyped)*100);
-}
-function updateStats() {
-  const pct=targetText.length?Math.round((currentIndex/targetText.length)*100):0;
-  const acc=calcAcc();
-  const words=targetText.slice(0,currentIndex).trim().split(/\s+/).filter(Boolean).length;
-  document.getElementById('s-prog').textContent=pct+'%';
-  document.getElementById('s-err').textContent=errorCount;
-  document.getElementById('s-acc').textContent=acc!==null?acc+'%':'—';
-  document.getElementById('s-wpm').textContent=calcWPM();
-  document.getElementById('prog-fill').style.width=pct+'%';
-  document.getElementById('prog-chars').textContent=currentIndex+' / '+targetText.length;
-  document.getElementById('prog-words').textContent=words+' palavras';
-}
-
-/* ═══════════════════════════════════════════════
-   FINISH
-═══════════════════════════════════════════════ */
-function finishPractice() {
-  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
-  document.getElementById('f-acc').textContent=(calcAcc()??100)+'%';
-  document.getElementById('f-wpm').textContent=calcWPM();
-  document.getElementById('f-time').textContent=fmtTime(elapsed());
-  document.getElementById('f-err').textContent=errorCount;
-  buildErrReport();
-  showScreen('screen-complete');
-}
-function buildErrReport() {
-  const chips=document.getElementById('err-chips');
-  chips.innerHTML='';
-  const items=[];
-  for(const [exp,map] of Object.entries(errorLog))
-    for(const [typed,cnt] of Object.entries(map)) items.push({exp,typed,cnt});
-  items.sort((a,b)=>b.cnt-a.cnt);
-  if(!items.length){chips.innerHTML='<span class="no-err">✓ Perfeito — sem erros!</span>';return;}
-  items.slice(0,14).forEach(x=>{
-    const c=document.createElement('div');c.className='err-chip';
-    const eL=x.exp===' '?'␣':x.exp==='\n'?'↵':esc(x.exp);
-    const tL=x.typed===' '?'␣':x.typed==='\n'?'↵':esc(x.typed);
-    c.innerHTML=`<span class="exp">${eL}</span><span class="arr">→</span><span>${tL}</span><span class="cnt">×${x.cnt}</span>`;
-    chips.appendChild(c);
-  });
-}
-
-/* ═══════════════════════════════════════════════
-   RESTART / BACK
-═══════════════════════════════════════════════ */
-function restartPractice(){
-  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
-  currentIndex=0;errorCount=0;totalTyped=0;startTime=null;errorLog={};active=false;
-  selRange=null; hideSelBar();
-  // keep classifications and annotations
-  buildDisplay();
-  // re-apply classifications
-  for(const [wi,key] of Object.entries(classifications)) applyClsToWord(parseInt(wi),key);
-  // re-apply annotations
-  annotations.forEach(a=>applyAnnotStyles(a));
-  renderStudyPanel();
-  showScreen('screen-practice');
-  updateStats();
-}
-function goBack(){
-  if(timerHandle){clearInterval(timerHandle);timerHandle=null;}
-  active=false; showScreen('screen-input');
-}
-
-/* ═══════════════════════════════════════════════
-   SELECTION — detect native text selection over chars
-═══════════════════════════════════════════════ */
-document.addEventListener('mouseup', () => { setTimeout(checkSelection,30); });
-document.addEventListener('selectionchange', () => {
-  // debounce: only process when selection settles
-  clearTimeout(checkSelection._t);
-  checkSelection._t = setTimeout(checkSelection, 80);
-});
-
-function checkSelection() {
-  if (!isPracticeActive()) { hideSelBar(); return; }
-  if (allModalsClosedExcept()) return;
-
-  const sel=window.getSelection();
-  if (!sel||sel.rangeCount===0||sel.isCollapsed) { hideSelBar(); selRange=null; return; }
-
-  const range=sel.getRangeAt(0);
-  const display=document.getElementById('text-display');
-  if (!display.contains(range.commonAncestorContainer)) { hideSelBar(); selRange=null; return; }
-
-  // find start/end char indices
-  let sEl=range.startContainer; let eEl=range.endContainer;
-  if(sEl.nodeType===3) sEl=sEl.parentElement;
-  if(eEl.nodeType===3) eEl=eEl.parentElement;
-  const si=chars.indexOf(sEl); const ei=chars.indexOf(eEl);
-  if(si===-1||ei===-1){ hideSelBar(); selRange=null; return; }
-
-  const s=Math.min(si,ei); const e=Math.max(si,ei);
-
-  // all selected chars must be correct
-  for(let i=s;i<=e;i++) if(!chars[i].classList.contains('correct')){ hideSelBar(); selRange=null; return; }
-
-  selRange={start:s, end:e};
-
-  // is it exactly one word?
-  const isWord=wordRanges.some(w=>w.start===s&&w.end===e);
-  document.getElementById('sel-btn-cls').style.display=isWord?'':'none';
-
-  // position the bar above selection
-  const rect=range.getBoundingClientRect();
-  const bar=document.getElementById('sel-bar');
-  bar.classList.add('show');
-  bar.style.left=(rect.left+rect.width/2)+'px';
-  bar.style.top=(rect.top+window.scrollY-46)+'px';
-}
-
-function hideSelBar() {
-  document.getElementById('sel-bar').classList.remove('show');
-}
-
-/* ═══════════════════════════════════════════════
-   CLASSIFICATION
-═══════════════════════════════════════════════ */
-let clsTargetWordIdx = -1;
-
-function openClassify() {
-  if (!selRange) return;
-  const wi=wordRanges.findIndex(w=>w.start===selRange.start&&w.end===selRange.end);
-  if(wi===-1) return;
-  clsTargetWordIdx=wi;
-  const wordText=targetText.slice(selRange.start,selRange.end+1);
-  document.getElementById('cls-word-preview').textContent=wordText;
-
-  // build grid
-  const grid=document.getElementById('cls-grid');
-  grid.innerHTML='';
-  const cur=classifications[wi];
-  CLASSES.forEach(c=>{
-    const btn=document.createElement('button');
-    btn.className='cls-btn'+(cur===c.key?' selected':'');
-    if(cur===c.key) btn.style.background=c.color;
-    btn.style.setProperty('--cls-c',c.color);
-    btn.innerHTML=`<span class="csh" style="color:${cur===c.key?'#0b0b0d':c.color}">${esc(c.short)}</span>${esc(c.label)}`;
-    btn.onclick=()=>applyClassification(wi,c.key);
-    grid.appendChild(btn);
-  });
-
-  const rmBtn=document.getElementById('cls-remove-btn');
-  rmBtn.style.display=cur?'block':'none';
-  window.getSelection()?.removeAllRanges();
-  hideSelBar();
-  openModal('m-classify');
-}
-
-function applyClassification(wi, key) {
-  // remove old class
-  if(classifications[wi]) applyClsToWord(wi,null);
-  classifications[wi]=key;
-  applyClsToWord(wi,key);
-  closeModal('m-classify');
-  renderStudyPanel();
-}
-
-function applyClsToWord(wi, key) {
-  const w=wordRanges[wi]; if(!w) return;
-  // remove all cls-* classes
-  for(let i=w.start;i<=w.end;i++){
-    CLASSES.forEach(c=>chars[i].classList.remove('cls-'+c.key));
-    if(key) chars[i].classList.add('cls-'+key);
-  }
-}
-
-function removeClassification() {
-  if(clsTargetWordIdx===-1) return;
-  applyClsToWord(clsTargetWordIdx,null);
-  delete classifications[clsTargetWordIdx];
-  closeModal('m-classify');
-  renderStudyPanel();
-}
-
-/* ═══════════════════════════════════════════════
-   ANNOTATIONS
-═══════════════════════════════════════════════ */
-let annotTargetRange=null;
-
-function openAnnotate() {
-  if (!selRange) return;
-  annotTargetRange={...selRange};
-  const preview=targetText.slice(selRange.start, selRange.end+1);
-  document.getElementById('annot-preview').textContent='"'+preview.slice(0,120)+(preview.length>120?'…':'')+'"';
-  document.getElementById('annot-text').value='';
-  window.getSelection()?.removeAllRanges();
-  hideSelBar();
-  openModal('m-annotate');
-  setTimeout(()=>document.getElementById('annot-text').focus(),120);
-}
-
-function confirmAnnotate() {
-  const note=document.getElementById('annot-text').value.trim();
-  if (!note||!annotTargetRange) return;
-  const a={id:annotNextId++, start:annotTargetRange.start, end:annotTargetRange.end, note};
-  annotations.push(a);
-  applyAnnotStyles(a);
-  closeModal('m-annotate');
-  renderStudyPanel();
-  // open study panel
-  if (!document.getElementById('sp-body').classList.contains('open')) toggleStudyPanel();
-}
-
-function applyAnnotStyles(a) {
-  for(let i=a.start;i<=a.end;i++) chars[i].classList.add('annotated');
-  // badge on first char
-  chars[a.start].classList.add('annot-first');
-  const badge=document.createElement('span');
-  badge.className='annot-badge-el';
-  badge.textContent=a.id;
-  badge.title='Anotação #'+a.id+': '+a.note;
-  badge.setAttribute('data-annot-id',a.id);
-  chars[a.start].appendChild(badge);
-}
-
-function removeAnnotation(id) {
-  const a=annotations.find(x=>x.id===id); if(!a) return;
-  // remove styles for this annotation range
-  // (only remove if no other annotation covers the same char)
-  for(let i=a.start;i<=a.end;i++){
-    const stillAnnoted=annotations.some(x=>x.id!==id&&i>=x.start&&i<=x.end);
-    if(!stillAnnoted) chars[i].classList.remove('annotated');
-    if(i===a.start) {
-      const badge=chars[i].querySelector('[data-annot-id="'+id+'"]');
-      if(badge) badge.remove();
-      const stillFirst=annotations.some(x=>x.id!==id&&x.start===i);
-      if(!stillFirst) chars[i].classList.remove('annot-first');
-    }
-  }
-  annotations=annotations.filter(x=>x.id!==id);
-  renderStudyPanel();
-}
-
-/* ═══════════════════════════════════════════════
-   STUDY PANEL
-═══════════════════════════════════════════════ */
-function toggleStudyPanel() {
-  const body=document.getElementById('sp-body');
-  const arrow=document.getElementById('sp-arrow');
-  body.classList.toggle('open');
-  arrow.classList.toggle('open');
-}
-
-function renderStudyPanel() {
-  renderClsLegend();
-  renderAnnotList();
-}
-
-function renderClsLegend() {
-  const el=document.getElementById('cls-legend');
-  const used={};
-  for(const k of Object.values(classifications)) used[k]=(used[k]||0)+1;
-  const keys=Object.keys(used);
-  if(!keys.length){ el.innerHTML='<span class="no-data">Selecione palavras corretas para classificar</span>'; return; }
-  el.innerHTML='';
-  CLASSES.filter(c=>used[c.key]).forEach(c=>{
-    const chip=document.createElement('div');chip.className='cls-chip';
-    chip.innerHTML=`<span class="cls-dot" style="background:${c.color}"></span>${esc(c.label)}<span class="cls-count">×${used[c.key]}</span>`;
-    el.appendChild(chip);
-  });
-}
-
-function renderAnnotList() {
-  const el=document.getElementById('annot-list');
-  if(!annotations.length){ el.innerHTML='<span class="no-data">Selecione trechos corretos para anotar</span>'; return; }
-  el.innerHTML='';
-  annotations.forEach(a=>{
-    const preview=targetText.slice(a.start,a.end+1);
-    const item=document.createElement('div');item.className='annot-item';
-    item.innerHTML=`
-      <span class="annot-num">#${a.id}</span>
-      <div class="annot-body">
-        <div class="annot-sel">"${esc(preview.slice(0,60)+(preview.length>60?'…':''))}"</div>
-        <div class="annot-note">${esc(a.note)}</div>
-      </div>
-      <button class="annot-del" onclick="removeAnnotation(${a.id})" title="Remover">✕</button>`;
-    el.appendChild(item);
-  });
-}
-
-/* ═══════════════════════════════════════════════
-   MODALS
-═══════════════════════════════════════════════ */
-function openModal(id) { document.getElementById(id).classList.add('show'); }
-function closeModal(id) { document.getElementById(id).classList.remove('show'); }
-function closeAllModals() { document.querySelectorAll('.overlay.show').forEach(m=>m.classList.remove('show')); }
-function overlayClose(e,id) { if(e.target===document.getElementById(id)) closeModal(id); }
-
-function showOriginal() {
-  document.getElementById('m-original-text').textContent=targetText;
-  openModal('m-original');
-}
-
-/* ═══════════════════════════════════════════════
-   UTILITIES
-═══════════════════════════════════════════════ */
-function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
-
-/* ═══════════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════════ */
-renderTemplates();
-
-// Close sel-bar on click outside
-document.addEventListener('mousedown', e => {
-  const bar=document.getElementById('sel-bar');
-  if (!bar.contains(e.target)) {
-    // don't immediately hide — let checkSelection run after mouseup
-  }
-});
-</script>
+  <script src="js/main.js"></script>
 </body>
 </html>
