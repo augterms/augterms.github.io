@@ -3,183 +3,197 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- EDITAR: atualize a descrição para cada post -->
   <meta name="description" content="Numa época em que qualquer texto está a um clique de distância, continuar carregando livros físicos parece quase um ato de resistência." />
-  <!-- EDITAR: atualize o título da aba do navegador -->
-  <title>Por que ainda leio em papel · Noumenon</title>
+  <title>Por que ainda leio em papel · Nome do Blog</title>
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body>
 
-  <!-- CABEÇALHO (note o ../ nos links — estamos dentro da pasta /posts) -->
-  <header class="cabecalho">
-    <div class="cabecalho__inner">
-      <a href="../index.html" class="logo">Noumenon</a>
-      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+<div class="layout">
+
+  <!-- SIDEBAR (../ nos links) -->
+  <aside class="sidebar">
+    <a href="../index.html" class="sidebar__logo" title="Início">🔥</a>
+    <nav>
+      <ul class="sidebar__nav">
+        <li><a href="../index.html"        class="sidebar__link"><span class="sidebar__icon">🏠</span><span>Início</span></a></li>
+        <li><a href="../livros.html"        class="sidebar__link"><span class="sidebar__icon">📚</span><span>Livros</span></a></li>
+        <li><a href="../fichamentos.html"   class="sidebar__link"><span class="sidebar__icon">📋</span><span>Ficham.</span></a></li>
+        <li><a href="../posts.html"         class="sidebar__link"><span class="sidebar__icon">✍️</span><span>Posts</span></a></li>
+      </ul>
+    </nav>
+    <nav>
+      <ul class="sidebar__nav sidebar__nav--fundo">
+        <li><a href="#" class="sidebar__link"><span class="sidebar__icon">⚙️</span><span>Config.</span></a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div class="conteudo">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <button class="sidebar__toggle" aria-label="Abrir menu" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
-      <nav>
-        <ul class="nav__lista">
-          <li><a href="../index.html"        class="nav__link">Início</a></li>
-          <li><a href="../livros.html"        class="nav__link">Livros</a></li>
-          <li><a href="../fichamentos.html"   class="nav__link">Fichamentos</a></li>
-          <li><a href="../posts.html"         class="nav__link">Posts</a></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
+      <div class="topbar__busca">
+        <div class="topbar__busca-inner">
+          <span class="topbar__busca-icon">🔍</span>
+          <input type="search" placeholder="Título, autor ou tópico…" />
+        </div>
+      </div>
+      <div class="topbar__perfil">
+        <div class="topbar__avatar">👤</div>
+        <div class="topbar__usuario">
+          <span class="topbar__nome">Seu Nome</span>
+          <span class="topbar__papel">Leitor</span>
+        </div>
+        <button class="topbar__sino" title="Notificações">🔔</button>
+      </div>
+    </header>
 
 
-  <!-- ======================================================
-       POST INDIVIDUAL
-       Estrutura: cabeçalho → corpo → navegação entre posts
-       EDITAR: todas as seções marcadas com "EDITAR"
-  ======================================================= -->
-  <main>
-    <article class="post">
+    <!-- ====================================================
+         POST INDIVIDUAL
+         EDITAR: todas as seções marcadas com "EDITAR"
+    ===================================================== -->
+    <main class="main">
+    <article class="leitura">
 
-      <!-- Cabeçalho do post -->
-      <header class="post__cabecalho">
-
-        <!-- EDITAR: categoria do post -->
-        <a href="../posts.html" class="post__categoria">← Sobre leitura</a>
-
-        <!-- EDITAR: título principal -->
-        <h1 class="post__titulo">Por que ainda leio em papel</h1>
-
-        <!-- EDITAR: data e tempo de leitura -->
-        <div class="post__meta">
+      <!-- Cabeçalho -->
+      <header class="leitura__cabecalho">
+        <a href="../posts.html" class="leitura__voltar">Posts</a>
+        <p class="leitura__categoria">✍️ Sobre leitura</p>
+        <h1 class="leitura__titulo">Por que ainda leio em papel</h1>
+        <div class="leitura__meta">
           <time datetime="2025-02-10">fevereiro de 2025</time>
           <span>·</span>
           <span>5 min de leitura</span>
         </div>
-
       </header>
 
 
       <!-- ====================================================
-           CORPO DO POST
-           Escreva livremente aqui usando tags HTML simples:
-           <p>, <h2>, <h3>, <blockquote>, <ul>, <ol>, <strong>, <em>
-
-           DICA: mantenha parágrafos curtos e use h2/h3 para
-           organizar seções longas.
+           CORPO EM DUAS COLUNAS
+           Divida o texto em dois blocos para o layout de app.
+           Use .leitura__corpo (sem colunas) para textos curtos.
       ===================================================== -->
-      <div class="post__corpo">
+      <div class="leitura__colunas">
 
-        <p>
-          Numa época em que qualquer texto está a um clique de distância, continuar
-          carregando livros físicos parece quase um ato de resistência. O e-reader
-          cabe no bolso, o app de leitura está no celular que uso para tudo o mais,
-          e a pilha de livros físicos na mesa de cabeceira me faz sentir culpado
-          toda vez que troco um volume por três semanas de procrastinação.
-        </p>
+        <!-- Coluna esquerda -->
+        <div class="leitura__coluna">
+          <p style="font-weight: bold; margin-bottom: 1rem; font-family: var(--fonte-titulo);">
+            Capítulo 01:<br>O problema do papel
+          </p>
 
-        <p>
-          Mesmo assim, continuo comprando livros em papel. Não por nostalgia,
-          não por fetiche de colecionador. Há algo mais difícil de nomear do que isso.
-        </p>
+          <p>
+            Numa época em que qualquer texto está a um clique de distância, continuar
+            carregando livros físicos parece quase um ato de resistência. O e-reader
+            cabe no bolso, o app de leitura está no celular que uso para tudo o mais,
+            e a pilha de livros físicos na mesa de cabeceira me faz sentir culpado toda
+            vez que troco um volume por três semanas de procrastinação.
+          </p>
 
-        <!-- Subtítulo de seção -->
-        <h2>O que a tela não aprendeu ainda</h2>
+          <p>
+            Mesmo assim, continuo comprando livros em papel. Não por nostalgia, não
+            por fetiche de colecionador. Há algo mais difícil de nomear do que isso.
+          </p>
 
-        <p>
-          Ler num dispositivo digital significa compartilhar atenção. O mesmo objeto
-          que me mostra o texto me notifica sobre emails, me acende uma bolinha vermelha
-          no canto superior da tela, me lembra de compromissos. Mesmo com o modo
-          avião ativado, eu <em>sei</em> que o aparelho faz outras coisas.
-          Há uma tensão baixa e constante, uma vigilância.
-        </p>
+          <p>
+            Ler num dispositivo digital significa compartilhar atenção. O mesmo objeto
+            que me mostra o texto me notifica sobre emails, me acende uma bolinha
+            vermelha no canto superior da tela, me lembra de compromissos. Mesmo com
+            o modo avião ativado, eu <em>sei</em> que o aparelho faz outras coisas.
+            Há uma tensão baixa e constante, uma vigilância.
+          </p>
 
-        <p>
-          O livro físico não faz nada além do que está sendo usado para fazer.
-          É um objeto sem ambição de multitarefa.
-        </p>
+          <p>
+            O livro físico não faz nada além do que está sendo usado para fazer.
+            É um objeto sem ambição de multitarefa.
+          </p>
 
-        <!-- Citação em destaque -->
-        <blockquote>
-          "O livro é uma tecnologia de isolamento. Não por acidente: foi assim
-          que foi projetado. Uma janela que bloqueia as outras janelas."
-          <cite>— Nota pessoal, 2023</cite>
-        </blockquote>
+          <span class="leitura__pagina">p. 05</span>
+        </div>
 
-        <h2>A fisicalidade da memória</h2>
+        <!-- Coluna direita -->
+        <div class="leitura__coluna">
+          <p>
+            Há pesquisas que sugerem que a localização espacial ajuda a memória.
+            Lemos algo no canto superior esquerdo de uma página e é mais fácil
+            recuperar do que se estivesse num scroll contínuo e infinito, sem
+            referência de posição.
+          </p>
 
-        <p>
-          Há pesquisas que sugerem que a localização espacial ajuda a memória.
-          Lemos algo no canto superior esquerdo de uma página e é mais fácil
-          recuperar do que se estivesse num scroll contínuo e infinito, sem
-          referência de posição. Não sei se é isso que acontece comigo, mas
-          lembro de livros físicos pela textura, pelo cheiro, pela capa,
-          pelo peso. São âncoras sensoriais.
-        </p>
+          <p>
+            Não sei se é isso que acontece comigo, mas lembro de livros físicos
+            pela textura, pelo cheiro, pela capa, pelo peso. São âncoras sensoriais.
+            Quando releio algo que sublinhei há anos, há sempre um estranhamento:
+            quem foi esse eu que escolheu marcar exatamente <em>essa</em> linha?
+          </p>
 
-        <p>
-          Quando releio algo que sublinhei há anos, há sempre um estranhamento:
-          quem foi esse eu que escolheu marcar exatamente <em>essa</em> linha?
-          Com e-readers, os destaques se acumulam numa tela plana, organizados
-          e sem personalidade. No papel, cada marca tem a pressão exata da caneta
-          naquele dia.
-        </p>
+          <hr style="border: none; border-top: 1px solid var(--bege-escuro); margin: 1.5rem 0;" />
 
-        <h2>Resistência como prática</h2>
+          <p>
+            Com e-readers, os destaques se acumulam numa tela plana, organizados
+            e sem personalidade. No papel, cada marca tem a pressão exata da
+            caneta naquele dia.
+          </p>
 
-        <p>
-          Talvez ler em papel seja também uma escolha sobre ritmo. Não dá para
-          aumentar a velocidade. Não dá para pular de link em link. A linearidade
-          é forçada. E essa limitação é, na maioria das vezes, exatamente o que
-          eu preciso.
-        </p>
+          <p>
+            Talvez ler em papel seja também uma escolha sobre ritmo. Não dá para
+            aumentar a velocidade. Não dá para pular de link em link. A linearidade
+            é forçada. E essa limitação é, na maioria das vezes, exatamente o que
+            eu preciso.
+          </p>
 
-        <p>
-          Não acho que e-readers são inferiores. Uso um quando viajo. O que defendo
-          é que existe uma diferença de modo de atenção, e vale reconhecer essa
-          diferença ao invés de tratá-la como mero sentimentalismo dos amantes
-          de papel.
-        </p>
+          <p>
+            Não acho que e-readers são inferiores. Uso um quando viajo. O que
+            defendo é que existe uma diferença de modo de atenção, e vale reconhecer
+            essa diferença ao invés de tratá-la como mero sentimentalismo
+            dos amantes de papel.
+          </p>
+
+          <span class="leitura__pagina">p. 06</span>
+        </div>
 
       </div>
-      <!-- FIM CORPO DO POST -->
+      <!-- FIM COLUNAS -->
 
 
-      <!-- ====================================================
-           NAVEGAÇÃO ENTRE POSTS
-           EDITAR: links, labels e títulos dos posts anterior/próximo
-           Remova um lado se não houver post naquela direção
-      ===================================================== -->
-      <nav class="post__navegacao" aria-label="Navegação entre posts">
-
-        <!-- Post anterior (à esquerda) -->
-        <a href="#" class="post__nav-link post__nav-link--anterior">
-          <span class="post__nav-label">← Anterior</span>
-          <span class="post__nav-titulo">Notas sobre o silêncio</span>
+      <!-- Navegação entre posts -->
+      <nav class="leitura__nav">
+        <a href="#" class="leitura__nav-link">
+          <span class="leitura__nav-label">← Anterior</span>
+          <span class="leitura__nav-titulo">Notas sobre o silêncio</span>
         </a>
-
-        <!-- Próximo post (à direita) -->
-        <a href="#" class="post__nav-link post__nav-link--proximo">
-          <span class="post__nav-label">Próximo →</span>
-          <span class="post__nav-titulo">O que é ler devagar</span>
+        <a href="#" class="leitura__nav-link leitura__nav-link--prox">
+          <span class="leitura__nav-label">Próximo →</span>
+          <span class="leitura__nav-titulo">O que é ler devagar</span>
         </a>
-
       </nav>
 
     </article>
-  </main>
+    </main>
 
+    <!-- Ferramentas flutuantes -->
+    <div class="leitura__ferramentas">
+      <button class="ferramenta-btn" title="Marcar">🔖</button>
+      <button class="ferramenta-btn" title="Compartilhar">↗️</button>
+      <button class="ferramenta-btn ativo" title="Destaque">🟡</button>
+    </div>
 
-  <footer class="rodape">
-    <div class="rodape__inner">
+    <footer class="rodape">
       <p class="rodape__texto">© 2025 Nome do Blog</p>
       <nav class="rodape__links">
-        <a href="../index.html">Início</a>
         <a href="../livros.html">Livros</a>
         <a href="../fichamentos.html">Fichamentos</a>
         <a href="../posts.html">Posts</a>
       </nav>
-    </div>
-  </footer>
+    </footer>
 
-  <!-- Note o ../ no caminho do script também -->
-  <script src="../js/main.js"></script>
+  </div><!-- .conteudo -->
+</div><!-- .layout -->
+
+<script src="../js/main.js"></script>
 </body>
 </html>
