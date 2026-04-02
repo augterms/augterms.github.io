@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Lista de livros lidos com comentários e avaliações." />
+  <title>Livros · Noumenon</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- CABEÇALHO (igual em todas as páginas) -->
+  <header class="cabecalho">
+    <div class="cabecalho__inner">
+      <a href="index.html" class="logo">Noumenon</a>
+      <button class="nav__toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <nav>
+        <ul class="nav__lista">
+          <li><a href="index.html"        class="nav__link">Início</a></li>
+          <li><a href="livros.html"        class="nav__link">Livros</a></li>
+          <li><a href="fichamentos.html"   class="nav__link">Fichamentos</a></li>
+          <li><a href="posts.html"         class="nav__link">Posts</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+  <main>
+    <div class="container container--wide pagina">
+
+      <!-- Título da seção -->
+      <div class="secao-titulo">
+        <h2>Livros</h2>
+        <p>Tudo que li, com impressões e notas pessoais.</p>
+      </div>
+
+
+      <!-- ====================================================
+           FILTROS POR CATEGORIA
+           Para adicionar categoria: duplique um <button> com
+           data-categoria="nome-da-categoria"
+           Adicione o mesmo data-categoria no card correspondente
+      ===================================================== -->
+      <div class="filtros">
+        <button class="filtro-btn ativo" data-categoria="todos">Todos</button>
+        <button class="filtro-btn" data-categoria="romance">Romance</button>
+        <button class="filtro-btn" data-categoria="ensaio">Ensaio</button>
+        <button class="filtro-btn" data-categoria="filosofia">Filosofia</button>
+        <button class="filtro-btn" data-categoria="historia">História</button>
+      </div>
+
+      <!-- Contador automático (atualizado pelo JS ao filtrar) -->
+      <p class="contador">3 itens</p>
+
+
+      <!-- ====================================================
+           LISTA DE LIVROS
+           Para adicionar um livro: copie um bloco <article class="card card--livro">
+           e edite os campos marcados com "EDITAR"
+      ===================================================== -->
+      <div class="grade-cards">
+
+
+        <!-- ──────────────────────────────────────────────────
+             LIVRO 1
+             EDITAR: data-categoria, título, autor, descrição,
+                     avaliação (★), nota pessoal e data
+        ─────────────────────────────────────────────────── -->
+        <article class="card card--livro" data-categoria="romance">
+
+          <div class="card__topo">
+            <div>
+              <span class="tag">Romance</span>
+              <h3 class="card__titulo">O Nome da Rosa</h3>
+              <p class="card__autor">Umberto Eco</p>
+            </div>
+            <!-- Avaliação: use ★ para estrelas preenchidas e ☆ para vazias -->
+            <span class="avaliacao" title="5 de 5 estrelas">★★★★★</span>
+          </div>
+
+          <p class="card__descricao">
+            Um romance histórico ambientado em uma abadia medieval no século XIV,
+            onde um monge franciscano investiga uma série de mortes misteriosas.
+            É ao mesmo tempo um thriller, uma reflexão sobre o conhecimento e
+            uma exploração densa da Idade Média.
+          </p>
+
+          <!-- Nota pessoal (opcional) — remova este bloco se não quiser -->
+          <blockquote class="card__nota">
+            "Eco transforma a biblioteca em labirinto e o labirinto em metáfora.
+            Li duas vezes e ainda há camadas que não alcancei."
+          </blockquote>
+
+          <div class="card__rodape">
+            <span class="meta">Lido em março de 2024</span>
+          </div>
+
+        </article>
+        <!-- FIM LIVRO 1 -->
+
+
+        <!-- ──────────────────────────────────────────────────
+             LIVRO 2
+        ─────────────────────────────────────────────────── -->
+        <article class="card card--livro" data-categoria="filosofia">
+
+          <div class="card__topo">
+            <div>
+              <span class="tag">Filosofia</span>
+              <h3 class="card__titulo">Meditações</h3>
+              <p class="card__autor">Marco Aurélio</p>
+            </div>
+            <span class="avaliacao" title="5 de 5 estrelas">★★★★★</span>
+          </div>
+
+          <p class="card__descricao">
+            Diário pessoal de um imperador romano que nunca foi escrito para publicação.
+            Reflexões estoicas sobre o dever, a morte, a natureza e o autocontrole —
+            surpreendentemente modernos e diretos.
+          </p>
+
+          <blockquote class="card__nota">
+            "Um livro de cabeceira. Releio um parágrafo antes de dormir
+            toda vez que o dia foi difícil."
+          </blockquote>
+
+          <div class="card__rodape">
+            <span class="meta">Lido em agosto de 2023</span>
+          </div>
+
+        </article>
+        <!-- FIM LIVRO 2 -->
+
+
+        <!-- ──────────────────────────────────────────────────
+             LIVRO 3
+        ─────────────────────────────────────────────────── -->
+        <article class="card card--livro" data-categoria="ensaio">
+
+          <div class="card__topo">
+            <div>
+              <span class="tag">Ensaio</span>
+              <h3 class="card__titulo">Contra a Interpretação</h3>
+              <p class="card__autor">Susan Sontag</p>
+            </div>
+            <span class="avaliacao" title="4 de 5 estrelas">★★★★☆</span>
+          </div>
+
+          <p class="card__descricao">
+            Coletânea de ensaios sobre arte, cultura e crítica. Sontag argumenta
+            que a obsessão com o "conteúdo" e o "significado" empobrece nossa
+            experiência estética. Um manifesto contra o intelectualismo excessivo.
+          </p>
+
+          <!-- Nota pessoal omitida — o bloco foi removido propositalmente -->
+
+          <div class="card__rodape">
+            <span class="meta">Lido em janeiro de 2025</span>
+          </div>
+
+        </article>
+        <!-- FIM LIVRO 3 -->
+
+
+        <!-- ──────────────────────────────────────────────────
+             MODELO VAZIO — copie este bloco para adicionar livros
+             Remova os comentários antes de usar
+        ─────────────────────────────────────────────────── -->
+        <!--
+        <article class="card card--livro" data-categoria="CATEGORIA">
+
+          <div class="card__topo">
+            <div>
+              <span class="tag">CATEGORIA</span>
+              <h3 class="card__titulo">TÍTULO DO LIVRO</h3>
+              <p class="card__autor">NOME DO AUTOR</p>
+            </div>
+            <span class="avaliacao">★★★★☆</span>
+          </div>
+
+          <p class="card__descricao">
+            DESCRIÇÃO BREVE DO LIVRO.
+          </p>
+
+          <blockquote class="card__nota">
+            "NOTA PESSOAL OPCIONAL."
+          </blockquote>
+
+          <div class="card__rodape">
+            <span class="meta">Lido em MÊS de ANO</span>
+          </div>
+
+        </article>
+        -->
+
+      </div><!-- .grade-cards -->
+    </div><!-- .container -->
+  </main>
+
+
+  <footer class="rodape">
+    <div class="rodape__inner">
+      <p class="rodape__texto">© 2026 Noumenon</p>
+      <nav class="rodape__links">
+        <a href="index.html">Início</a>
+        <a href="livros.html">Livros</a>
+        <a href="fichamentos.html">Fichamentos</a>
+        <a href="posts.html">Posts</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
