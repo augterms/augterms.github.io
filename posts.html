@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Posts · Noumenon</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="desktop" class="desktop">
+
+  <div class="desktop__bar">
+    <span class="desktop__bar-logo">◈ NOUMENON</span>
+    <nav class="desktop__bar-nav">
+      <a href="index.html"       class="desktop__bar-link" data-page="index.html">inicio</a>
+      <a href="livros.html"      class="desktop__bar-link" data-page="livros.html">livros</a>
+      <a href="fichamentos.html" class="desktop__bar-link" data-page="fichamentos.html">fichamentos</a>
+      <a href="posts.html"       class="desktop__bar-link" data-page="posts.html">posts</a>
+    </nav>
+    <span class="desktop__bar-clock" id="relogio"></span>
+  </div>
+
+  <div class="desktop__area">
+
+    <div class="win win--nav">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">Shell Tool 1.1</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body">
+        <p class="win__prompt">noumenon% <span class="blink">█</span></p>
+        <p class="win__cmd">ls -la ~/noumenon</p>
+        <nav class="win__nav-list">
+          <a href="index.html"       class="win__nav-item" data-page="index.html">drwxr  <span class="win__nav-name">inicio/</span></a>
+          <a href="livros.html"      class="win__nav-item" data-page="livros.html">drwxr  <span class="win__nav-name">livros/</span></a>
+          <a href="fichamentos.html" class="win__nav-item" data-page="fichamentos.html">drwxr  <span class="win__nav-name">fichamentos/</span></a>
+          <a href="posts.html"       class="win__nav-item" data-page="posts.html">drwxr  <span class="win__nav-name">posts/</span></a>
+        </nav>
+        <p class="win__prompt">noumenon% <span class="blink">_</span></p>
+      </div>
+    </div>
+
+    <div class="win win--main">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">noumenon — posts</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body win__body--scroll">
+
+        <div class="section-header">
+          <span class="section-header__cmd">noumenon% ls posts/ -t</span>
+          <h2 class="section-header__title">// Posts</h2>
+        </div>
+        <p style="font-size:0.72rem;color:#666;margin-bottom:16px;">Reflexões, ensaios breves e anotações sobre leituras.</p>
+
+        <!-- ABAS -->
+        <div class="abas">
+          <button class="aba-btn ativo" data-categoria="todos">todos</button>
+          <button class="aba-btn" data-categoria="leitura">leitura</button>
+          <button class="aba-btn" data-categoria="reflexao">reflexão</button>
+          <button class="aba-btn" data-categoria="critica">crítica</button>
+        </div>
+
+        <!-- LISTA DE POSTS — duplique um .card-item para adicionar -->
+        <div class="grade-lista">
+
+          <!-- POST 1 -->
+          <!-- Para adicionar: copie este bloco e edite os campos -->
+          <a href="posts/exemplo-post.html" class="card-item" data-categoria="leitura">
+            <div class="card-item__topo">
+              <h3 class="card-item__titulo">Por que ainda leio em papel</h3>
+              <span class="tag">leitura</span>
+            </div>
+            <p class="card-item__resumo">
+              O papel resiste à distração de um jeito que a tela não consegue imitar.
+              Não é nostalgia — é fenomenologia. Uma defesa do háptico.
+            </p>
+            <div class="card-item__rodape">
+              <span class="card-item__meta">fev. 2025 · 4 min</span>
+              <span class="ler-mais">ler post</span>
+            </div>
+          </a>
+
+          <!-- MODELO VAZIO — copie e preencha para adicionar post
+          <a href="posts/NOME-DO-ARQUIVO.html" class="card-item" data-categoria="CATEGORIA">
+            <div class="card-item__topo">
+              <h3 class="card-item__titulo">TÍTULO DO POST</h3>
+              <span class="tag">CATEGORIA</span>
+            </div>
+            <p class="card-item__resumo">RESUMO DO POST (2–3 linhas).</p>
+            <div class="card-item__rodape">
+              <span class="card-item__meta">MÊS ANO · X min</span>
+              <span class="ler-mais">ler post</span>
+            </div>
+          </a>
+          -->
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="desktop__statusbar">
+    <span>© 2026 Noumenon</span>
+    <span class="sep">·</span>
+    <a href="livros.html">livros</a>
+    <span class="sep">·</span>
+    <a href="fichamentos.html">fichamentos</a>
+    <span class="sep">·</span>
+    <a href="posts.html">posts</a>
+  </div>
+
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

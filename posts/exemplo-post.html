@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Por que ainda leio em papel · Noumenon</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="desktop" class="desktop">
+
+  <div class="desktop__bar">
+    <span class="desktop__bar-logo">◈ NOUMENON</span>
+    <nav class="desktop__bar-nav">
+      <a href="../index.html"       class="desktop__bar-link">inicio</a>
+      <a href="../livros.html"      class="desktop__bar-link">livros</a>
+      <a href="../fichamentos.html" class="desktop__bar-link">fichamentos</a>
+      <a href="../posts.html"       class="desktop__bar-link active">posts</a>
+    </nav>
+    <span class="desktop__bar-clock" id="relogio"></span>
+  </div>
+
+  <div class="desktop__area">
+
+    <!-- Janela de navegação -->
+    <div class="win win--nav">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">Shell Tool 1.1</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body">
+        <p class="win__prompt">noumenon% <span class="blink">█</span></p>
+        <p class="win__cmd">cat posts/exemplo-post.txt</p>
+        <nav class="win__nav-list">
+          <a href="../index.html"       class="win__nav-item">drwxr  <span class="win__nav-name">inicio/</span></a>
+          <a href="../livros.html"      class="win__nav-item">drwxr  <span class="win__nav-name">livros/</span></a>
+          <a href="../fichamentos.html" class="win__nav-item">drwxr  <span class="win__nav-name">fichamentos/</span></a>
+          <a href="../posts.html"       class="win__nav-item active">drwxr  <span class="win__nav-name">posts/</span></a>
+        </nav>
+        <p class="win__prompt">noumenon% <span class="blink">_</span></p>
+      </div>
+    </div>
+
+    <!-- Janela de leitura -->
+    <div class="win win--main">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">posts/exemplo-post.txt — [leitura]</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body win__body--scroll">
+        <article class="leitura">
+
+          <!-- Cabeçalho -->
+          <header class="leitura__cabecalho">
+            <a href="../posts.html" class="leitura__voltar">voltar para posts</a>
+            <p class="leitura__categoria">post · leitura</p>
+            <h1 class="leitura__titulo">Por que ainda leio em papel</h1>
+            <div class="leitura__meta">
+              <span>fev. 2025</span>
+              <span>4 min de leitura</span>
+            </div>
+          </header>
+
+          <!-- ====================================================
+               CORPO DO POST
+               Edite o conteúdo entre .leitura__corpo.
+               Elementos: <p>, <h2>, <h3>, <blockquote>
+          ==================================================== -->
+          <div class="leitura__corpo">
+
+            <p>
+              O papel resiste à distração de um jeito que a tela não consegue imitar.
+              Não é nostalgia — é fenomenologia.
+            </p>
+
+            <p>
+              Quando leio num e-reader ou num tablet, há sempre a possibilidade de outra
+              coisa. A notificação não precisa aparecer para que eu sinta o peso da sua
+              possibilidade. O papel não tem essa tensão latente.
+            </p>
+
+            <h2>O háptico importa</h2>
+
+            <p>
+              Virar uma página cria uma memória espacial. Lembro onde estava na folha
+              quando li determinada frase. Isso não é trivial — é a forma como o cérebro
+              ancora informação no espaço físico. Estudos de leitura comparada apontam
+              que leitores retêm melhor narrativas longas quando lidas em papel.
+            </p>
+
+            <blockquote>
+              "O livro é uma tecnologia que ainda não foi superada para o ato de ler com atenção."
+              <cite>— algum editor pragmático que não anotei o nome</cite>
+            </blockquote>
+
+            <p>
+              Não defendo papel por purismo. Uso o Kindle em viagem, uso PDFs para
+              artigos que talvez não leia inteiro. Mas quando leio algo que quero reter —
+              filosofia, ensaio denso, ficção que exige atenção sustentada — o papel ganha
+              em todos os critérios que importam para mim.
+            </p>
+
+            <h2>A marginalização como prática</h2>
+
+            <p>
+              Anoto nas margens. Sublinho com critério. Dobro páginas. O livro vira
+              um diálogo visível entre mim e o texto, e reler meus próprios rabiscos
+              dois anos depois é parte do processo de revisitar uma ideia.
+            </p>
+
+            <p>
+              Fichamentos digitais têm vantagens — busca, portabilidade, links. Mas
+              o ato de escrever à mão consolida de forma diferente. O atrito físico
+              da caligrafia lenta é, paradoxalmente, uma vantagem.
+            </p>
+
+          </div>
+
+          <!-- Navegação entre posts -->
+          <!-- Para adicionar links: edite os hrefs e títulos -->
+          <nav class="leitura__nav">
+            <a href="#" class="leitura__nav-link">
+              <span class="leitura__nav-label">← anterior</span>
+              <span class="leitura__nav-titulo">(nenhum)</span>
+            </a>
+            <a href="#" class="leitura__nav-link leitura__nav-link--prox">
+              <span class="leitura__nav-label">próximo →</span>
+              <span class="leitura__nav-titulo">(nenhum)</span>
+            </a>
+          </nav>
+
+        </article>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="desktop__statusbar">
+    <span>© 2026 Noumenon</span>
+    <span class="sep">·</span>
+    <a href="../livros.html">livros</a>
+    <span class="sep">·</span>
+    <a href="../fichamentos.html">fichamentos</a>
+    <span class="sep">·</span>
+    <a href="../posts.html">posts</a>
+  </div>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>

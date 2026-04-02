@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Livros · Noumenon</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="desktop" class="desktop">
+
+  <div class="desktop__bar">
+    <span class="desktop__bar-logo">◈ NOUMENON</span>
+    <nav class="desktop__bar-nav">
+      <a href="index.html"       class="desktop__bar-link" data-page="index.html">inicio</a>
+      <a href="livros.html"      class="desktop__bar-link" data-page="livros.html">livros</a>
+      <a href="fichamentos.html" class="desktop__bar-link" data-page="fichamentos.html">fichamentos</a>
+      <a href="posts.html"       class="desktop__bar-link" data-page="posts.html">posts</a>
+    </nav>
+    <span class="desktop__bar-clock" id="relogio"></span>
+  </div>
+
+  <div class="desktop__area">
+
+    <!-- Janela de navegação -->
+    <div class="win win--nav">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">Shell Tool 1.1</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body">
+        <p class="win__prompt">noumenon% <span class="blink">█</span></p>
+        <p class="win__cmd">ls -la ~/noumenon</p>
+        <nav class="win__nav-list">
+          <a href="index.html"       class="win__nav-item" data-page="index.html">drwxr  <span class="win__nav-name">inicio/</span></a>
+          <a href="livros.html"      class="win__nav-item" data-page="livros.html">drwxr  <span class="win__nav-name">livros/</span></a>
+          <a href="fichamentos.html" class="win__nav-item" data-page="fichamentos.html">drwxr  <span class="win__nav-name">fichamentos/</span></a>
+          <a href="posts.html"       class="win__nav-item" data-page="posts.html">drwxr  <span class="win__nav-name">posts/</span></a>
+        </nav>
+        <p class="win__prompt">noumenon% <span class="blink">_</span></p>
+      </div>
+    </div>
+
+    <!-- Janela principal -->
+    <div class="win win--main">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">noumenon — livros</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body win__body--scroll">
+
+        <div class="section-header">
+          <span class="section-header__cmd">noumenon% ls livros/ | sort</span>
+          <h2 class="section-header__title">// Livros</h2>
+        </div>
+        <p style="font-size:0.72rem;color:#666;margin-bottom:16px;">Tudo que li, com impressões e notas pessoais.</p>
+
+        <!-- ABAS — para nova categoria: adicione <button> e data-categoria nos cards -->
+        <div class="abas">
+          <button class="aba-btn ativo" data-categoria="todos">todos</button>
+          <button class="aba-btn" data-categoria="romance">romance</button>
+          <button class="aba-btn" data-categoria="ensaio">ensaio</button>
+          <button class="aba-btn" data-categoria="filosofia">filosofia</button>
+          <button class="aba-btn" data-categoria="historia">história</button>
+        </div>
+
+        <!-- GRADE DE LIVROS — duplique um .card-livro para adicionar -->
+        <div class="grade-livros">
+
+          <!-- LIVRO 1 -->
+          <article class="card-livro" data-categoria="romance">
+            <div class="card-livro__capa">
+              <!-- Com imagem: <img src="img/capas/nome.jpg" alt="Capa: Título" /> -->
+              📖
+            </div>
+            <div class="card-livro__corpo">
+              <span class="card-livro__categoria">Romance</span>
+              <h3 class="card-livro__titulo">O Nome da Rosa</h3>
+              <p class="card-livro__autor">Umberto Eco</p>
+              <p class="card-livro__descricao">Romance histórico medieval. Um monge franciscano investiga mortes misteriosas numa abadia. Thriller, filosofia e erudição.</p>
+              <p class="card-livro__nota">"Eco transforma a biblioteca em labirinto e o labirinto em metáfora."</p>
+              <div class="card-livro__rodape">
+                <span class="avaliacao">★★★★★</span>
+                <span class="card-livro__data">mar. 2024</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- LIVRO 2 -->
+          <article class="card-livro" data-categoria="filosofia">
+            <div class="card-livro__capa">📜</div>
+            <div class="card-livro__corpo">
+              <span class="card-livro__categoria">Filosofia</span>
+              <h3 class="card-livro__titulo">Meditações</h3>
+              <p class="card-livro__autor">Marco Aurélio</p>
+              <p class="card-livro__descricao">Diário pessoal de um imperador romano. Estoicismo sobre dever, morte e autocontrole — surpreendentemente moderno.</p>
+              <p class="card-livro__nota">"Releio antes de dormir quando o dia foi difícil."</p>
+              <div class="card-livro__rodape">
+                <span class="avaliacao">★★★★★</span>
+                <span class="card-livro__data">ago. 2023</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- LIVRO 3 -->
+          <article class="card-livro" data-categoria="ensaio">
+            <div class="card-livro__capa">🖋️</div>
+            <div class="card-livro__corpo">
+              <span class="card-livro__categoria">Ensaio</span>
+              <h3 class="card-livro__titulo">Contra a Interpretação</h3>
+              <p class="card-livro__autor">Susan Sontag</p>
+              <p class="card-livro__descricao">Ensaios sobre arte e cultura. Sontag argumenta que a obsessão com "significado" empobrece a experiência estética.</p>
+              <div class="card-livro__rodape">
+                <span class="avaliacao">★★★★☆</span>
+                <span class="card-livro__data">jan. 2025</span>
+              </div>
+            </div>
+          </article>
+
+          <!-- MODELO VAZIO — copie e preencha para adicionar livros
+          <article class="card-livro" data-categoria="CATEGORIA">
+            <div class="card-livro__capa">
+              <img src="img/capas/ARQUIVO.jpg" alt="Capa: TÍTULO" />
+            </div>
+            <div class="card-livro__corpo">
+              <span class="card-livro__categoria">CATEGORIA</span>
+              <h3 class="card-livro__titulo">TÍTULO</h3>
+              <p class="card-livro__autor">AUTOR</p>
+              <p class="card-livro__descricao">DESCRIÇÃO</p>
+              <p class="card-livro__nota">"NOTA PESSOAL"</p>
+              <div class="card-livro__rodape">
+                <span class="avaliacao">★★★★☆</span>
+                <span class="card-livro__data">MÊS ANO</span>
+              </div>
+            </div>
+          </article>
+          -->
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="desktop__statusbar">
+    <span>© 2026 Noumenon</span>
+    <span class="sep">·</span>
+    <a href="livros.html">livros</a>
+    <span class="sep">·</span>
+    <a href="fichamentos.html">fichamentos</a>
+    <span class="sep">·</span>
+    <a href="posts.html">posts</a>
+  </div>
+
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

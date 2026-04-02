@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Noumenon — diário de leituras, fichamentos e reflexões." />
+  <title>Noumenon</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ============================================================
+     TELA DE ABERTURA — estilo Adobe Photoshop 1.0 / Mac System 6
+     Clique em qualquer lugar para entrar.
+     Para editar o texto: veja os comentários abaixo.
+     ============================================================ -->
+<div id="splash" class="splash" role="dialog" aria-label="Tela de abertura">
+  <div class="splash__window">
+
+    <!-- Barra de título Mac clássica -->
+    <div class="splash__titlebar">
+      <button class="splash__close-btn" id="splash-close" title="Entrar"></button>
+      <span class="splash__win-title">Noumenon</span>
+    </div>
+
+    <div class="splash__body">
+
+      <!-- ── Coluna esquerda: logo losango + créditos ── -->
+      <div class="splash__left">
+        <div class="splash__logo-wrap">
+          <!-- Letras ao redor do losango (estilo PHOTOSHOP do original) -->
+          <span class="splash__letter splash__letter--tl">N</span>
+          <span class="splash__letter splash__letter--t">·</span>
+          <span class="splash__letter splash__letter--tr">O</span>
+          <span class="splash__letter splash__letter--r">U</span>
+          <span class="splash__letter splash__letter--br">M</span>
+          <span class="splash__letter splash__letter--b">·</span>
+          <span class="splash__letter splash__letter--bl">E</span>
+          <span class="splash__letter splash__letter--l">N</span>
+
+          <!-- SVG losango com buraco negro — troque img/black-hole.png pela sua imagem -->
+          <svg class="splash__diamond-svg" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <clipPath id="diamond-clip">
+                <polygon points="60,5 115,60 60,115 5,60"/>
+              </clipPath>
+            </defs>
+            <!-- Sombra -->
+            <polygon points="60,5 115,60 60,115 5,60" fill="rgba(0,0,0,0.25)" transform="translate(3,3)"/>
+            <!-- Fundo do losango -->
+            <polygon points="60,5 115,60 60,115 5,60" fill="#050505"/>
+            <!-- Imagem do buraco negro -->
+            <image href="img/black-hole.png"
+                   x="0" y="0" width="120" height="120"
+                   clip-path="url(#diamond-clip)"
+                   preserveAspectRatio="xMidYMid slice"/>
+            <!-- Borda do losango -->
+            <polygon points="60,5 115,60 60,115 5,60"
+                     fill="none" stroke="#1a1a1a" stroke-width="2"/>
+            <!-- Borda interna decorativa -->
+            <polygon points="60,14 106,60 60,106 14,60"
+                     fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="0.8"/>
+          </svg>
+        </div>
+
+        <!-- Créditos inferiores (estilo "Personalized for:") -->
+        <!-- Edite seu nome e URL aqui -->
+        <div class="splash__credits">
+          <span class="splash__credits-label">Personalized for:</span><br>
+          <strong>augterms</strong><br>
+          noumenon.github.io
+        </div>
+
+        <!-- Ícone decorativo de relógio de ampulheta -->
+        <div class="splash__watch" aria-hidden="true">⧗</div>
+      </div>
+
+      <!-- ── Coluna direita: título e apresentação ── -->
+      <!-- EDITE O TEXTO DE APRESENTAÇÃO AQUI -->
+      <div class="splash__right">
+        <h1 class="splash__title">Noumenon<span class="splash__tm">™</span></h1>
+        <p class="splash__version"><em>a reading journal</em></p>
+        <p class="splash__authors">augterms</p>
+        <p class="splash__desc">
+          Copyright ©2024–26 augterms.<br>
+          All rights reserved.<br>
+          <br>
+          Leituras, fichamentos e reflexões<br>
+          sobre filosofia e literatura.<br>
+          Sem pressa. Sem algoritmos.
+        </p>
+        <p class="splash__hint">Clique em qualquer lugar para entrar</p>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /#splash -->
+
+
+<!-- ============================================================
+     DESKTOP — estilo SunOS OpenWindows (1990)
+     ============================================================ -->
+<div id="desktop" class="desktop">
+
+  <!-- Barra de sistema (SUNCORE-style) -->
+  <div class="desktop__bar">
+    <span class="desktop__bar-logo">◈ NOUMENON</span>
+    <nav class="desktop__bar-nav">
+      <!-- Para adicionar item no menu: duplique um <a> -->
+      <a href="index.html"       class="desktop__bar-link active" data-page="index.html">inicio</a>
+      <a href="livros.html"      class="desktop__bar-link" data-page="livros.html">livros</a>
+      <a href="fichamentos.html" class="desktop__bar-link" data-page="fichamentos.html">fichamentos</a>
+      <a href="posts.html"       class="desktop__bar-link" data-page="posts.html">posts</a>
+    </nav>
+    <span class="desktop__bar-clock" id="relogio"></span>
+  </div>
+
+  <!-- Área principal do desktop -->
+  <div class="desktop__area">
+
+    <!-- Janela de navegação lateral (Shell Tool) -->
+    <div class="win win--nav">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">Shell Tool 1.1</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body">
+        <p class="win__prompt">noumenon% <span class="blink">█</span></p>
+        <p class="win__cmd">ls -la ~/noumenon</p>
+        <nav class="win__nav-list">
+          <!-- Para adicionar item: duplique um <a> com win__nav-item -->
+          <a href="index.html"       class="win__nav-item active" data-page="index.html">
+            drwxr  <span class="win__nav-name">inicio/</span>
+          </a>
+          <a href="livros.html"      class="win__nav-item" data-page="livros.html">
+            drwxr  <span class="win__nav-name">livros/</span>
+          </a>
+          <a href="fichamentos.html" class="win__nav-item" data-page="fichamentos.html">
+            drwxr  <span class="win__nav-name">fichamentos/</span>
+          </a>
+          <a href="posts.html"       class="win__nav-item" data-page="posts.html">
+            drwxr  <span class="win__nav-name">posts/</span>
+          </a>
+        </nav>
+        <p class="win__prompt">noumenon% <span class="blink">_</span></p>
+      </div>
+    </div>
+
+    <!-- Janela de conteúdo principal (Graphics Tool) -->
+    <div class="win win--main">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">noumenon — inicio</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body win__body--scroll">
+
+        <!-- Hero -->
+        <div class="home-hero">
+          <div class="home-hero__label">noumenon% cat README.md</div>
+          <h1 class="home-hero__title">Leituras,<br><em>reflexões</em> e escrita.</h1>
+          <p class="home-hero__desc">
+            Um espaço para registrar o que leio, o que penso e o que escrevo.
+            Sem pressa. Sem algoritmos.
+          </p>
+          <div class="home-hero__actions">
+            <a href="posts.html"       class="btn">→ posts</a>
+            <a href="livros.html"      class="btn btn--ghost">→ livros</a>
+            <a href="fichamentos.html" class="btn btn--ghost">→ fichamentos</a>
+          </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Destaques recentes -->
+        <div class="section-header">
+          <span class="section-header__cmd">noumenon% ls -t | head -3</span>
+          <h2 class="section-header__title">// Recente</h2>
+        </div>
+
+        <!-- Grade de destaques — duplique .home-card para adicionar itens -->
+        <div class="home-grid">
+
+          <!-- MODELO DE CARD — duplique este bloco para adicionar destaque -->
+          <a href="livros.html" class="home-card">
+            <span class="home-card__type">[livro]</span>
+            <h3 class="home-card__title">O Nome da Rosa</h3>
+            <p class="home-card__meta">Umberto Eco · ★★★★★</p>
+          </a>
+
+          <a href="fichamentos/a-condicao-humana.html" class="home-card">
+            <span class="home-card__type">[fichamento]</span>
+            <h3 class="home-card__title">Notas sobre Vigiar e Punir</h3>
+            <p class="home-card__meta">Foucault · jan. 2025</p>
+          </a>
+
+          <a href="posts/exemplo-post.html" class="home-card">
+            <span class="home-card__type">[post]</span>
+            <h3 class="home-card__title">Por que ainda leio em papel</h3>
+            <p class="home-card__meta">fev. 2025</p>
+          </a>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /.desktop__area -->
+
+  <!-- Barra de status inferior -->
+  <div class="desktop__statusbar">
+    <span>© 2026 Noumenon</span>
+    <span class="sep">·</span>
+    <a href="livros.html">livros</a>
+    <span class="sep">·</span>
+    <a href="fichamentos.html">fichamentos</a>
+    <span class="sep">·</span>
+    <a href="posts.html">posts</a>
+  </div>
+
+</div><!-- /#desktop -->
+
+<script src="js/main.js"></script>
+</body>
+</html>

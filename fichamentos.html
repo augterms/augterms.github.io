@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fichamentos · Noumenon</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div id="desktop" class="desktop">
+
+  <div class="desktop__bar">
+    <span class="desktop__bar-logo">◈ NOUMENON</span>
+    <nav class="desktop__bar-nav">
+      <a href="index.html"       class="desktop__bar-link" data-page="index.html">inicio</a>
+      <a href="livros.html"      class="desktop__bar-link" data-page="livros.html">livros</a>
+      <a href="fichamentos.html" class="desktop__bar-link" data-page="fichamentos.html">fichamentos</a>
+      <a href="posts.html"       class="desktop__bar-link" data-page="posts.html">posts</a>
+    </nav>
+    <span class="desktop__bar-clock" id="relogio"></span>
+  </div>
+
+  <div class="desktop__area">
+
+    <div class="win win--nav">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">Shell Tool 1.1</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body">
+        <p class="win__prompt">noumenon% <span class="blink">█</span></p>
+        <p class="win__cmd">ls -la ~/noumenon</p>
+        <nav class="win__nav-list">
+          <a href="index.html"       class="win__nav-item" data-page="index.html">drwxr  <span class="win__nav-name">inicio/</span></a>
+          <a href="livros.html"      class="win__nav-item" data-page="livros.html">drwxr  <span class="win__nav-name">livros/</span></a>
+          <a href="fichamentos.html" class="win__nav-item" data-page="fichamentos.html">drwxr  <span class="win__nav-name">fichamentos/</span></a>
+          <a href="posts.html"       class="win__nav-item" data-page="posts.html">drwxr  <span class="win__nav-name">posts/</span></a>
+        </nav>
+        <p class="win__prompt">noumenon% <span class="blink">_</span></p>
+      </div>
+    </div>
+
+    <div class="win win--main">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">noumenon — fichamentos</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body win__body--scroll">
+
+        <div class="section-header">
+          <span class="section-header__cmd">noumenon% ls fichamentos/ | grep .txt</span>
+          <h2 class="section-header__title">// Fichamentos</h2>
+        </div>
+        <p style="font-size:0.72rem;color:#666;margin-bottom:16px;">Notas de leitura, citações e sínteses de obras.</p>
+
+        <!-- ABAS — adicione categorias conforme necessário -->
+        <div class="abas">
+          <button class="aba-btn ativo" data-categoria="todos">todos</button>
+          <button class="aba-btn" data-categoria="filosofia">filosofia</button>
+          <button class="aba-btn" data-categoria="sociologia">sociologia</button>
+          <button class="aba-btn" data-categoria="literatura">literatura</button>
+        </div>
+
+        <!-- LISTA DE FICHAMENTOS — duplique um .card-item para adicionar -->
+        <div class="grade-lista">
+
+          <!-- FICHAMENTO 1 -->
+          <!-- Para adicionar: copie este bloco inteiro e edite os campos -->
+          <a href="fichamentos/a-condicao-humana.html" class="card-item" data-categoria="filosofia">
+            <div class="card-item__topo">
+              <h3 class="card-item__titulo">A Condição Humana</h3>
+              <span class="tag">filosofia</span>
+            </div>
+            <p class="card-item__subtitulo">Hannah Arendt</p>
+            <p class="card-item__resumo">
+              Arendt distingue trabalho, obra e ação como as três atividades fundamentais
+              da vita activa. A ação, única atividade que se passa entre homens sem
+              mediação de coisas, é o fundamento da política.
+            </p>
+            <div class="card-item__tags">
+              <span class="tag">vita activa</span>
+              <span class="tag">política</span>
+              <span class="tag">fenomenologia</span>
+            </div>
+            <div class="card-item__rodape">
+              <span class="card-item__meta">jan. 2025</span>
+              <span class="ler-mais">ler fichamento</span>
+            </div>
+          </a>
+
+          <!-- FICHAMENTO 2 -->
+          <a href="#" class="card-item" data-categoria="sociologia">
+            <div class="card-item__topo">
+              <h3 class="card-item__titulo">Vigiar e Punir</h3>
+              <span class="tag">sociologia</span>
+            </div>
+            <p class="card-item__subtitulo">Michel Foucault</p>
+            <p class="card-item__resumo">
+              Genealogia das técnicas punitivas modernas. O panóptico como metáfora
+              do poder disciplinar: a vigilância internalizada como controle social.
+            </p>
+            <div class="card-item__tags">
+              <span class="tag">poder</span>
+              <span class="tag">disciplina</span>
+              <span class="tag">panóptico</span>
+            </div>
+            <div class="card-item__rodape">
+              <span class="card-item__meta">mar. 2024</span>
+              <span class="ler-mais">ler fichamento</span>
+            </div>
+          </a>
+
+          <!-- MODELO VAZIO — copie e preencha para adicionar fichamento
+          <a href="fichamentos/NOME-DO-ARQUIVO.html" class="card-item" data-categoria="CATEGORIA">
+            <div class="card-item__topo">
+              <h3 class="card-item__titulo">TÍTULO DA OBRA</h3>
+              <span class="tag">CATEGORIA</span>
+            </div>
+            <p class="card-item__subtitulo">AUTOR</p>
+            <p class="card-item__resumo">RESUMO DO FICHAMENTO</p>
+            <div class="card-item__tags">
+              <span class="tag">TÓPICO 1</span>
+              <span class="tag">TÓPICO 2</span>
+            </div>
+            <div class="card-item__rodape">
+              <span class="card-item__meta">MÊS ANO</span>
+              <span class="ler-mais">ler fichamento</span>
+            </div>
+          </a>
+          -->
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="desktop__statusbar">
+    <span>© 2026 Noumenon</span>
+    <span class="sep">·</span>
+    <a href="livros.html">livros</a>
+    <span class="sep">·</span>
+    <a href="fichamentos.html">fichamentos</a>
+    <span class="sep">·</span>
+    <a href="posts.html">posts</a>
+  </div>
+
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>

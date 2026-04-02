@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A Condição Humana · Noumenon</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+<div id="desktop" class="desktop">
+
+  <div class="desktop__bar">
+    <span class="desktop__bar-logo">◈ NOUMENON</span>
+    <nav class="desktop__bar-nav">
+      <a href="../index.html"       class="desktop__bar-link">inicio</a>
+      <a href="../livros.html"      class="desktop__bar-link">livros</a>
+      <a href="../fichamentos.html" class="desktop__bar-link active">fichamentos</a>
+      <a href="../posts.html"       class="desktop__bar-link">posts</a>
+    </nav>
+    <span class="desktop__bar-clock" id="relogio"></span>
+  </div>
+
+  <div class="desktop__area">
+
+    <!-- Janela de navegação -->
+    <div class="win win--nav">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">Shell Tool 1.1</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body">
+        <p class="win__prompt">noumenon% <span class="blink">█</span></p>
+        <p class="win__cmd">cat fichamentos/a-condicao-humana.txt</p>
+        <nav class="win__nav-list">
+          <a href="../index.html"       class="win__nav-item">drwxr  <span class="win__nav-name">inicio/</span></a>
+          <a href="../livros.html"      class="win__nav-item">drwxr  <span class="win__nav-name">livros/</span></a>
+          <a href="../fichamentos.html" class="win__nav-item active">drwxr  <span class="win__nav-name">fichamentos/</span></a>
+          <a href="../posts.html"       class="win__nav-item">drwxr  <span class="win__nav-name">posts/</span></a>
+        </nav>
+        <p class="win__prompt">noumenon% <span class="blink">_</span></p>
+      </div>
+    </div>
+
+    <!-- Janela de leitura em duas colunas (estilo documento) -->
+    <div class="win win--main">
+      <div class="win__title">
+        <div class="win__controls" aria-hidden="true">
+          <span class="win__btn win__btn--close"></span>
+          <span class="win__btn win__btn--min"></span>
+          <span class="win__btn win__btn--max"></span>
+        </div>
+        <span class="win__title-text">fichamentos/a-condicao-humana.txt — [leitura]</span>
+        <span class="win__title-spacer"></span>
+      </div>
+      <div class="win__body win__body--scroll">
+        <article class="leitura">
+
+          <!-- Cabeçalho -->
+          <header class="leitura__cabecalho">
+            <a href="../fichamentos.html" class="leitura__voltar">voltar para fichamentos</a>
+            <p class="leitura__categoria">fichamento · filosofia</p>
+            <h1 class="leitura__titulo">A Condição Humana</h1>
+            <div class="leitura__meta">
+              <span>Hannah Arendt, 1958</span>
+              <span>Fichado em jan. 2025</span>
+            </div>
+          </header>
+
+          <!-- Tópicos/tags do fichamento -->
+          <div class="leitura__topicos">
+            <span class="tag">vita activa</span>
+            <span class="tag">trabalho</span>
+            <span class="tag">obra</span>
+            <span class="tag">ação</span>
+            <span class="tag">política</span>
+            <span class="tag">fenomenologia</span>
+          </div>
+
+          <!-- ====================================================
+               LAYOUT EM DUAS COLUNAS
+               Estilo manuscrito / documento tipografado.
+               Para editar: mude o conteúdo dentro de cada .leitura__coluna.
+               Para usar layout simples (1 coluna): troque .leitura__colunas
+               por .leitura__corpo e remova a segunda coluna.
+          ==================================================== -->
+          <div class="leitura__colunas">
+
+            <!-- Coluna 1 -->
+            <div class="leitura__coluna">
+
+              <h2 style="font-family:var(--font-serif);font-size:1rem;margin-bottom:12px;font-weight:bold;">I. A distinção fundamental</h2>
+
+              <p>
+                Arendt distingue três atividades humanas fundamentais que compõem
+                a <em>vita activa</em>: trabalho (<em>labor</em>), obra (<em>work</em>)
+                e ação (<em>action</em>).
+              </p>
+
+              <p>
+                O <strong>trabalho</strong> é o metabolismo com a natureza — produz
+                e consome sem deixar rastro permanente. Seu produto é imediatamente
+                consumido. É o ciclo biológico da vida.
+              </p>
+
+              <p>
+                A <strong>obra</strong> fabrica o mundo artificial de coisas.
+                Seus produtos têm relativa permanência — duram além da vida de quem
+                os fez e conferem estabilidade ao mundo humano. O artesão é o modelo.
+              </p>
+
+              <p>
+                A <strong>ação</strong> é a única atividade que se passa diretamente
+                entre homens, sem a mediação de coisas ou matéria. Corresponde à
+                condição humana da pluralidade.
+              </p>
+
+              <span class="leitura__pagina">— p. 7–17 —</span>
+
+            </div>
+
+            <!-- Coluna 2 -->
+            <div class="leitura__coluna">
+
+              <h2 style="font-family:var(--font-serif);font-size:1rem;margin-bottom:12px;font-weight:bold;">II. Pluralidade e política</h2>
+
+              <p>
+                A pluralidade é a condição da ação política. Os homens, e não
+                o Homem, habitam a terra. É porque somos todos iguais — humanos —
+                mas jamais idênticos que precisamos da ação e do discurso.
+              </p>
+
+              <blockquote style="border-left:2px solid #888;padding-left:10px;font-style:italic;font-size:0.76rem;margin:12px 0;">
+                "A pluralidade é a condição da ação humana pelo fato de sermos todos
+                o mesmo, isto é, humanos, sem que ninguém seja exatamente igual a
+                qualquer pessoa que tenha existido, exista ou venha a existir."
+              </blockquote>
+
+              <p>
+                A ação inicia algo novo — tem a estrutura do nascimento
+                (<em>natalidade</em>). Cada nascimento é a chegada de um ser
+                radicalmente novo ao mundo.
+              </p>
+
+              <p>
+                O espaço público — a <em>polis</em> — é o espaço entre os homens,
+                constituído pela ação e pelo discurso. Não é uma localização física,
+                mas uma organização.
+              </p>
+
+              <span class="leitura__pagina">— p. 175–247 —</span>
+
+            </div>
+
+          </div><!-- /.leitura__colunas -->
+
+          <!-- Notas pessoais -->
+          <div class="leitura__corpo">
+            <h2>Notas pessoais</h2>
+            <p>
+              A distinção entre trabalho e obra resolve um problema que Arendt
+              identificou em Marx: a confusão entre as duas atividades leva a uma
+              filosofia da história que não consegue dar conta do mundo durável.
+            </p>
+            <p>
+              O mais instigante é a insistência na <em>natalidade</em> como
+              categoria filosófica — geralmente a filosofia ocidental privilegia
+              a mortalidade (Heidegger, o ser-para-a-morte). Arendt inverte:
+              o que nos define politicamente é a capacidade de iniciar.
+            </p>
+          </div>
+
+          <!-- Navegação -->
+          <nav class="leitura__nav">
+            <a href="#" class="leitura__nav-link">
+              <span class="leitura__nav-label">← anterior</span>
+              <span class="leitura__nav-titulo">(nenhum)</span>
+            </a>
+            <a href="#" class="leitura__nav-link leitura__nav-link--prox">
+              <span class="leitura__nav-label">próximo →</span>
+              <span class="leitura__nav-titulo">(nenhum)</span>
+            </a>
+          </nav>
+
+        </article>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="desktop__statusbar">
+    <span>© 2026 Noumenon</span>
+    <span class="sep">·</span>
+    <a href="../livros.html">livros</a>
+    <span class="sep">·</span>
+    <a href="../fichamentos.html">fichamentos</a>
+    <span class="sep">·</span>
+    <a href="../posts.html">posts</a>
+  </div>
+
+</div>
+
+<script src="../js/main.js"></script>
+</body>
+</html>
