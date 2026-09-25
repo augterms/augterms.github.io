@@ -117,7 +117,7 @@ body{background:radial-gradient(ellipse at 95% 0,rgba(34,132,147,.17),transparen
 .card{border-radius:14px;min-height:87px;transition:transform .18s,border-color .18s}.card:hover{transform:translateY(-3px);border-color:var(--cyan)}.card .ic{border-radius:12px;background:#163231;border:1px solid #305853;color:#a6f0da}.card b{font-size:15px}.card small{color:#a0b4c5}.tab{border-radius:10px}
 .progression{display:grid;gap:18px}.eyebrow{font-size:10px;font-weight:800;letter-spacing:2px;color:var(--cyan)}.progression h2{font-size:24px;margin-top:8px;letter-spacing:-.5px}.xp-rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.xp-rules>div{border-left:2px solid #4d877c;padding:3px 12px}.xp-rules b{font:700 23px var(--hf);color:#c9f1dc;display:block}.xp-rules span{display:block;color:var(--mu);font-size:12px;margin-top:5px}.progression details{font-size:13px;color:var(--mu)}.progression summary{cursor:pointer;color:var(--tx)}.progression details p{margin-top:8px;line-height:1.7}
 #play{gap:12px;max-width:1180px;margin:auto}.strip{box-shadow:none;padding:8px 14px;gap:14px}.stats div{background:#111e2a;border-radius:12px;border-color:#293d4f;padding:9px 13px}.stats b{font-size:19px}.stats .tm{background:#1d3c3a;border-color:#416f66}.stats .tm small{color:#aed3c7}.stats .tm b{color:#d5f5de}
-#chat{position:relative;gap:12px;padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:#385465 transparent}.m{padding:12px 16px;border-radius:14px;line-height:1.55}.m.bot{background:#142330;border-color:#304555}.m.me{background:#294341;border-color:#568179}.m.bot.ok{background:#13342c;border-color:#3a8064}.m.bot.bad{background:#35272d;border-color:#915258}.m.sys{font-size:12px;color:#a6bece}.m time{font-size:10px;opacity:.85}.m.q{max-width:100%;width:100%;padding:18px 22px;border:1px solid #3d626a;border-radius:18px;background:linear-gradient(140deg,#152833,#14202d);font:600 19px/1.5 var(--hf);white-space:normal;box-shadow:0 12px 26px #0002}
+#chat{position:relative;gap:12px;padding:4px 2px 18px;scrollbar-width:thin;scrollbar-color:#385465 transparent}.m{padding:12px 16px;border-radius:14px;line-height:1.55}.m.bot{background:#142330;border-color:#304555}.m.me{background:#294341;border-color:#568179}.m.bot.ok{background:#13342c;border-color:#3a8064}.m.bot.bad{background:#35272d;border-color:#915258}.m.bot.hint{background:#10222a;border:1px dashed #3d626a;display:flex;flex-direction:column;align-items:flex-start;gap:10px}.m.bot.hint b{color:var(--gd)}.hint-link{font-size:12px;padding:8px 12px;white-space:normal}.m.sys{font-size:12px;color:#a6bece}.m time{font-size:10px;opacity:.85}.m.q{max-width:100%;width:100%;padding:18px 22px;border:1px solid #3d626a;border-radius:18px;background:linear-gradient(140deg,#152833,#14202d);font:600 19px/1.5 var(--hf);white-space:normal;box-shadow:0 12px 26px #0002}
 .question-kicker{font-size:10px;text-transform:uppercase;color:#97b9c7;font-weight:700;letter-spacing:1.3px;margin-bottom:12px}.question-prompt{margin-top:14px;white-space:pre-line}.question-illustration{margin:0}.question-illustration>summary{font-size:11px;color:#acc3cd;cursor:pointer;margin-bottom:10px}.question-card.past{opacity:.86}.question-card.past .question-prompt{font-size:15px}
 .math-visual{margin:0;border:1px solid #2e4b59;border-radius:12px;overflow:hidden;background:#0b1923}.visual-heading{display:flex;align-items:center;gap:8px;padding:11px 14px;border-bottom:1px solid #223c49;background:#12242d}.visual-heading b{font-size:12px;font-weight:650}.visual-heading small{margin-left:auto;font-size:8px;letter-spacing:1.2px;white-space:nowrap;color:#81b0b0}.visual-dot{height:6px;width:6px;flex-shrink:0;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px #67ded866}.visual-body{padding:14px;overflow:hidden;background-image:radial-gradient(#8bb0c513 .8px,transparent .8px);background-size:16px 16px}.visual-body svg{display:block;width:100%;max-width:700px;max-height:265px;margin:auto;overflow:visible;font-family:system-ui,sans-serif}.math-visual figcaption{font:400 11px/1.55 var(--hf);color:#abc0ca;padding:10px 14px;background:#0e1e28;border-top:1px solid #203743}
 .math-expression{font-size:clamp(19px,3vw,30px);font-weight:750;letter-spacing:.5px;text-align:center;padding:12px 8px;overflow-wrap:anywhere;color:#eaf4f5}.math-visual .math-expression{font-size:clamp(17px,2vw,25px)}
@@ -286,6 +286,87 @@ const C=[
 /* Visuals read only the problem statement and topic, never the stored answer.
    Every generated topic carries stable category/topic identifiers. */
 C.forEach((category,ci)=>category[1].forEach((topic,ti)=>{const generate=topic[1];topic[1]=d=>({...generate(d),ci,ti})}));
+/* Uma dica curta de método por tema (mesmo formato de C: HINT[ci][ti]), usada quando o jogador
+   erra ou pula uma questão no modo Jogar. Não interfere na geração das questões. */
+const HINT=[
+[["Some as duas parcelas normalmente, alinhando as casas decimais se houver."],
+["Subtraia o segundo valor do primeiro, emprestando das casas à esquerda quando precisar."],
+["Multiplique os dois fatores e confira a ordem de grandeza do resultado antes de responder."],
+["Divida o total pelo divisor; o resultado é exato porque o total foi montado como múltiplo dele."],
+["Divida a quantidade pelo denominador e multiplique pelo numerador."],
+["Reduza as frações a um denominador comum antes de somar os numeradores."],
+["Transforme a porcentagem em fração de 100 e multiplique pelo total."],
+["Resolva parênteses primeiro, depois multiplicações e divisões, e por fim somas e subtrações."],
+["Potência é multiplicar a base por ela mesma; raiz é achar o número que gera o radicando."]],
+[["Liste os divisores comuns aos dois números e fique com o maior deles."],
+["Liste múltiplos dos dois números e fique com o menor que aparece nas duas listas."],
+["Conte todo número de 1 até n que divide n sem deixar resto."],
+["Um número é primo se só é divisível por 1 e por ele mesmo; conte quantos há até o limite."]],
+[["Multiplique cada dígito pelo peso da posição (potências de 2) e some os resultados."],
+["Divida repetidamente por 2, guardando os restos; leia-os de baixo para cima."],
+["Multiplique cada dígito pelo peso da base indicada e some os resultados."]],
+[["n(A∪B) = n(A) + n(B) − n(A∩B); não conte a interseção duas vezes."],
+["Conte de um extremo ao outro (b − a + 1) e desconte os extremos abertos."],
+["Um conjunto com n elementos tem 2ⁿ subconjuntos, incluindo o vazio e ele mesmo."]],
+[["Some todos os valores e divida pela quantidade de valores."],
+["Ordene os valores; com quantidade par, a mediana é a média dos dois centrais."],
+["J = C · i · t, com a taxa em forma decimal."],
+["M = C · (1 + i)ⁿ, aplicando a taxa sobre o saldo acumulado a cada período."]],
+[["Divida o fatorial do total de letras pelo fatorial das repetições de cada letra."],
+["A(n,p) = n!/(n−p)!; a ordem dos elementos escolhidos importa."],
+["C(n,p) = n!/[p!(n−p)!]; a ordem dos elementos escolhidos não importa."],
+["Multiplique o número de opções de cada etapa independente."]],
+[["Conte os resultados favoráveis e divida pelos 6 resultados possíveis do dado."],
+["Divida o número de bolas favoráveis pelo total de bolas na urna."],
+["Conte os pares (i,j) que somam o valor pedido e divida por 36."]],
+[["Use os valores de seno, cosseno e tangente de 30°, 45°, 60° e seus equivalentes no ciclo."],
+["Multiplique o valor em radianos por 180°/π."],
+["sen²x + cos²x = 1; um triângulo pitagórico (3-4-5 etc.) ajuda a achar o terceiro valor."]],
+[["Use a fórmula da figura: retângulo = base × altura; triângulo = base × altura/2; trapézio = (base maior + menor) × altura/2."],
+["Área = πr²; comprimento = 2πr. Responda só o número que multiplica π."],
+["hipotenusa² = cateto² + cateto²."],
+["Soma dos ângulos internos = (n−2)·180°; diagonais = n(n−3)/2."]],
+[["Paralelepípedo: V = a·b·c. Pirâmide: V = (área da base × altura)/3."],
+["Cilindro: V = πr²h. Cone: V = πr²h/3. Esfera: V = (4/3)πr³. Responda só o número que multiplica π."],
+["d² = a² + b² + c²."]],
+[["d = √[(x₂−x₁)² + (y₂−y₁)²], como no teorema de Pitágoras."],
+["m = (y₂−y₁)/(x₂−x₁)."],
+["As coordenadas do ponto médio são a média das coordenadas dos extremos."],
+["Substitua o ponto em y = mx + b e isole b."],
+["Área = base × altura/2, usando uma base e a altura perpendicular a ela."]],
+[["Substitua o valor de x na expressão de f(x) e calcule."],
+["Calcule primeiro a função de dentro, depois use o resultado na função de fora."],
+["Iguale f(x) ao valor dado e isole x."],
+["xᵥ = −b/(2a); yᵥ = f(xᵥ)."]],
+[["logᵦ v = e significa que bᵉ = v."],
+["Multiplicação de potências de mesma base vira soma dos expoentes; divisão vira subtração."],
+["Reescreva a equação envolvendo potência e logaritmo da mesma base para isolar x."]],
+[["aₙ = a₁ + (n−1)·r."],
+["Sₙ = n · (a₁ + aₙ)/2, com aₙ = a₁ + (n−1)·r."],
+["aₙ = a₁ · qⁿ⁻¹."],
+["S = a₁/(1−q), válida quando |q| < 1."]],
+[["det = produto da diagonal principal menos produto da diagonal secundária."],
+["Use a regra de Sarrus ou o desenvolvimento por uma linha."],
+["O elemento (i,j) do produto é a soma dos produtos da linha i de A pela coluna j de B."],
+["Isole uma variável em uma equação e substitua na outra, ou use redução."]],
+[["C(n,k) = n!/[k!(n−k)!]."],
+["O termo geral de (x+a)ⁿ é C(n,k)·xⁿ⁻ᵏ·aᵏ; escolha k para obter a potência pedida."],
+["Substitua as variáveis por 1 na expressão elevada ao expoente dado."]],
+[["As potências de i repetem em ciclo: i⁰=1, i¹=i, i²=−1, i³=−i."],
+["(a+bi)(c+di) = (ac−bd) + (ad+bc)i."],
+["|z| = √(a²+b²)."],
+["É o ângulo do ponto (a,b) em relação ao eixo real positivo, no sentido anti-horário."]],
+[["Substitua x pelo valor pedido e calcule cada termo."],
+["O resto da divisão de p(x) por (x−k) é p(k)."],
+["Some ou multiplique as raízes usando os coeficientes do polinômio (relações de Girard)."],
+["Substitua a raiz na equação e resolva para o coeficiente desconhecido."]],
+[["Derive termo a termo (regra do tombo) e substitua o valor de x."],
+["Encontre uma primitiva F e calcule F(b) − F(a)."],
+["Fatore o numerador para cancelar o termo que anula o denominador."],
+["limₓ→₀ sen(ax)/x = a, com x em radianos."],
+["Divida todos os termos pela maior potência de x; termos que tendem a zero desaparecem."],
+["O mínimo ou máximo de uma parábola ocorre em x = −b/(2a)."]]
+].map(cat=>cat.map(t=>t[0]));
 const nums=s=>(s.match(/-?\d+(?:\.\d+)?/g)||[]).map(Number);
 const match=(s,re)=>{const m=s.match(re);if(!m)throw new Error('Formato visual não reconhecido: '+s);return m};
 const label=(x,y,t,cls='vl',anchor='middle')=>`<text x="${x}" y="${y}" class="${cls}" text-anchor="${anchor}">${esc(t)}</text>`;
@@ -745,6 +826,10 @@ function courseSubmit(value,skip=false){
  const feedback=$('.course-feedback');if(feedback)feedback.scrollIntoView({block:'nearest'});
 }
 function courseCategory(id){const l=COURSE_BY_ID[id];if(l.stage===0)return ['logic','connectives','sets','set-operations','number-sets','relations'].includes(id)?3:11;if(l.stage===1)return id==='powers'?0:12;if(l.stage===2)return 7;if(l.stage===3)return ['matrix-basics','matrix-product','determinants','linear-systems','elimination'].includes(id)?14:13;if(l.stage===4)return ['probability','conditional-probability','total-probability','independent-events','binomial-probability'].includes(id)?6:id==='binomial-theorem'?15:5;if(l.stage===5)return ['complex-algebra','complex-polar','de-moivre'].includes(id)?16:17;return [null,null,null,null,null,null,10,18,8,9,4][l.stage]}
+/* Para cada categoria do modo Jogar, a primeira aula do modo Progressão que ensina o assunto.
+   Usado para sugerir "estudar essa aula" quando o jogador erra ou pula uma questão. */
+const CI_TO_LESSON={};
+COURSE_LESSONS.forEach(l=>{const ci=courseCategory(l.id);if(ci!=null&&!(ci in CI_TO_LESSON))CI_TO_LESSON[ci]=l.id});
 function courseFinish(){
  const a=G.course.active;if(!a||a.finalized||a.answers.length!==5)return;
  coursePauseClock();const score=a.answers.filter(x=>x.correct).length,record=G.course.lessons[a.id]||(G.course.lessons[a.id]={best:0,attempts:0,read:true,completed:null}),oldBest=record.best,best=Math.max(oldBest,score),xp=courseReward(best)-courseReward(oldBest),ci=courseCategory(a.id);
@@ -886,13 +971,22 @@ function aside(){return `<div class="pl ops"><div class="hd"><b>▮ Operações 
 
 /* ---------- telas ---------- */
 const themeCards=()=>cat<0?C.map((x,i)=>`<button class="pl card${i==18?' max':''}" data-c="${i}"><span class="ic">${String(i+1).padStart(2,'0')}</span><span><b>${x[0]}</b><small>${x[1].length} temas${i==18?', nível mais alto':''}</small></span></button>`).join(''):C[cat][1].map((x,j)=>`<button class="pl card" data-s="${j}"><span class="ic">${j+1}</span><span><b>${x[0]}</b></span></button>`).join('')+'<button class="pl card" data-s="-1"><span class="ic">?</span><span><b>Misto</b><small>Todos os temas</small></span></button>';
+function weakCallout(){const rows=C.map((c,i)=>[i,c[0],G.cats[i]]).filter(x=>x[2]&&x[2][0]>=3);
+  if(!rows.length)return'';
+  const worst=rows.reduce((a,b)=>(b[2][1]/b[2][0])<(a[2][1]/a[2][0])?b:a),acc=worst[2][1]/worst[2][0];
+  if(acc>=.7)return'';
+  return `<div class="pl pd"><h2>Ponto de atenção</h2><p class="mu">Sua precisão em <b class="gd">${esc(worst[1])}</b> é de ${Math.round(acc*100)}% (${worst[2][1]}/${worst[2][0]}). Praticar esse tema agora pode ajudar a fixar o conteúdo.</p><div class="acts"><button class="btn" data-c="${worst[0]}">Praticar ${esc(worst[1])}</button></div></div>`}
+function achTeaser(){const inProgress=AC.map((a,i)=>[a,i,stOf(i)]).filter(x=>x[2]==1);
+  const list=(inProgress.length?inProgress:AC.map((a,i)=>[a,i,stOf(i)]).filter(x=>x[2]==2)).slice(0,2);
+  if(!list.length)return'';
+  return `<div class="pl pd"><h2>${inProgress.length?'Quase lá':'Primeiras conquistas'}</h2><p class="mu">${inProgress.length?'Você já começou a desbloquear estas.':'Resolva questões para começar a desbloqueá-las.'}</p><div class="ag">${list.map(x=>achCard(...x)).join('')}</div></div>`}
 const VW={
-home:()=>hdr('Seu campo de evolução',`Bem-vindo de volta, ${esc(G.nome)}. Escolha sua próxima missão.`)+rankCard()+progressionCard()+`<div class="pl pd"><h2>Missão rápida</h2><p class="mu">Questões sorteadas de todas as operações.</p><div class="acts"><button class="btn" data-a="mixall">▶ Modo misto</button><button class="btn g" data-go="themes">Escolher operação</button></div></div>`+`<div class="ag">${AC.map((a,i)=>[a,i,stOf(i)]).filter(x=>x[2]==1).slice(0,2).map(x=>achCard(...x)).join('')}</div>`,
+home:()=>hdr('Seu campo de evolução',`Bem-vindo de volta, ${esc(G.nome)}. Escolha sua próxima missão.`)+rankCard()+progressionCard()+`<div class="pl pd"><h2>Missão rápida</h2><p class="mu">Questões sorteadas de todas as operações.</p><div class="acts"><button class="btn" data-a="mixall">▶ Modo misto</button><button class="btn g" data-go="themes">Escolher operação</button></div></div>`+achTeaser(),
 themes:()=>hdr(cat<0?'Operações':C[cat][0],cat<0?'Escolha uma categoria. Pratique um tema ou misture categorias.':'Escolha um tema ou misture todos.')+(cat<0?'':'<button class="btn g" data-a="back" style="align-self:flex-start">‹ Categorias</button>')+`<div class="grid">${themeCards()}</div>`,
 ach:()=>{const L=AC.map((a,i)=>[a,i,stOf(i)]),T=['Todas','Desbloqueadas','Em progresso','Bloqueadas'],n=[L.length,...[0,1,2].map(s=>L.filter(x=>x[2]==s).length)];
   return hdr('Conquistas','Resolva problemas, melhore seu desempenho e suba de patente.')+rankCard()+`<div class="tabs">${T.map((t,k)=>`<button class="tab${flt==k?' on':''}" data-f="${k}">${t} (${n[k]})</button>`).join('')}</div><div class="ag">${L.filter(x=>!flt||x[2]==flt-1).map(x=>achCard(...x)).join('')}</div>`},
 stats:()=>{const T=[['Perguntas respondidas',G.tot],['Acertos',G.ok],['Precisão',(G.tot?Math.round(G.ok/G.tot*100):0)+'%'],['Velocidade média',G.tot?f(G.sum/G.tot):'—'],['Melhor sequência',G.best],['Missões concluídas',G.rounds],['Missões perfeitas',G.br],['Resposta mais rápida',G.ok?f(G.mt):'—']];
-  return hdr('Estatísticas','Seu desempenho em campo.')+`<div class="tiles">${T.map(t=>`<div class="pl tile"><small>${t[0]}</small><b>${t[1]}</b></div>`).join('')}</div><div class="pl pd"><h2>Desempenho por operação</h2>${C.map((c,i)=>{const s=G.cats[i];return s?`<div class="row"><span>${c[0]}</span><div class="bar"><i style="width:${s[1]/s[0]*100}%"></i></div><small>${s[1]}/${s[0]}</small></div>`:''}).join('')||'<p class="mu">Nenhuma missão cumprida ainda.</p>'}</div>`},
+  return hdr('Estatísticas','Seu desempenho em campo.')+weakCallout()+`<div class="tiles">${T.map(t=>`<div class="pl tile"><small>${t[0]}</small><b>${t[1]}</b></div>`).join('')}</div><div class="pl pd"><h2>Desempenho por operação</h2>${C.map((c,i)=>{const s=G.cats[i];return s?`<div class="row"><span>${c[0]}</span><div class="bar"><i style="width:${s[1]/s[0]*100}%"></i></div><small>${s[1]}/${s[0]}</small></div>`:''}).join('')||'<p class="mu">Nenhuma missão cumprida ainda.</p>'}</div>`},
 prof:()=>{const i=rk(G.xp);return hdr('Perfil','Sua ficha de soldado.')+`<div class="pl pf">${badge(i,110)}<div><small>Nome de guerra</small><br><input id="nome" value="${esc(G.nome)}" maxlength="20"><p style="margin-top:8px"><b class="gd">${RK[i][0]}</b>, nível ${lv()}, ${G.xp} XP</p></div></div><div class="pl pd"><h2>Sua trilha de patentes</h2><p class="mu">Patentes exigem cada vez mais prática. O progresso antigo é convertido uma única vez, preservando sua patente e a proporção até a próxima.</p><div class="rl">${RK.map((r,k)=>`<div class="rr${k<=i?' on':''}">${badge(k,32)}<span>${r[0]}</span><small>${r[1]} XP</small></div>`).join('')}</div></div>`},
 set:()=>hdr('Configurações','Ajuste a missão.')+`<div class="pl pd"><h2>Apoio visual</h2><p class="mu">Diagramas construídos a partir de cada questão. Ative para aprender visualmente ou desative para praticar só com o enunciado.</p><div class="acts"><button class="btn" data-a="visuals">${G.visuals?'Ativado · desativar':'Desativado · ativar'}</button></div></div><div class="pl pd"><h2>Questões por missão</h2><div class="acts">${[5,10,20].map(n=>`<button class="btn${G.N==n?'':' g'}" data-a="n${n}">${n}</button>`).join('')}</div></div><div class="pl pd"><h2>Zerar progresso</h2><p class="mu">Apaga XP, patente e conquistas deste navegador.</p><div class="acts"><button class="btn g" data-a="reset">${rs?'Toque de novo para confirmar':'Zerar progresso'}</button></div></div>`
 };
@@ -909,16 +1003,23 @@ function controls(){
   $('#pause-panel').hidden=!paused;$('#in').disabled=!answering;$('#go').disabled=!answering;$('#skip').disabled=!answering;
   $('#pause').hidden=!answering;$('#next').hidden=!S.waiting;
   $('#next').textContent=S.i>=S.N?'Ver resultado':'Próxima questão';
+  $('.bar2').hidden=!!S.ended;
 }
 
 /* ---------- jogo ---------- */
 function add(cls,txt){const d=document.createElement('div');d.className='m '+cls;const t=document.createElement('span');t.textContent=txt;d.append(t);
   if(!/sys/.test(cls)){const tm=document.createElement('time');tm.textContent=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})+(cls=='me'?' ✓':'');d.append(tm)}
   $('#chat').append(d);$('#chat').scrollTop=1e9}
+function addHint(q){if(!q)return;const text=HINT[q.ci]&&HINT[q.ci][q.ti];if(!text)return;
+  const d=document.createElement('div');d.className='m bot hint';
+  const t=document.createElement('span');t.innerHTML='💡 <b>Como pensar:</b> '+esc(text);d.append(t);
+  const lid=CI_TO_LESSON[q.ci];
+  if(lid){const b=document.createElement('button');b.type='button';b.className='btn g hint-link';b.dataset.course='lesson';b.dataset.id=lid;b.textContent='Estudar no modo Progressão ›';d.append(b)}
+  $('#chat').append(d);$('#chat').scrollTop=1e9}
 function elapsed(){return S.on?Math.max(0,((S.pa??performance.now())-S.t0)/1000):S.e||0}
 function tick(){const e=elapsed();$('#tm').textContent=f(e);$('#tt').textContent=f((S.sum||0)+(S.on?e:0))}
 const mix=()=>start({n:'Modo misto',all:1,g:d=>{const ci=R(0,C.length-1),r=pick(C[ci][1])[1](d);r.ci=ci;return r}},0);
-function start(t,ci){clearInterval(S.iv);S={t,ci,N:G.N,i:0,ok:0,run:0,xp:0,answerXP:0,achievementXP:0,sum:0,d:1,on:false,e:0,pa:null,waiting:false,ended:false,seen:new Set()};V='play';
+function start(t,ci){clearInterval(S.iv);S={t,ci,N:G.N,i:0,ok:0,run:0,xp:0,answerXP:0,achievementXP:0,sum:0,d:1,on:false,e:0,pa:null,waiting:false,ended:false,seen:new Set(),cats:{}};V='play';
   $('#chat').innerHTML='';$('#ttl').textContent=t.all?'Modo misto: todas as operações':C[ci][0]+': '+t.n;$('#pt').textContent=0;draw();
   add('bot',`Missão de ${S.N} questões. Observe o desenho, resolva e avance no seu ritmo. Acertos: 6 / 8 / 10 XP. A dificuldade sobe a cada 3 acertos. Pular conta como erro; pausas não contam no tempo.`);S.iv=setInterval(tick,100);next()}
 function next(){
@@ -950,15 +1051,19 @@ function checkAnswer(raw,q){
 function after(){chk().forEach(a=>{add('sys',`🏅 Conquista desbloqueada: ${a[0]} (+${a[2]} XP)`);toast(`🏅 ${a[0]}  +${a[2]} XP`)});
   if(promo!=null){add('sys',`⭐ PROMOÇÃO! Você agora é ${RK[promo][0]}.`);toast(`⭐ Promovido a ${RK[promo][0]}!`);promo=null}$('#pt').textContent=S.xp||0;strip();save()}
 function send(skip=false){if(!S.on||S.pa!==null||V!=='play'||document.hidden)return;const raw=$('#in').value.trim();if(!skip&&!raw)return;const verdict=skip?{valid:true,correct:false}:checkAnswer(raw,S.cur);if(!verdict.valid){toast('Formato inválido. Use o formato indicado abaixo da questão.');$('#in').focus();return;}
-  const e=elapsed(),ci=S.cur.ci??S.ci,c=G.cats[ci]||(G.cats[ci]=[0,0]);S.on=false;S.e=e;S.sum+=e;add('me',skip?'Pular':raw);c[0]++;G.tot++;G.sum+=e;
-  if(verdict.correct){S.run++;const reward=answerXP(S.d,S.run),x=reward.base+reward.consistency;c[1]++;G.ok++;S.ok++;G.streak++;G.best=Math.max(G.best,G.streak);
+  const e=elapsed(),ci=S.cur.ci??S.ci,c=G.cats[ci]||(G.cats[ci]=[0,0]),sc=S.cats[ci]||(S.cats[ci]=[0,0]);S.on=false;S.e=e;S.sum+=e;add('me',skip?'Pular':raw);c[0]++;sc[0]++;G.tot++;G.sum+=e;
+  if(verdict.correct){S.run++;const reward=answerXP(S.d,S.run),x=reward.base+reward.consistency;c[1]++;sc[1]++;G.ok++;S.ok++;G.streak++;G.best=Math.max(G.best,G.streak);
     G.f5=e<5?G.f5+1:0;G.f8=e<8?G.f8+1:0;G.bf5=Math.max(G.bf5,G.f5);G.bf8=Math.max(G.bf8,G.f8);G.mt=G.ok===1?e:Math.min(G.mt,e);if(ci==18)G.cok++;
     gain(x);S.xp+=x;S.answerXP+=x;add('bot ok',`Correto! 🎯 Muito bem! Você respondeu em ${f(e)}. +${reward.base} XP${reward.consistency?" +2 XP por 5 acertos seguidos":""}`);
     if(S.d<3&&S.ok%3==0){S.d++;add('sys','A dificuldade aumentou!')}}
-  else{S.run=0;G.streak=G.f5=G.f8=0;add('bot bad',`${skip?'Você pulou':'Errou'}. A resposta era ${S.cur.s??S.cur.a}. Tempo: ${f(e)}.`)}
+  else{S.run=0;G.streak=G.f5=G.f8=0;add('bot bad',`${skip?'Você pulou':'Errou'}. A resposta era ${S.cur.s??S.cur.a}. Tempo: ${f(e)}.`);addHint(S.cur)}
   sessionSeconds+=e;G.bs=Math.max(G.bs,sessionSeconds/60);$('#in').value='';S.waiting=true;after();controls();tick();$('#next').focus()}
 function end(){if(S.ended)return;S.on=false;S.waiting=false;S.e=0;clearInterval(S.iv);G.rounds++;if(S.ok===S.N)G.br++;S.finishXP=finishXP(S.ok,S.N);gain(S.finishXP);S.xp+=S.finishXP;after();S.ended=true;
   add('bot',`🏁 Missão cumprida! Acertos: ${S.ok} de ${S.N}. XP total: ${S.xp} (${S.answerXP} por respostas e sequências + ${S.finishXP} por conclusão + ${S.achievementXP} de conquistas). Tempo ativo: ${f(S.sum)}. Média: ${f(S.sum/S.N)} por questão.`);
+  const touched=Object.keys(S.cats).map(Number);
+  if(touched.length>1){
+    const rows=touched.sort((a,b)=>(S.cats[a][1]/S.cats[a][0])-(S.cats[b][1]/S.cats[b][0])).map(i=>{const s=S.cats[i];return `<div class="row"><span>${esc(C[i][0])}</span><div class="bar"><i style="width:${s[1]/s[0]*100}%"></i></div><small>${s[1]}/${s[0]}</small></div>`}).join('');
+    const rc=document.createElement('div');rc.className='pl pd';rc.innerHTML=`<h2>Nesta missão, por tema</h2>${rows}`;$('#chat').append(rc)}
   const b=document.createElement('div');b.className='acts';b.innerHTML='<button class="btn" data-a="again">Nova missão</button><button class="btn g" data-go="themes">Trocar tema</button>';$('#chat').append(b);$('#chat').scrollTop=1e9;controls();tick();b.querySelector('button').focus()}
 
 /* ---------- eventos ---------- */
