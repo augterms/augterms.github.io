@@ -74,7 +74,7 @@ label{display:block;font-weight:bold;margin:8px 0 2px}
 .dr canvas{width:100%;height:auto;border:1px solid #8a96a3;background:#fff;cursor:crosshair;touch-action:none;display:block;margin-top:8px}
 </style>
 </head>
-<body>
+<body spellcheck="false">
 <div id="top"><div><span id="pfw" style="float:right;font-size:12px"></span><a onclick="A.home()">Cartas</a><small>flashcards com revisão espaçada</small></div></div>
 <div id="wrap"></div>
 <input type="file" id="fi" accept="image/*" style="display:none">
@@ -179,13 +179,28 @@ var A={
   study:function(cs){var l=dueList(cs);if(!l.length)return;Q={ids:l.map(function(c){return c.id}),total:l.length,done:0,back:{page:V.page,id:V.id,type:V.type}};V={page:"review",type:V.type};render()},
   exit:function(){V=Q.back;Q=null;render()},
   hint:function(){Q.hint=true;render()},
-  say:function(t){try{speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";speechSynthesis.speak(u)}catch(e){}},
+  say:function(t,did){speak(t,did)},
+  lang:function(id,l){S.decks.filter(function(d){return d.id===id})[0].lang=l;save();render()},
   show:function(){Q.show=true;render()},
   pick:function(i){if(Q.picked!=null)return;Q.picked=i;var c=cur();Q.g=Q.opts[i]===c.back?(Q.hint?1:2):0;render()},
   check:function(){var c=cur(),v=$("#ti").value;Q.checked=true;Q.ok=nrm(v)===nrm(plain(c.back));Q.typed=v;render()},
   grade:function(g){var c=cur();if(c){var s=sched(c,g);for(var k in s)c[k]=s[k];saveLater();if(g===0)Q.ids.push(c.id);else Q.done++}Q.ids.shift();Q.cid=null;render()}
 };
 window.A=A;window.plain=plain;
+// ---- Leitura em voz alta ----
+var VOICES=[],LANGS={auto:"Automático",en:"Inglês",pt:"Português",es:"Espanhol",fr:"Francês",de:"Alemão",it:"Italiano"},LOC={en:"en-US",pt:"pt-BR",es:"es-ES",fr:"fr-FR",de:"de-DE",it:"it-IT"};
+var EN=/\b(the|and|of|to|is|are|was|were|in|that|it|for|with|on|this|which|by|from|be|an|or|at|has|have|not|what|how|their|its|these|those|can|will|into|after|about)\b/gi,PT=/\b(os|de|do|da|dos|das|em|um|uma|que|é|são|para|com|não|por|se|na|no|nas|nos|como|mais|ao|ou|foi|ser|seu|sua|qual|quais)\b/gi;
+function loadV(){try{VOICES=speechSynthesis.getVoices()||[]}catch(e){}}
+try{loadV();speechSynthesis.addEventListener("voiceschanged",loadV)}catch(e){}
+function detect(t){var e=(t.match(EN)||[]).length,p=(t.match(PT)||[]).length,ac=/[ãõçáéíóúâêô]/i.test(t);if(e!==p)return e>p?"en":"pt";return ac?"pt":"en"}
+function pickVoice(loc){var b=loc.slice(0,2).toLowerCase();
+  var vs=VOICES.filter(function(v){return v.lang&&v.lang.replace("_","-").toLowerCase().indexOf(b)===0});if(!vs.length)return null;
+  function sc(v){var n=v.name,x=0;if(v.lang.replace("_","-").toLowerCase()===loc.toLowerCase())x+=5;if(/natural|neural|premium|enhanced/i.test(n))x+=8;
+    if(/google|microsoft|samantha|daniel|karen|serena|alex|aria|jenny|guy|luciana|francisca|antonio/i.test(n))x+=3;if(!v.localService)x+=2;if(/compact|espeak/i.test(n))x-=5;return x}
+  vs.sort(function(a,c){return sc(c)-sc(a)});return vs[0]}
+function speak(t,did){try{if(!window.speechSynthesis||!t)return;loadV();
+  var dk=S.decks.filter(function(d){return d.id===did})[0],l=dk&&dk.lang&&dk.lang!=="auto"?dk.lang:detect(t),loc=LOC[l]||"pt-BR";
+  speechSynthesis.cancel();var u=new SpeechSynthesisUtterance(t);u.lang=loc;var v=pickVoice(loc);if(v){u.voice=v;u.lang=v.lang}u.rate=.95;speechSynthesis.speak(u)}catch(e){}}
 // ---- Perfis, backup em arquivo e importação ----
 function me(){return P.list.filter(function(x){return x.id===P.cur})[0]}
 function drawProf(){var el=$("#pfw");if(el)el.innerHTML='Perfil: <select onchange="A.prof(this.value)" style="width:auto;max-width:170px;padding:2px">'+P.list.map(function(x){return '<option value="'+x.id+'"'+(x.id===P.cur?' selected':'')+'>'+esc(x.name)+'</option>'}).join('')+'</select>'}
@@ -221,7 +236,7 @@ function normalize(j){var d=j&&j.data?j.data:j;
   if(!d||!Array.isArray(d.cards)||!Array.isArray(d.decks)||!Array.isArray(d.folders))throw 0;
   var fm={},dm={},o={folders:[],decks:[],cards:[],name:nstr(j&&j.profile,40)};
   d.folders.forEach(function(f){if(!f||typeof f.id!=="string")return;fm[f.id]=uid();o.folders.push({id:fm[f.id],name:nstr(f.name,100)||"Pasta"})});
-  d.decks.forEach(function(k){if(!k||typeof k.id!=="string")return;dm[k.id]=uid();o.decks.push({id:dm[k.id],folderId:fm[k.folderId]||null,name:nstr(k.name,100)||"Deck"})});
+  d.decks.forEach(function(k){if(!k||typeof k.id!=="string")return;dm[k.id]=uid();o.decks.push({id:dm[k.id],folderId:fm[k.folderId]||null,name:nstr(k.name,100)||"Deck",lang:LANGS[k.lang]?k.lang:"auto"})});
   d.cards.forEach(function(c){if(!c||!dm[c.deckId])return;var f=sanitize(nstr(c.front,3e6)),b=sanitize(nstr(c.back,3e6));if(!hasC(f)||!hasC(b))return;
     o.cards.push({id:uid(),deckId:dm[c.deckId],type:TYPES[c.type]?c.type:"basic",front:f,back:b,hint:nstr(c.hint,500),
       wrong:Array.isArray(c.wrong)?c.wrong.slice(0,3).map(function(w){return nstr(w,300)}).filter(Boolean):[],star:!!c.star,
@@ -344,7 +359,7 @@ function deckPage(){
   var cs=cardsOfDeck(d.id),n=Date.now(),t=V.type,ed=V.edit;
   var h='<div class="crumb"><a onclick="A.home()">Início</a> › <b>'+esc(d.name)+'</b></div>';
   h+='<div class="bar">'+info(cs)+'<span class="sp"></span><button class="p" '+(dueList(cs).length?'':'disabled')+' onclick="A.study(cardsOfDeck(\''+d.id+'\'))">Estudar ('+dueList(cs).length+')</button><button '+(cs.length?'':'disabled')+' onclick="A.reset(\'este deck\',cardsOfDeck(\''+d.id+'\'))">Resetar revisão</button><button class="w" onclick="A.delDeck(\''+d.id+'\')">Excluir deck</button></div>';
-  h+='<div class="bar" style="border-top:0">Pasta: <select style="width:auto" onchange="A.move(\''+d.id+'\',this.value)"><option value="">Sem pasta</option>'+S.folders.map(function(f){return '<option value="'+f.id+'"'+(d.folderId===f.id?' selected':'')+'>'+esc(f.name)+'</option>'}).join('')+'</select></div>';
+  h+='<div class="bar" style="border-top:0">Pasta: <select style="width:auto" onchange="A.move(\''+d.id+'\',this.value)"><option value="">Sem pasta</option>'+S.folders.map(function(f){return '<option value="'+f.id+'"'+(d.folderId===f.id?' selected':'')+'>'+esc(f.name)+'</option>'}).join('')+'</select> &nbsp;Idioma da voz: <select style="width:auto" onchange="A.lang(\''+d.id+'\',this.value)">'+Object.keys(LANGS).map(function(k){return '<option value="'+k+'"'+((d.lang||"auto")===k?' selected':'')+'>'+LANGS[k]+'</option>'}).join('')+'</select></div>';
   h+='<div class="box"><h2>'+(ed?'Editar carta':'Adicionar carta')+'</h2><div class="form"><label>Tipo de carta</label><select onchange="A.type(this.value)">'+Object.keys(TYPES).map(function(k){return '<option value="'+k+'"'+(t===k?' selected':'')+'>'+TYPES[k]+'</option>'}).join('')+'</select>'
    +'<label>Frente (pergunta ou definição)</label>'+edt("cf","Escreva a pergunta. Cole ou insira imagens e clique nelas para redimensionar, cortar ou excluir.")+'<label>Resposta correta</label>'+edt("cb","Escreva a resposta.")
    +'<div id="mcb" style="display:'+(t==="mc"?'block':'none')+'"><label>Respostas erradas <span class="mute" style="font-weight:normal">(opcional: faltando, usamos respostas de outras cartas do deck)</span></label><input id="w1" placeholder="Errada 1"><input id="w2" placeholder="Errada 2" style="margin-top:4px"><input id="w3" placeholder="Errada 3" style="margin-top:4px"></div>'
@@ -362,7 +377,7 @@ function reviewPage(){
   if(Q.cid!==c.id){Q.cid=c.id;Q.show=false;Q.hint=false;Q.picked=null;Q.checked=false;Q.g=null;Q.opts=c.type==="mc"?mcOpts(c):null;if(Q.opts&&Q.opts.length<2)Q.opts=null;Q.t=Q.opts?"mc":(c.type==="typed"?"typed":"basic")}
   var pill=c.due==null?"Nova":(c.reps===0?"Reaprendendo":"Revisão"),id="'"+c.id+"'";
   h+='<div class="stage"><div class="card"><div class="ch"><span>'+TYPES[Q.t]+'</span><span class="sp"></span><span class="pill">'+pill+'</span>'
-   +'<button '+(c.hint&&!Q.hint?'':'disabled')+' onclick="A.hint()">Dica</button><button class="c" title="Ouvir" onclick="A.say(plain(cur().front))">♪</button><button class="c" title="Favoritar" onclick="A.star('+id+')">'+(c.star?'★':'☆')+'</button></div>'
+   +'<button '+(c.hint&&!Q.hint?'':'disabled')+' onclick="A.hint()">Dica</button><button class="c" title="Ouvir" onclick="A.say(plain(cur().front),cur().deckId)">♪</button><button class="c" title="Favoritar" onclick="A.star('+id+')">'+(c.star?'★':'☆')+'</button></div>'
    +'<div class="q">'+rich(c.front)+'</div>'+(Q.hint?'<div class="hint">Dica: '+esc(c.hint)+'</div>':'');
   var grade=function(rec){var l=["Errei","Difícil","Bom","Fácil"];return '<div class="grades">'+l.map(function(x,g){return '<button class="'+(g===rec?'rec':'')+'" onclick="A.grade('+g+')">'+(g+1)+'. '+x+'<small>'+prev(c,g)+'</small></button>'}).join('')+'</div>'};
   if(Q.t==="mc"){
