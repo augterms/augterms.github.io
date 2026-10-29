@@ -700,7 +700,7 @@ GAMES.push(gPares);
 /* ---------- nuvem de pontos: x = ideal, y = obtido; a linha rosa é o desempenho perfeito ---------- */
 const AX={digitos:['Dígitos mostrados','Dígitos certos'],corsi:['Blocos mostrados','Blocos certos'],nback:['Alvos apresentados','Alvos achados'],palavras:['Palavras apresentadas','Palavras lembradas'],pal:['Símbolos mostrados','Símbolos certos'],pares:['Tentativas','Pares achados'],ospan:['Letras mostradas','Letras certas'],pasat:['Soma correta','Sua resposta'],serial:['Resultado correto','Sua resposta']};
 function cloudSVG(id){
- const a=(S.cloud||{})[id]||[],ax=AX[id];
+ const a=((S.cloud||{})[id]||[]).filter(p=>Array.isArray(p)&&p[0]!==null&&p[1]!==null&&isFinite(p[0])&&isFinite(p[1])),ax=AX[id];
  if(!a.length)return '<p class="small">Ainda sem pontos. Termine uma partida para ver sua nuvem.</p>';
  const M=Math.max(2,...a.map(p=>Math.max(p[0],p[1]))),X=v=>40+v/M*244,Y=v=>230-v/M*214;
  const on=a.filter(p=>Math.abs(p[0]-p[1])<.5).length;
@@ -729,7 +729,7 @@ const gOsp={id:'ospan',name:'Operação e Letras',
  intro(st){st.innerHTML='<p>6 séries, cerca de 2 minutos.</p><button class="btn" id="go">Começar</button>';$('#go',st).onclick=()=>runOsp(st)}};
 function runOsp(st,o){
  const SZ=o.sz,cl=[];let si=0,mt=0,mo=0,hit=0,tot=0;
- const eq=()=>{const a=2+rnd(o.mx-1),b=2+rnd(o.mx-1),c=1+rnd(9),sg=rnd(2)?1:-1,r=a*b+sg*c,ok=rnd(2)===0,sh=(1+rnd(3))*(rnd(2)?1:-1);return{t:`(${a} × ${b}) ${sg>0?'+':'−'} ${c} = ${ok?r:r+sh}`,ok}};
+ const eq=()=>{const a=2+rnd(o.mx-1),b=2+rnd(o.mx-1),c=1+rnd(9),sg=(rnd(2)&&a*b>c+4)?-1:1,r=a*b+sg*c,ok=rnd(2)===0,sh=(1+rnd(3))*(rnd(2)?1:-1);return{t:`(${a} × ${b}) ${sg>0?'+':'−'} ${c} = ${ok?r:r+sh}`,ok}};
  function set(){
   const n=SZ[si],lt=shuffle(LET).slice(0,n);let k=0;
   function nxt(){
@@ -776,19 +776,19 @@ GAMES.push(gPas);
 
 const gSer={id:'serial',name:'Subtração Seriada',
  blurb:'Subtraia de cabeça, passo a passo, o mais longe que conseguir.',
- how:'Digite o resultado de cada subtração e aperte Enter (ou OK). Você escolhe o tempo e não há feedback durante o jogo. Cada resposta é conferida com a sua resposta anterior, então um erro só conta uma vez.',
+ how:'Digite o resultado de cada subtração e aperte Enter (ou OK). Você escolhe o tempo e não há feedback durante o jogo. Cada resposta é conferida com a sua resposta anterior, então um erro só conta uma vez. Se chegar perto de zero, a contagem recomeça do número inicial.',
  sci:'Tarefa dos "setes seriados", usada em exames breves de cognição como o MoCA (Nasreddine et al., 2005). Exige atenção e manter o resultado parcial na memória de trabalho enquanto se calcula (DeStefano e LeFevre, 2004). Esta versão é para treino, não para diagnóstico.',
  intro(st){st.innerHTML='<p><b>Escolha o passo:</b></p><button class="btn" data-s="3">De 3 em 3 (fácil)</button><button class="btn" data-s="7">De 7 em 7 (clássico)</button><button class="btn" data-s="13">De 13 em 13 (difícil)</button>';$$('button',st).forEach(b=>b.onclick=()=>runSer(st,+b.dataset.s))}};
 function runSer(st,P,o){
  let prev=o.st,left=o.t,ok=0,n=0,fin=false;const cl=[];
- st.innerHTML=`<div class="hud"><span>De ${P} em ${P}</span><span>Tempo: <b id="tm">${o.t}</b> s</span></div><p>Comece em</p><div class="big">${o.st}</div><p><input type="text" id="an" inputmode="numeric" autocomplete="off" maxlength="4" aria-label="Resultado" ${numIn}> <button class="btn" id="ok">OK</button></p>`;
- const an=$('#an',st),tm=$('#tm',st);an.focus();
+ st.innerHTML=`<div class="hud"><span>De ${P} em ${P}</span><span>Tempo: <b id="tm">${o.t}</b> s</span></div><p>Comece em</p><div class="big">${o.st}</div><p><input type="text" id="an" inputmode="numeric" autocomplete="off" maxlength="4" aria-label="Resultado" ${numIn}> <button class="btn" id="ok">OK</button></p><p id="nt" class="small" aria-live="polite">&nbsp;</p>`;
+ const an=$('#an',st),tm=$('#tm',st),nt=$('#nt',st);an.focus();an.oninput=()=>{an.value=an.value.replace(/\D/g,'')};
  function end(){if(fin)return;fin=true;keyH=null;st.innerHTML='<p>Fim do teste.</p>';showResult(gSer,st,{pts:Math.round(ok*10),m:ok,cloud:cl,txt:`Subtrações certas: <b>${ok} de ${n}</b> em ${o.t} s (de ${P} em ${P}).`})}
  function go(){
   if(fin||an.value==='')return;
   const v=parseInt(an.value,10),w=prev-P;
-  if(w<0){end();return}
   cl.push([w,v]);n++;if(v===w)ok++;prev=v;an.value='';an.focus();
+  if(prev<P){prev=o.st;nt.textContent='Chegou perto de zero. A contagem recomeça de '+o.st+'.'}else nt.innerHTML='&nbsp;';
  }
  $('#ok',st).onclick=go;keyH=e=>{if(e.key==='Enter')go()};
  (function t(){if(fin)return;tm.textContent=left;if(left<=0){end();return}left--;T(t,1000)})();
